@@ -22,7 +22,9 @@ const Chat = props => {
         {myMsg: true, msg: "Eso no tiene problema"},
         {myMsg: false, msg: "Te la paso por correo"},
         {myMsg: true, msg: "Ok, gracias!"},
+        {myMsg: true, msg: "Algun dia te devolveré el favor"},
         {myMsg: false, msg: "No hay problemas"},
+        
     ];
 
 
@@ -36,14 +38,9 @@ const Chat = props => {
 
                     if(arr[idx + 1] && elem.myMsg === arr[idx+1].myMsg){
                         style.marginBottom = '-3px';
-                        style.borderRadius = "5px 5px 0 0";
+                        style.borderRadius = elem.myMsg ? "10px 0px 10px 10px" : "0 10px 10px 10px";
                     }
                     
-
-                    if(idx > 0 && arr[idx-1].myMsg === elem.myMsg) {
-                        style.marginTop = '-3px';
-                        style.borderRadius = "0 0 5px 5px";
-                    } 
                     return <Message {...elem} key={idx} style={style}/>
                 })}
             </div>

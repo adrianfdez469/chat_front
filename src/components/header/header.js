@@ -12,7 +12,10 @@ const Header = props => {
 
     return (
         <div className={classes.headerdiv}>
-            { /* Avatar / Nickname */ }
+            <div className={classes.infoapp}>
+                <div className={classes.apptitle}>Chatapp</div>
+            </div>
+            
             <select value={idioma} onChange={changeIdioma} className={classes.idiomaselect}>
                 <option value="es">ES</option>
                 <option value="en">EN</option>

@@ -1,15 +1,52 @@
 import React from 'react';
-//import classes from './chatstyles.module.css';
+import {useRecoilValue} from 'recoil';
+import {idiomaState} from '../recoil/atoms';
+
 import Contact from './contact';
+import Message from './message';
 import './chateditor.css';
 
 const Chat = props => {
 
+        
+
+    const conversacion = [
+        {myMsg: true, msg: "Hola!"},
+        {myMsg: false, msg: "Hi"},
+        {myMsg: true, msg: "Hiciste la tarea?"},
+        {myMsg: false, msg: "Estaba bastante dificila, pero si, la pude hacer ayer por la noche"},
+        {myMsg: true, msg: "Me la puedes pasar?"},
+        {myMsg: false, msg: "Si"},
+        {myMsg: false, msg: "Pero tienes que cambiar un poco de cosas para que la profe no se de cuenta de que la copiaste por mi"},
+        {myMsg: true, msg: "Eso no tiene problema"},
+        {myMsg: false, msg: "Te la paso por correo"},
+        {myMsg: true, msg: "Ok, gracias!"},
+        {myMsg: false, msg: "No hay problemas"},
+    ];
+
+
     return (
         <div id="chatContainer">
             <Contact nickname="Pepe"/>
-            <div id="chatConversation"></div>
             
+            <div id="chatConversation">
+                {conversacion.map((elem, idx, arr) => {
+                    const style = {};
+
+                    if(arr[idx + 1] && elem.myMsg === arr[idx+1].myMsg){
+                        style.marginBottom = '-3px';
+                        style.borderRadius = "5px 5px 0 0";
+                    }
+                    
+
+                    if(idx > 0 && arr[idx-1].myMsg === elem.myMsg) {
+                        style.marginTop = '-3px';
+                        style.borderRadius = "0 0 5px 5px";
+                    } 
+                    return <Message {...elem} key={idx} style={style}/>
+                })}
+            </div>
+
             <div id="editor"> 
                 <div id="textarea" role="textbox" contentEditable></div>
                 <button id="sendButton">Send</button>

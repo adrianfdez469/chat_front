@@ -1,0 +1,14 @@
+{
+    "welcome": {
+        "en": "Welcome to the chat",
+        "es": "Bienbenido al chat"
+    },
+    "placeholder": {
+        "en": "Nickname",
+        "es": "Nombre de pila"
+    },
+    "txtBtn": {
+        "en": "Begin",
+        "es": "Comenzar"
+    }
+}

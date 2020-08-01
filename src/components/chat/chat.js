@@ -1,13 +1,14 @@
 import React from 'react';
 import {useRecoilValue} from 'recoil';
 import {idiomaState} from '../recoil/atoms';
-
+import text from './idioma.json';
 import Contact from './contact';
 import Message from './message';
 import './chateditor.css';
 
 const Chat = props => {
 
+    const idioma = useRecoilValue(idiomaState);
         
 
     const conversacion = [
@@ -49,7 +50,7 @@ const Chat = props => {
 
             <div id="editor"> 
                 <div id="textarea" role="textbox" contentEditable></div>
-                <button id="sendButton">Send</button>
+                <button id="sendButton">{text.btnSend[idioma]}</button>
             </div>
 
         </div>

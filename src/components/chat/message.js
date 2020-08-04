@@ -1,5 +1,5 @@
 import React from 'react';
-import './chateditor.css';
+//import './chateditor.css';
 
 const Message = ({myMsg = true, msg, style}) => {
 

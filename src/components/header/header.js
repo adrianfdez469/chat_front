@@ -1,7 +1,7 @@
 import React from 'react';
 import {useRecoilState} from 'recoil';
 import {idiomaState} from '../recoil/atoms';
-import classes from './header.module.css';
+//import classes from './header.module.css';
 
 const Header = props => {
     const [idioma, setIdioma] = useRecoilState(idiomaState);
@@ -11,12 +11,12 @@ const Header = props => {
     }
 
     return (
-        <div className={classes.headerdiv}>
-            <div className={classes.infoapp}>
-                <div className={classes.apptitle}>Chatapp</div>
+        <div className='headerdiv'>
+            <div className='infoapp'>
+                <div className='apptitle'>Chatapp</div>
             </div>
             
-            <select value={idioma} onChange={changeIdioma} className={classes.idiomaselect}>
+            <select value={idioma} onChange={changeIdioma} className='idiomaselect'>
                 <option value="es">ES</option>
                 <option value="en">EN</option>
             </select>

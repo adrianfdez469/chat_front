@@ -1,44 +1,74 @@
-import React from 'react';
-import {useRecoilValue} from 'recoil';
-import {idiomaState} from '../recoil/atoms';
+import React, {useRef, useEffect} from 'react';
+import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
+import {idiomaState, chatConversation, loginData, view} from '../recoil/atoms';
 import text from './idioma.json';
-import Contact from './contact';
 import Message from './message';
-import './chateditor.css';
+import socket from '../socket';
+import FriendHeader from './friendHeader/friendHeader';
 
 const Chat = props => {
 
     const idioma = useRecoilValue(idiomaState);
-        
+    const loginDataUser = useRecoilValue(loginData);
+    const [conversation, setConvertation] = useRecoilState(chatConversation);
+    const refAreaTexto = useRef('');
+    const setView = useSetRecoilState(view.getAtom);
 
-    const conversacion = [
-        {myMsg: true, msg: "Hola!"},
-        {myMsg: false, msg: "Hi"},
-        {myMsg: true, msg: "Hiciste la tarea?"},
-        {myMsg: false, msg: "Estaba bastante dificila, pero si, la pude hacer ayer por la noche"},
-        {myMsg: true, msg: "Me la puedes pasar?"},
-        {myMsg: false, msg: "Si"},
-        {myMsg: false, msg: "Pero tienes que cambiar un poco de cosas para que la profe no se de cuenta de que la copiaste por mi"},
-        {myMsg: true, msg: "Eso no tiene problema"},
-        {myMsg: false, msg: "Te la paso por correo"},
-        {myMsg: true, msg: "Ok, gracias!"},
-        {myMsg: true, msg: "Algun dia te devolveré el favor"},
-        {myMsg: false, msg: "No hay problemas"},
+    const client = socket.getSocket();
+    
+    const sendMsg = () => {
         
-    ];
+        const oldtext = refAreaTexto.current.innerText;
+        const text = oldtext.replace(/^(\s*\r*)(.)(\s*\r*)$/, '$2');
+        if(text !== ''){
+            const newStateObj = {...conversation};
+            newStateObj[newStateObj.active] = {...newStateObj[conversation.active]};
+            newStateObj[newStateObj.active].text = [...newStateObj[newStateObj.active].text, {myMsg: true, msg: text}];
+            setConvertation(newStateObj);
+            client.emit('message', {from: loginDataUser._id, toUserId: conversation.active, toSocketId: conversation[conversation.active].socketId, msg: text});
+            refAreaTexto.current.innerText = '';
+            refAreaTexto.current.focus();
+        }
+        
+    };
 
+    useEffect(() => {
+        var element = document.getElementById('chatConversation');
+        if(element)
+            element.scrollTop = element.scrollHeight;
+    });
+
+    
+
+    const goBack = () => {
+        setView(view.posibleViews.CONTACTS);
+        setConvertation({...conversation, active: null});
+    }
+
+    const keyPress = (event) => {
+        if(conversation.activeOnline){
+            if(event.charCode === 13){
+                sendMsg();
+                
+            }
+        }
+        
+    }
 
     return (
         <div id="chatContainer">
-            <Contact nickname="Pepe"/>
+            <FriendHeader backClick={goBack} nickname={conversation[conversation.active].nickname} online={conversation.activeOnline}/>
             
             <div id="chatConversation">
-                {conversacion.map((elem, idx, arr) => {
+                {conversation[conversation.active].text.map((elem, idx, arr) => {
                     const style = {};
 
                     if(arr[idx + 1] && elem.myMsg === arr[idx+1].myMsg){
                         style.marginBottom = '-3px';
                         style.borderRadius = elem.myMsg ? "10px 0px 10px 10px" : "0 10px 10px 10px";
+                    }
+                    if(idx > 0 && elem.myMsg === arr[idx-1].myMsg){
+                        style.borderRadius = elem.myMsg ? "10px 10px 10px 10px" : "10px 10px 10px 10px";
                     }
                     
                     return <Message {...elem} key={idx} style={style}/>
@@ -46,8 +76,8 @@ const Chat = props => {
             </div>
 
             <div id="editor"> 
-                <div id="textarea" role="textbox" contentEditable></div>
-                <button id="sendButton">{text.btnSend[idioma]}</button>
+                <div id="textarea" role="textbox" contentEditable={conversation.activeOnline} ref={refAreaTexto} onKeyPress={keyPress}></div>
+                <button id="sendButton" disabled={!conversation.activeOnline} onClick={sendMsg}>{text.btnSend[idioma]}</button>
             </div>
 
         </div>

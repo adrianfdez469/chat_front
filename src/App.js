@@ -1,25 +1,37 @@
 import React from 'react';
-import {RecoilRoot} from 'recoil';
-
+import {useRecoilValue} from 'recoil';
+import {view, subscribeToEventsState} from './components/recoil/atoms';
 import Login from './components/login/login';
-import Contacts from './components/chat/contacts';
+import Contacts from './components/contacts/contacts';
 import Chat from './components/chat/chat';
+//import Chat from './components/chat/chat';
 import Header from './components/header/header';
-
+import NewUserSubscriber from './components/events/newUserSubscriber';
+import UserDisconnectSubscriber from './components/events/userDisconnectSubscriber';
+import IncomingMsgSubscriber from './components/events/incomingMsgSubscriber';
 import './App.css';
 
 
 function App() {
+  const viewState = useRecoilValue(view.getAtom);
+  const subscribe = useRecoilValue(subscribeToEventsState);
+  const cmp = viewState === view.posibleViews.LOGIN ? <Login /> : viewState === view.posibleViews.CONTACTS ? <Contacts /> : <Chat />;
 
-  const logged = true;
+  let subscriptions = null;
+  if(subscribe){
+    subscriptions = <>
+      <NewUserSubscriber />
+      <UserDisconnectSubscriber />
+      {<IncomingMsgSubscriber />}
+    </>
+  }
 
   return (
-    <RecoilRoot>
       <div className="main">
         <Header />        
-        {logged ? <Chat /> : <Login />}        
+        {cmp}
+        {subscriptions}
       </div>
-    </RecoilRoot>
   );
 }
 

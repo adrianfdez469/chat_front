@@ -11,7 +11,7 @@ const FriendHeader = ({nickname, backClick, online = true}) => {
             <div className='contactBody'>
                 <div className='status'>
                     <span className="nickname">{nickname}</span>
-                    <span className="connectionStatus">{online ? 'Online' : 'Offline'}</span>
+                    <span className={`connectionStatus ${online ? 'online':'offline' }`}>{online ? 'Online' : 'Offline'}</span>
                 </div>
             </div>
             {/*<button className={classes.options}>...</button>*/}

@@ -27,6 +27,7 @@ const Login = props => {
     const setLogin = (nickname) => {
         axios
             .post('http://localhost:3001/login', {nickname: nickname})
+            //.post('https://shut-upp-back.herokuapp.com/', {nickname: nickname})
             .then((resp) => {
                 if(resp.status === 200){
                     const client = socket.getSocket();

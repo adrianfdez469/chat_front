@@ -11,6 +11,7 @@ const Contacts = props => {
 
     useEffect(() => {
         axios.get('http://localhost:3001/users')
+        //axios.get('https://shut-upp-back.herokuapp.com/')
             .then(resp => {
                 if(resp.status === 200){
                     setContactList(

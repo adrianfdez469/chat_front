@@ -3,14 +3,14 @@ import axios from 'axios';
 import Contact from './contact';
 import {loginData, contactListState} from '../recoil/atoms';
 import {useRecoilValue, useRecoilState} from 'recoil';
-
+import {DEFAULT_CONFIG} from '../../conf/configuration';
 
 const Contacts = props => {
     const userData = useRecoilValue(loginData);
     const [contactList, setContactList] = useRecoilState(contactListState);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/users')
+        axios.get(`${DEFAULT_CONFIG.server}/users`)
         //axios.get('https://shut-upp-back.herokuapp.com/')
             .then(resp => {
                 if(resp.status === 200){

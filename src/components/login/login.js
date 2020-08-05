@@ -5,6 +5,7 @@ import {idiomaState, loginData, view, contactListState, subscribeToEventsState} 
 //import classes from './login.module.css';
 import text from './idioma.json';
 import socket from '../socket';
+import {DEFAULT_CONFIG} from '../../conf/configuration';
 
 const Login = props => {
     const idioma = useRecoilValue(idiomaState);
@@ -26,7 +27,7 @@ const Login = props => {
 
     const setLogin = (nickname) => {
         axios
-            .post('http://localhost:3001/login', {nickname: nickname})
+            .post(`${DEFAULT_CONFIG.server}/login`, {nickname: nickname})
             //.post('https://shut-upp-back.herokuapp.com/', {nickname: nickname})
             .then((resp) => {
                 if(resp.status === 200){

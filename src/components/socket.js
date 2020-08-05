@@ -7,7 +7,6 @@ const socketClient =
     getSocket: () => {
         if(!socket){
             socket = openSocket(DEFAULT_CONFIG.server);
-            //socket = openSocket("https://shut-upp-back.herokuapp.com");
             return socket;    
         }
         return socket;

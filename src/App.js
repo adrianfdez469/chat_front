@@ -10,6 +10,7 @@ import NewUserSubscriber from './components/events/newUserSubscriber';
 import UserDisconnectSubscriber from './components/events/userDisconnectSubscriber';
 import IncomingMsgSubscriber from './components/events/incomingMsgSubscriber';
 import './App.css';
+import Backdrop from './components/backdrop/backdrop';
 
 
 function App() {
@@ -26,12 +27,14 @@ function App() {
     </>
   }
 
-  return (
+  return (<><Backdrop />
       <div className="main">
+      
         <Header />        
         {cmp}
         {subscriptions}
-      </div>
+        
+      </div></>
   );
 }
 

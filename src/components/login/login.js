@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import axios from 'axios';
-import {idiomaState, loginData, view, contactListState, subscribeToEventsState} from '../recoil/atoms';
+import {idiomaState, loginData, view, contactListState, subscribeToEventsState, backdropState} from '../recoil/atoms';
 //import classes from './login.module.css';
 import text from './idioma.json';
 import socket from '../socket';
@@ -13,6 +13,7 @@ const Login = props => {
     const setView = useSetRecoilState(view.getAtom);
     const [contactList, setContactListState] = useRecoilState(contactListState);
     const setSubscribeToEvents = useSetRecoilState(subscribeToEventsState);
+    const setBackdrop = useSetRecoilState(backdropState);
     const [nick, setNick] = useState({
         nickname: '', valid: null
     });
@@ -26,9 +27,9 @@ const Login = props => {
     };
 
     const setLogin = (nickname) => {
+        setBackdrop(true);
         axios
             .post(`${DEFAULT_CONFIG.server}/login`, {nickname: nickname})
-            //.post('https://shut-upp-back.herokuapp.com/', {nickname: nickname})
             .then((resp) => {
                 if(resp.status === 200){
                     const client = socket.getSocket();
@@ -48,6 +49,9 @@ const Login = props => {
             .then(() => {setSubscribeToEvents(true)})
             .then(() => {setView(view.posibleViews.CONTACTS)})
             .catch(err => {console.log(err)})
+            .finally(() => {
+                setBackdrop(false);
+            });
     }
 
     const keyPress = (event) => {

@@ -35,9 +35,14 @@ const view = {
     })
 };
 
+const backdropState = atom({
+    key: 'backdropState',
+    default: false
+});
+
 const subscribeToEventsState = atom({
     key: 'subscribeToEventsState',
     default: false
 })
 
-export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState};
+export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, backdropState};

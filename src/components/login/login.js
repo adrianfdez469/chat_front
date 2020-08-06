@@ -1,17 +1,12 @@
 import React, {useState} from 'react';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import axios from 'axios';
-import {idiomaState, loginData, view, contactListState, subscribeToEventsState, backdropState} from '../recoil/atoms';
-//import classes from './login.module.css';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {idiomaState, view, subscribeToEventsState, backdropState} from '../recoil/atoms';
 import text from './idioma.json';
 import socket from '../socket';
-import {DEFAULT_CONFIG} from '../../conf/configuration';
 
 const Login = props => {
     const idioma = useRecoilValue(idiomaState);
-    const setLoginData = useSetRecoilState(loginData);
     const setView = useSetRecoilState(view.getAtom);
-    const [contactList, setContactListState] = useRecoilState(contactListState);
     const setSubscribeToEvents = useSetRecoilState(subscribeToEventsState);
     const setBackdrop = useSetRecoilState(backdropState);
     const [nick, setNick] = useState({
@@ -27,31 +22,12 @@ const Login = props => {
     };
 
     const setLogin = (nickname) => {
-        setBackdrop(true);
-        axios
-            .post(`${DEFAULT_CONFIG.server}/login`, {nickname: nickname})
-            .then((resp) => {
-                if(resp.status === 200){
-                    const client = socket.getSocket();
-                    client.emit('new user', {nickname: nickname, _id: resp.data._id});
-                    return {
-                        client: client, 
-                        nickname: nickname, 
-                        _id:resp.data._id
-                    };
-                }else{
-                    throw Error ('El login no fue satiscactorio');
-                }
-            })
-            .then(resp => {
-                setLoginData({nickname: resp.nickname, _id: resp._id, socketId: resp.client.id});
-            })
-            .then(() => {setSubscribeToEvents(true)})
-            .then(() => {setView(view.posibleViews.CONTACTS)})
-            .catch(err => {console.log(err)})
-            .finally(() => {
-                setBackdrop(false);
-            });
+        setBackdrop(true);        
+        const client = socket.getSocket();
+        client.emit('new user', {nickname: nickname});
+        setSubscribeToEvents(true);
+        setView(view.posibleViews.CONTACTS);
+        setBackdrop(false);
     }
 
     const keyPress = (event) => {

@@ -11,8 +11,8 @@ const UserSubscriber = props => {
     useEffect(() => {
         
         client.on('user disconnect', data => {
-            setContactListState(contactList.filter(contact => contact._id !== data._id));
-            if(conversation.active === data._id){
+            setContactListState(contactList.filter(contact => contact.socketId !== data.socketId));
+            if(conversation.active === data.socketId){
                 setConversation({...conversation, activeOnline: false});
             }
         });

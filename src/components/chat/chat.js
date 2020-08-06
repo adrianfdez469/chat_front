@@ -25,7 +25,7 @@ const Chat = props => {
             newStateObj[newStateObj.active] = {...newStateObj[conversation.active]};
             newStateObj[newStateObj.active].text = [...newStateObj[newStateObj.active].text, {myMsg: true, msg: text}];
             setConvertation(newStateObj);
-            client.emit('message', {from: loginDataUser._id, toUserId: conversation.active, toSocketId: conversation[conversation.active].socketId, msg: text});
+            client.emit('message', {from: loginDataUser.socketId, toUserId: conversation.active, toSocketId: conversation[conversation.active].socketId, msg: text});
             refAreaTexto.current.innerText = '';
             refAreaTexto.current.focus();
         }

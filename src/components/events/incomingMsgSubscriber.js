@@ -10,7 +10,6 @@ const IncomingMsgSubscriber = props => {
     useEffect(() => {
 
         client.on('message', data => {
-            console.log(data);
             const newStateObj = {...conversation};
             if(conversation[data.socketId]){
                 newStateObj[data.socketId] = {...conversation[data.socketId]};

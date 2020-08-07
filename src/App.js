@@ -12,6 +12,9 @@ import IncomingMsgSubscriber from './components/events/incomingMsgSubscriber';
 import './App.css';
 import Backdrop from './components/backdrop/backdrop';
 
+import Sigin from './view/signin';
+import Sigup from './view/signup';
+import ContactList from './view/contacts'
 
 function App() {
   const viewState = useRecoilValue(view.getAtom);
@@ -27,7 +30,11 @@ function App() {
     </>
   }
 
-  return (<><Backdrop />
+  return <ContactList />
+
+  /*return (
+    <>
+    <Backdrop />
       <div className="main">
       
         <Header />        
@@ -35,7 +42,7 @@ function App() {
         {subscriptions}
         
       </div></>
-  );
+  );*/
 }
 
 export default App;

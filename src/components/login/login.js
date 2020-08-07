@@ -3,6 +3,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {idiomaState, view, subscribeToEventsState, backdropState} from '../recoil/atoms';
 import text from './idioma.json';
 import socket from '../socket';
+import './login.css';
 
 const Login = props => {
     const idioma = useRecoilValue(idiomaState);
@@ -40,13 +41,16 @@ const Login = props => {
     return (
         <div className='login'>
             <h2>{text.welcome[idioma]}</h2>
-            <input type="text" placeholder={text.placeholder[idioma]} 
+            <input type="text" placeholder={text.nickname[idioma]} 
                 onChange={setNickName}
                 onKeyPress={keyPress} 
                 value={nick.nickname} 
                 className={nick.valid ? 'valid' : 'invalid'}                
             />
+            <input type="password" placeholder={text.password[idioma]}/>
+            <input type="email" placeholder={text.email[idioma]}/>
             {nick.valid ? <button onClick={() => setLogin(nick.nickname)}>{text.txtBtn[idioma]}</button> : null}
+            
         </div>
     );
 

@@ -1,0 +1,26 @@
+{
+    "signin": {
+        "es": "Regístrate",
+        "en": "Sign in"
+    },
+    "email": {
+        "en": "Email Address",
+        "es": "Correo Electrónico"
+    },
+    "password": {
+        "en": "Password",
+        "es": "Contraseña"
+    },
+    "rememberme": {
+        "en": "Remember me",
+        "es": "Recuérdame"
+    },
+    "forgotpassword": {
+        "en": "Forgot password?",
+        "es": "Olvidó su contraseña?"
+    },
+    "gosignup": {
+        "en": "Dont have an account? Sign Up!",
+        "es": "No tienes una cuanta? Creátela!"
+    }
+}

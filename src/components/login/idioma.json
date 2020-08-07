@@ -3,9 +3,17 @@
         "en": "Welcome to the chat",
         "es": "Bienvenido al chat"
     },
-    "placeholder": {
+    "nickname": {
         "en": "Nickname",
         "es": "Nombre de pila"
+    },
+    "password": {
+        "en": "Password",
+        "es": "Contraseña"
+    },
+    "email": {
+        "en": "Email",
+        "es": "Correo"
     },
     "txtBtn": {
         "en": "Begin",

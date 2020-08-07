@@ -1,0 +1,34 @@
+{
+    "signup": {
+        "es": "Crear cuenta",
+        "en": "Sign un"
+    },
+    "firstName":{
+        "es": "Nombre",
+        "en": "First Name"
+    },
+    "lastName": {
+        "es": "Apellidos",
+        "en": "Last Name"
+    },
+    "email": {
+        "es": "Correo Electrónico",
+        "en": "Email Address"
+    },
+    "password": {
+        "es": "Contraseña",
+        "en": "Password"
+    },
+    "signin": {
+        "es": "Ya tienes una cuenta? Regístrate!",
+        "en": "Already have an account? Sign in!"
+    },
+    "invalidEmail": {
+        "es": "Correo inválido",
+        "en": "Invalid email"
+    },
+    "passShort": {
+        "es": "Debe tener al menos 8 caracteres",
+        "en": "Must have at least 8 characters"
+    }
+}

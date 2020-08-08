@@ -11,10 +11,12 @@ import UserDisconnectSubscriber from './components/events/userDisconnectSubscrib
 import IncomingMsgSubscriber from './components/events/incomingMsgSubscriber';
 import './App.css';
 import Backdrop from './components/backdrop/backdrop';
-
+// --------------------------- New Style --------------------- //
 import Sigin from './view/signin';
 import Sigup from './view/signup';
-import ContactList from './view/contacts'
+import ContactList from './view/contacts';
+import MainContainter from './view/main';
+import Toolbar from './view/toolbar';
 
 function App() {
   const viewState = useRecoilValue(view.getAtom);
@@ -30,7 +32,12 @@ function App() {
     </>
   }
 
-  return <ContactList />
+  return (
+    <MainContainter>
+      <Toolbar />
+      <ContactList />
+    </MainContainter>
+  );
 
   /*return (
     <>

@@ -1,7 +1,7 @@
 {
     "signup": {
         "es": "Crear cuenta",
-        "en": "Sign un"
+        "en": "Sign up"
     },
     "firstName":{
         "es": "Nombre",
@@ -30,5 +30,17 @@
     "passShort": {
         "es": "Debe tener al menos 8 caracteres",
         "en": "Must have at least 8 characters"
+    },
+    "nameInvalid": {
+        "es": "Sin espacios. Sin números.",
+        "en": "No spaces. No numbers."
+    },
+    "nameShort": {
+        "es": "Muy corto (min 2)",
+        "en": "Too Short (2 min)"
+    },
+    "nameLong": {
+        "es": "Muy largo (max 20)",
+        "en": "Too long (max 20)"
     }
 }

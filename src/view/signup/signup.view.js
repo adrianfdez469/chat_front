@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({idioma, onSignUp,emailState, onEmailChange, passState, onPassChange}) {
+export default function SignUp({idioma, onSignUp,emailState, onEmailChange, passState, onPassChange, nameState, onNameChange, lastNameRef}) {
   const classes = useStyles();
 
   return (
@@ -57,17 +57,21 @@ export default function SignUp({idioma, onSignUp,emailState, onEmailChange, pass
                 id="firstName"
                 label={text.firstName[idioma]}
                 autoFocus
+                value={nameState.value}
+                helperText={!nameState.valid ? text[nameState.msg][idioma] : ''}
+                error={!nameState.valid}
+                onChange={onNameChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="lastName"
                 label={text.lastName[idioma]}
                 name="lastName"
                 autoComplete="lname"
+                inputRef={lastNameRef}
               />
             </Grid>
             <Grid item xs={12}>

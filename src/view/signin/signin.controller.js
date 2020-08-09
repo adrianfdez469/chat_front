@@ -1,9 +1,12 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {useRecoilValue} from 'recoil'
-import {idiomaState} from '../../components/recoil/atoms';
 import Signin from "./signin.view";
 const SigninController = props => {
-    const idioma = useRecoilValue(idiomaState);
+    let idioma = 'en';
+    var userLang = navigator.language || navigator.userLanguage;
+    if(/^(es-).+/.test(userLang)){
+        idioma = 'es';
+    } 
+
     const emailRef = useRef('');
     const passRef = useRef('');
     const [remember, setRemember] = useState(false);

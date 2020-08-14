@@ -1,15 +1,31 @@
 import React, {useRef, useEffect, useState} from 'react';
+import axios from 'axios';
+import {Redirect} from 'react-router-dom';
+import {useSetRecoilState, useRecoilState} from 'recoil';
+import {idiomaState, authTokenState, userAvatarState, loginData} from '../../components/recoil/atoms';
 import Signin from "./signin.view";
+import {DEFAULT_CONFIG} from '../../conf/configuration';
+import NotificationHook from '../../components/uiComponents/notification/notification.hook';
+import text from './idioma.json';
+
 const SigninController = props => {
-    let idioma = 'en';
+    /*let idioma = 'en';
     var userLang = navigator.language || navigator.userLanguage;
     if(/^(es-).+/.test(userLang)){
         idioma = 'es';
-    } 
+    }*/
 
+    const [idioma, setIdiomaState] = useRecoilState(idiomaState);
+    const setAuthTokenState = useSetRecoilState(authTokenState);
+    const setUserAvatarState = useSetRecoilState(userAvatarState);
+    const setLoginData = useSetRecoilState(loginData);
+    const [redirectState, setRedirect] = useState(null);
+    const {openErrorNotification} = NotificationHook();
     const emailRef = useRef('');
+    
     const passRef = useRef('');
     const [remember, setRemember] = useState(false);
+    const [forgotWinState, setforgotWinState] = useState(false);
 
     useEffect(() => {
         if(localStorage.email && localStorage.password && localStorage.rememberme){
@@ -18,6 +34,12 @@ const SigninController = props => {
             setRemember(true);
         }
     },[])
+
+    const forgetPassHandler = () => {
+        setforgotWinState(!forgotWinState);
+    }
+
+    
 
     const onSignIn = (event) => {
         event.preventDefault();
@@ -31,6 +53,49 @@ const SigninController = props => {
             localStorage.removeItem('password');
             localStorage.removeItem('rememberme');
         }
+
+        axios.post(`${DEFAULT_CONFIG.server}/users/login`, {
+            email: emailRef.current.value,
+            password: passRef.current.value
+        })
+        .then(resp => {
+            if(resp.status === 200){
+                
+                const {
+                    token, token_expiry, _id, nickname, firstName,
+                    lastname, email, gender, language, avatarUrl
+                } = resp.data;
+
+                setAuthTokenState({
+                    token: token,
+                    token_expiry: token_expiry
+                });
+                setLoginData({
+                    userId: _id, 
+                    nickname: nickname,
+                    firstName: firstName,
+                    lastName: lastname,
+                    email: email,
+                    gender: gender
+                });
+                setIdiomaState(language);
+                setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+
+                setRedirect(true);
+
+            }
+        })
+        .catch(err => {
+            if(err.response.status === 403){
+                openErrorNotification(text.notAuthorized[idioma]);
+            }else{
+                openErrorNotification(text.internalError[idioma]);
+            }
+        });
+    }
+
+    if(redirectState){
+        return <Redirect to="/contacts" />
     }
     
     return <Signin idioma={idioma} 
@@ -39,6 +104,8 @@ const SigninController = props => {
         rememberChecked={remember}
         onRememberChange={event => setRemember(event.target.checked)}
         onSignIn={onSignIn}
+        forgotWinState={forgotWinState}
+        forgetPassHandler={forgetPassHandler}
     />;
 
 }

@@ -3,7 +3,6 @@ import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondary
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
@@ -44,7 +43,6 @@ const StyledBadge = withStyles((theme) => ({
 
 const ContactsView = props => {
     const classes = useStyles();
-
 
     const lastMsg = `The following npm package, @material-ui/icons, includes the 1,100+ official Material icons converted to SvgIcon components.`;
 

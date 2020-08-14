@@ -85,14 +85,14 @@ const useMessageStyle = makeStyles(theme => ({
         width: theme.spacing(3),
         height: theme.spacing(3),
         position: "absolute",
-        top: `-${theme.spacing(1.2)}px`,
+        top: `-${theme.spacing(1.5)}px`,
     },
     myMsgAvatar : {
-        right: `-${theme.spacing(1)}px`,
+        right: `-${theme.spacing(1.5)}px`,
         
     },
     notMyMsgAvatar: {
-        left: `-${theme.spacing(1)}px`
+        left: `-${theme.spacing(1.5)}px`
     }
 }));
 
@@ -108,7 +108,7 @@ const Message = ({myMsg = true, msg, style}) => {
             <Avatar
                 alt={`Avatar n°${1}`}
                 src={`/static/images/avatar/${1}.jpg`}
-                variant="rounded"
+                variant="circle"
                 className={`${classes.msgAvatar} ${avatarStyle}`}
                 
             />

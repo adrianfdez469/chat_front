@@ -7,12 +7,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-//import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import RouterLink from 'react-router-dom/Link';
+import ForgotPass from './forgotpass';
 import text from './idioma.json'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,9 +33,13 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  link: {
+    cursor: 'pointer'
+  }
 }));
 
-export default function SignIn({idioma, emailRef, passRef, onSignIn, rememberChecked, onRememberChange}) {
+export default function SignIn({idioma, emailRef, passRef, onSignIn, rememberChecked, onRememberChange, 
+  forgetPassHandler, forgotWinState}) {
   const classes = useStyles();
 
   return (
@@ -89,18 +93,20 @@ export default function SignIn({idioma, emailRef, passRef, onSignIn, rememberChe
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
-              {text.forgotpassword[idioma]}
+              <Link className={classes.link} onClick={forgetPassHandler}>
+                {text.forgotpassword[idioma]}
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <RouterLink to="/signup">
                 {text.gosignup[idioma]}
-              </Link>
+              </RouterLink>
             </Grid>
           </Grid>
         </form>
       </div>
+      <ForgotPass idioma={idioma} forgotWinState={forgotWinState} forgetPassHandler={forgetPassHandler}/>
+
     </Container>
   );
 }

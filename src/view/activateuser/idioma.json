@@ -1,0 +1,63 @@
+{
+    "hello": {
+        "es": "Hola ",
+        "en": "Hello "
+    },
+    "hello1": {
+        "es": ", ayúdanos a configurar tu perfil",
+        "en": ", help us to configure your profile"
+    },
+    "descriptionText":{
+        "es": "En esta vista puede realizar algunas de las configuraciones iniciales de la aplicación. Estas no son obligatorias y pueden ser ajustadas o modificadas en cualquier momento.",
+        "en": "In this interface, you can make some initial configurations of the application. These are not mandatory and can be adjusted or modified any time."
+    },
+    "labelIdioma": {
+        "es": "Seleccione el idioma",
+        "en": "Select language"
+    },
+    "labelSexo": {
+        "es": "Género",
+        "en": "Gender"
+    },
+    "labelNickname": {
+        "es": "Nombre de pila",
+        "en": "Nickname"
+    },
+    "labelAvatar": {
+        "es": "Avatar",
+        "en": "Avatar"
+    },
+    "choosefile": {
+        "es": "Seleccione",
+        "en": "Choose"
+    },
+    "label1": {
+        "es": "Activando usuario y salvando configuración",
+        "en": "Activating user and saving configuration"
+    },
+    "label2": {
+        "es": "Usuario activado",
+        "en": "User activated"
+    },
+    "label3": {
+        "es": "Ir a página de entrada",
+        "en": "Go to login page"
+    },
+    "content3": {
+        "es": "Felicidades, ha concluido el proceso de registro y activacion de su cuenta. Puede entrar a la aplicaión usando su correo y la contraseña. Que la disfrute!",
+        "en": "Congratulations, you are done with the signup process. Login on the application using your email and your password. Enjoy it!"
+    },
+    "next": {
+        "es": "Siguiente",
+        "en": "Next"
+    },
+    "back": {
+        "es": "Anterior",
+        "en": "Back"
+    },
+    "goLogin": {
+        "es": "Continuar",
+        "en": "Continue"
+    }
+    
+}

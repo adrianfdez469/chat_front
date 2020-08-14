@@ -22,5 +22,13 @@
     "gosignup": {
         "en": "Dont have an account? Sign Up!",
         "es": "No tienes una cuanta? Creátela!"
+    },
+    "notAuthorized": {
+        "en": "Not authorized",
+        "es": "No autorizado"
+    },
+    "internalError": {
+        "en": "Internal error",
+        "es": "Error interno"
     }
 }

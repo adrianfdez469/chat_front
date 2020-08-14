@@ -42,5 +42,17 @@
     "nameLong": {
         "es": "Muy largo (max 20)",
         "en": "Too long (max 20)"
+    },
+    "duplicated": {
+        "es": "El correo ya se encuentra registrado.",
+        "en": "The email is already registered."
+    },
+    "error": {
+        "es": "Error interno",
+        "en": "Internal error"
+    },
+    "userCreated": {
+        "es": "Usuario creado. Revise su correo para activarlo.",
+        "en": "User created. Check your email to activate it."
     }
 }

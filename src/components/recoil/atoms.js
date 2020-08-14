@@ -1,8 +1,17 @@
 import {atom} from 'recoil';
 
+const getDefaultLanguage= () => {
+    let idioma = 'en';
+    var userLang = navigator.language || navigator.userLanguage;
+    if(/^(es-).+/.test(userLang)){
+        idioma = 'es';
+    }
+    return idioma;
+}
+
 const idiomaState = atom({
     key: 'idiomaState',
-    default: 'es'
+    default: getDefaultLanguage()
 });
 
 const loginData = atom({
@@ -45,4 +54,19 @@ const subscribeToEventsState = atom({
     default: false
 })
 
-export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, backdropState};
+const userAvatarState = atom({
+    key: 'userAvatarState',
+    default: null
+});
+
+const authTokenState = atom({
+    key: 'authTokenState',
+    default: {
+        token: '',
+        token_expiry: null
+    }
+});
+
+
+
+export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, backdropState, userAvatarState, authTokenState};

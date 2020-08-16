@@ -1,4 +1,4 @@
-import {atom} from 'recoil';
+import {atom, selector} from 'recoil';
 
 const getDefaultLanguage= () => {
     let idioma = 'en';
@@ -65,4 +65,35 @@ const addContactViewOpenState = atom({
 });
 
 
-export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, backdropState, userAvatarState, addContactViewOpenState};
+const friendsAtom = atom({
+    key: 'friendsAtom',
+    default: []
+});
+
+const friendSelector = selector({
+    key: 'friendSelector',
+    get: ({get}) => {
+        const friends = [...get(friendsAtom)];
+        return friends.sort(
+            (f1,f2) => {
+                if(f1.friendShipStatus < f2.friendShipStatus) return -1; 
+                if(f1.friendShipStatus > f2.friendShipStatus) return 1;
+                if(f1.email < f2.email) return -1; 
+                if(f1.email > f2.email) return 1; 
+            }
+        );
+    },
+    set: ({set}, friend) => {
+        set(friendsAtom, oldFriends => {
+            const friends = [...oldFriends];
+            friends.push(friend);
+            return friends;
+        });
+    }
+})
+
+
+export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
+    backdropState, userAvatarState, addContactViewOpenState,
+    friendsAtom, friendSelector
+};

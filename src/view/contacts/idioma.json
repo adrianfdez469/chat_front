@@ -2,5 +2,9 @@
     "errorLoadingFriends":{
         "es": "Error al cargar contactos",
         "en": "Error while loading contacts"
+    },
+    "delete":{
+        "es": "Eliminar",
+        "en": "Delete"
     }
 }

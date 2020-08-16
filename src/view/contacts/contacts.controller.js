@@ -4,8 +4,8 @@ import {DEFAULT_CONFIG} from '../../conf/configuration'
 import authMiddleware from '../../authMiddleware';
 import useNotificationHook from '../../components/uiComponents/notification/notification.hook';
 import text from './idioma.json';
-import {useRecoilValue} from 'recoil';
-import {idiomaState} from '../../components/recoil/atoms';
+import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
+import {idiomaState, friendSelector, friendsAtom} from '../../components/recoil/atoms';
 
 
 import ContactsView from './contacs.view';
@@ -15,7 +15,10 @@ import ContactsView from './contacs.view';
 const ContactsController = props => {
 
     const {openErrorNotification} = useNotificationHook();
-    const [contacts, setContacts] = useState([]);
+    //const [contacts, setContacts] = useState([]); 
+    const setContacts = useSetRecoilState(friendsAtom);
+    const [contacts, addContact] = useRecoilState(friendSelector);
+
     const idioma = useRecoilValue(idiomaState);
 
 
@@ -29,8 +32,8 @@ const ContactsController = props => {
                 }
             })
             .then(resp => {
-                console.log(resp.data.friends);
                 if(resp.status === 200){
+                    console.log(resp.data.friends);
                     setContacts(resp.data.friends);
                 }
             })

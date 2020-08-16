@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {useRecoilValue, useRecoilState} from 'recoil';
+import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
 import axios from 'axios';
 import useNotificationHook from '../../components/uiComponents/notification/notification.hook';
 import {DEFAULT_CONFIG} from '../../conf/configuration';
 import AddContactView from './addContact.view';
 import authMiddleware from '../../authMiddleware';
 import text from './idioma.json';
-import {addContactViewOpenState} from '../../components/recoil/atoms';
+import {addContactViewOpenState, friendSelector} from '../../components/recoil/atoms';
 
 import {idiomaState} from '../../components/recoil/atoms'
 
@@ -17,6 +17,7 @@ const AddContactController = props => {
     const {openErrorNotification} = useNotificationHook();
     const inputSearchRef = useRef({value: ''});
 
+    const addContact = useSetRecoilState(friendSelector);
     
 
     const buscarUsuarios = () => {
@@ -62,6 +63,9 @@ const AddContactController = props => {
                     setUsers(users => {
                         return users.filter(user => user.userId !== userId);
                     });
+
+                    addContact(resp.data.friend);
+
                 }
             })
             .catch(err => {

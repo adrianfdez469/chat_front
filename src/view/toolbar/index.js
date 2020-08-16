@@ -1,9 +1,9 @@
 import React from 'react';
-import ToolbarView from './toolbar.view';
+import ToolbarController from './toolbar.controller';
 
 const Toolbar = props => {
 
-    return <ToolbarView />;
+    return <ToolbarController />;
 
 }
 export default Toolbar;

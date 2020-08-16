@@ -2,17 +2,14 @@ import React, {useState, useRef} from 'react';
 import axios from 'axios';
 import {DEFAULT_CONFIG} from '../../conf/configuration';
 import Signup from './signup.view';
-import {useRecoilState} from 'recoil';
+import {useRecoilValue} from 'recoil';
+import {idiomaState} from '../../components/recoil/atoms';
 import NotificationHook from '../../components/uiComponents/notification/notification.hook';
 import text from './idioma.json';
 
 const SignupController = props => {
-    let idioma = 'en';
-    let userLang = navigator.language || navigator.userLanguage;
-    if(/^(es-).+/.test(userLang)){
-        idioma = 'es';
-    } 
     
+    const idioma = useRecoilValue(idiomaState);
     const {openSuccessNotification, openErrorNotification} = NotificationHook();
     const [emailState, setEmailState] = useState({value: "", valid: true});
     const [passState, setPassState] = useState({value: "", valid: true});    

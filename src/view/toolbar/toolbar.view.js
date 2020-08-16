@@ -5,12 +5,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import SettingsCircle from '@material-ui/icons/Settings';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar() {
+const ToolbarView = ({avatarSrc, userData}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  
+  console.log(userData);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,10 +39,14 @@ export default function MenuAppBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
+        
         <Toolbar>
+          
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
+            
           </IconButton>
+          
           <Typography variant="h6" className={classes.title}>
             Shutapp
           </Typography>          
@@ -57,7 +58,13 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <SettingsCircle />
+                {/*<SettingsCircle />*/}
+                <Avatar
+                  alt={userData.nickname}
+                  src={avatarSrc}
+                >
+                  {userData.nickname.toUpperCase().split('')[0]}
+                </Avatar>
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -83,3 +90,5 @@ export default function MenuAppBar() {
     </div>
   );
 }
+
+export default ToolbarView;

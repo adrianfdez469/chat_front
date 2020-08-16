@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useRecoilState} from 'recoil';
 import NotificationHook from '../../../components/uiComponents/notification/notification.hook';
 import text from './idioma.json';
 import ForgotPassView from './forgotPass.view';

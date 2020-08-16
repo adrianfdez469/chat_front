@@ -12,9 +12,9 @@ const useStyles = makeStyles(theme => {
     console.log(theme.overrides.MuiSnackbar);
     return {
     snackbar: {
-        top: 0,
+        /*top: 0,
         display: 'block',
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(2)*/
     }
 }});
 

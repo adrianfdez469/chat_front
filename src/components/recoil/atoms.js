@@ -59,14 +59,10 @@ const userAvatarState = atom({
     default: null
 });
 
-const authTokenState = atom({
-    key: 'authTokenState',
-    default: {
-        token: '',
-        token_expiry: null
-    }
+const addContactViewOpenState = atom({
+    key: 'addContactViewOpenState',
+    default: false
 });
 
 
-
-export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, backdropState, userAvatarState, authTokenState};
+export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, backdropState, userAvatarState, addContactViewOpenState};

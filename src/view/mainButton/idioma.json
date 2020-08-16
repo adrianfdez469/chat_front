@@ -1,0 +1,10 @@
+{
+    "addContact": {
+        "es": "Adicionar",
+        "en": "Add"
+    },
+    "sendMsg": {
+        "es": "Enviar",
+        "en": "Send"
+    }
+}

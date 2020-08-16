@@ -3,6 +3,8 @@ import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondary
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+import {DEFAULT_CONFIG} from '../../conf/configuration';
+
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
@@ -41,7 +43,7 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-const ContactsView = props => {
+const ContactsView = ({idioma, contacts}) => {
     const classes = useStyles();
 
     const lastMsg = `The following npm package, @material-ui/icons, includes the 1,100+ official Material icons converted to SvgIcon components.`;
@@ -49,9 +51,9 @@ const ContactsView = props => {
 
     return (
         <List className={classes}>
-            {[0, 1, 2, 3].map((value) => {
-                const labelId = `checkbox-list-secondary-label-${value}`;
-                return (<React.Fragment key={value}>
+            {contacts.map((contact) => {
+                const labelId = `checkbox-list-secondary-label-${contact.email}`;
+                return (<React.Fragment key={contact.email}>
                     <ListItem button>
                         <ListItemAvatar>
 
@@ -65,8 +67,8 @@ const ContactsView = props => {
                             >
                                 <Badge color="secondary" badgeContent="5">
                                     <Avatar
-                                        alt={`Avatar n°${value + 1}`}
-                                        src={`/static/images/avatar/${value + 1}.jpg`}
+                                        alt={`Avatar n°${contact.nickname}`}
+                                        src={`${DEFAULT_CONFIG.server}${contact.avatarUrl}`}
                                     />
                                 </Badge>
                             </StyledBadge>
@@ -74,7 +76,7 @@ const ContactsView = props => {
 
                         <ListItemText
                             id={labelId}
-                            primary={`User ${value + 1}`}
+                            primary={contact.nickname}
                             secondary={`${lastMsg.slice(0, 55)}...`}
                         />
                         <ListItemSecondaryAction>

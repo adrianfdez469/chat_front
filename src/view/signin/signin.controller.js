@@ -2,21 +2,17 @@ import React, {useRef, useEffect, useState} from 'react';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {useSetRecoilState, useRecoilState} from 'recoil';
-import {idiomaState, authTokenState, userAvatarState, loginData} from '../../components/recoil/atoms';
+import {idiomaState, /*authTokenState,*/ userAvatarState, loginData} from '../../components/recoil/atoms';
 import Signin from "./signin.view";
 import {DEFAULT_CONFIG} from '../../conf/configuration';
 import NotificationHook from '../../components/uiComponents/notification/notification.hook';
 import text from './idioma.json';
+import authMiddleware from '../../authMiddleware';
 
 const SigninController = props => {
-    /*let idioma = 'en';
-    var userLang = navigator.language || navigator.userLanguage;
-    if(/^(es-).+/.test(userLang)){
-        idioma = 'es';
-    }*/
 
     const [idioma, setIdiomaState] = useRecoilState(idiomaState);
-    const setAuthTokenState = useSetRecoilState(authTokenState);
+    //const setAuthTokenState = useSetRecoilState(authTokenState);
     const setUserAvatarState = useSetRecoilState(userAvatarState);
     const setLoginData = useSetRecoilState(loginData);
     const [redirectState, setRedirect] = useState(null);
@@ -28,6 +24,47 @@ const SigninController = props => {
     const [forgotWinState, setforgotWinState] = useState(false);
 
     useEffect(() => {
+        
+        const optimisticAction = token => {
+            console.log('ejecuta el optimistica action');
+            axios.post(`${DEFAULT_CONFIG.server}/users/loginWithToken`,{
+                token: token
+            })
+            .then(resp => {
+                if(resp.status === 200){
+                    const {
+                        token, token_expires, _id, nickname, firstName,
+                        lastname, email, gender, language, avatarUrl
+                    } = resp.data;
+    
+                    
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('token_expires', token_expires);
+    
+                    setLoginData({
+                        userId: _id, 
+                        nickname: nickname,
+                        firstName: firstName,
+                        lastName: lastname,
+                        email: email,
+                        gender: gender
+                    });
+                    setIdiomaState(language);
+                    setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+    
+                    setRedirect(true);
+                }
+            })
+            .catch(err => {
+                console.log('Error al cargar los datos del usuario usando el token');
+                
+            })
+        }
+        
+        authMiddleware(optimisticAction);
+
+
+
         if(localStorage.email && localStorage.password && localStorage.rememberme){
             emailRef.current.value = localStorage.email;
             passRef.current.value = localStorage.password;
@@ -62,14 +99,22 @@ const SigninController = props => {
             if(resp.status === 200){
                 
                 const {
-                    token, token_expiry, _id, nickname, firstName,
-                    lastname, email, gender, language, avatarUrl
+                    token, token_expires, _id, nickname, firstName,
+                    lastname, email, gender, language, avatarUrl,
+                    refresh_token, refresh_token_expires
                 } = resp.data;
 
-                setAuthTokenState({
+                
+                localStorage.setItem('token', token);
+                localStorage.setItem('refresh_token', refresh_token);
+                localStorage.setItem('token_expires', token_expires);
+                localStorage.setItem('refresh_token_expires', refresh_token_expires);
+
+                
+                /*setAuthTokenState({
                     token: token,
-                    token_expiry: token_expiry
-                });
+                    token_expiry: token_expires
+                });*/
                 setLoginData({
                     userId: _id, 
                     nickname: nickname,

@@ -1,0 +1,23 @@
+{
+    "title": {
+        "es": "Adicionar contacto",
+        "en": "Add contact"
+    },
+    "search": {
+        "es": "Buscar...",
+        "en": "Search..."
+    },
+    "close": {
+        "es": "Cerrar",
+        "en": "Close"
+    },
+    "lbErrorLoadingUsers": {
+        "es": "Error al cargar los usuarios",
+        "en": "Error loading users"
+    },
+    "lbErrorSendigFriendRequest": {
+        "es": "Error al enviar solicitud de amistad",
+        "en": "Error sending friend request"
+    }
+
+}

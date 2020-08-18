@@ -26,7 +26,6 @@ const ToolbarView = ({avatarSrc, userData}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  console.log(userData);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

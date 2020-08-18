@@ -11,7 +11,6 @@ import {idiomaState, friendSelector, friendsAtom} from '../../components/recoil/
 import ContactsView from './contacs.view';
 
 
-
 const ContactsController = props => {
 
     const {openErrorNotification} = useNotificationHook();
@@ -51,6 +50,7 @@ const ContactsController = props => {
     return <ContactsView 
         idioma={idioma}
         contacts={contacts}
+        text={text}
     />;
 
 }

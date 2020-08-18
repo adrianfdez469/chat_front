@@ -6,5 +6,13 @@
     "delete":{
         "es": "Eliminar",
         "en": "Delete"
+    },
+    "beta": {
+        "es": "SHUT-APP V2.0.0 Beta es una aplicación web de chat realizada sin ningún ánimo de lucro. La información ingresada en esta no será divulgada bajo ningún concepto.",
+        "en": "SHUT-APP V2.0.0 Beta is a non-profit chat web application. The information entered will not be disclosed under any circumstances."
+    },
+    "goMakeFriends": {
+        "es": "Agrega a tus amigos o comparte la aplicacion con ellos si no conocen sobre esta.",
+        "en": "Add your friends o share the application with them if they don't know about it."
     }
 }

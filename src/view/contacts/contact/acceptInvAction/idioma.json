@@ -1,0 +1,10 @@
+{
+    "acceptInv":{
+        "es": "Aceptar amigo",
+        "en": "Accept friend"
+    },
+    "errorAccepting": {
+        "es": "Error al aceptar la solicitud",
+        "en": "Error accepting the friend request"
+    }
+}

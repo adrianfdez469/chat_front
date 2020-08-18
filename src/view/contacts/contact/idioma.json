@@ -1,6 +1,42 @@
 {
-    "delete":{
-        "es": "Eliminar",
-        "en": "Delete"
+    "REQUESTED": {
+        "es": "Estado: PEDIDO",
+        "en": "State: REQUESTED"
+    },
+    "ASKED": {
+        "es": "Estado: SOLICITADO",
+        "en": "State: ASKED"
+    },
+    "DECLINED": {
+        "es": "Estado: RECHAZADO",
+        "en": "State: DECLINED"
+    },
+    "BLOCKED": {
+        "es": "Estado: BLOQUEADO",
+        "en": "State: BLOCKED"
+    },
+    "DELETED": {
+        "es": "Estado: ELIMINADO",
+        "en": "State: DELETED"
+    },
+    "descREQUESTED": {
+        "es": "Estado: Esperando a que acepten su solicitud de amistad",
+        "en": "State: Waiting for the acceptance of the friend request"
+    },
+    "descASKED": {
+        "es": "Estado: Este usuario solicita ser su amigo",
+        "en": "State: This user wants to be your friend"
+    },
+    "descDECLINED": {
+        "es": "Estado: Su solicitud de amistad ha sido rechazada",
+        "en": "State: Your friend request has been declined"
+    },
+    "descBLOCKED": {
+        "es": "Estado: Usted ha sido bloqueado por este contacto",
+        "en": "State: You have been bloked by this contact"
+    },
+    "descDELETED": {
+        "es": "Estado: Usted ha sido eliminado por este contacto",
+        "en": "State: You have been deleted by this contact"
     }
 }

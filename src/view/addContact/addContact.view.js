@@ -16,7 +16,7 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider';
 import {DEFAULT_CONFIG} from '../../conf/configuration';
-import { blue } from '@material-ui/core/colors';
+import { blue, red, grey } from '@material-ui/core/colors';
 
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -74,6 +74,7 @@ const useStyles = makeStyles(theme => ({
           },
         },*/
       },
+
   }));
 
 const AddContactView = ({idioma, closeAddContactWin, open,
@@ -136,11 +137,13 @@ const UserItem = ({user, sendFriendRequest}) => {
                 primary={user.nickname}
                 secondary={user.email}
             />
-            <ListItemSecondaryAction>
-                <IconButton color="primary" /*disabled={iconButtonDisabledState}*/ onClick={disableItem}>
-                    <AddIcon color={/*iconButtonDisabledState ? "disabled" : */"primary"}/>
-                </IconButton>
-            </ListItemSecondaryAction>
+            
+                <ListItemSecondaryAction>
+                    <IconButton color={user.blockinguser ? grey[100] : blue[300]} onClick={disableItem} disabled={user.blockinguser}>
+                        <AddIcon color={user.blockinguser ? 'disabled' : "primary"}/>
+                    </IconButton>
+                </ListItemSecondaryAction>
+            
         </ListItem>
     )
 

@@ -17,7 +17,23 @@ const idiomaState = atom({
 const loginData = atom({
     key: 'loginData',
     default: null
-})
+});
+const userAvatarState = atom({
+    key: 'userAvatarState',
+    default: null
+});
+const clearUserDataSelector = selector({
+    key: 'clearUserDataSelector',
+    set: ({set}) => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('token_expires');
+        localStorage.removeItem('refresh_token_expires');
+        set(userAvatarState, null);
+        set(loginData, null)
+    }
+}); 
+
 
 const chatConversation = atom({
     key: 'chatConversation',
@@ -54,10 +70,7 @@ const subscribeToEventsState = atom({
     default: false
 })
 
-const userAvatarState = atom({
-    key: 'userAvatarState',
-    default: null
-});
+
 
 const addContactViewOpenState = atom({
     key: 'addContactViewOpenState',
@@ -90,10 +103,35 @@ const friendSelector = selector({
             return friends;
         });
     }
-})
+});
+
+const updateFriendSelector = selector({
+    key: 'updateFriendSelector',
+    set: ({set}, friend) => {
+        set(friendsAtom, oldFriends => {
+            const fIndex = oldFriends.findIndex(f => f.contactId === friend.contactId);
+            const friends = oldFriends.slice(0, fIndex)
+                                    .concat([friend])
+                                    .concat(oldFriends.slice(fIndex+1));
+            return friends;
+        });
+    }
+});
+
+const deleteFriendSelector = selector({
+    key: 'deleteFriendSelector',
+    set: ({set}, friendId) => {
+        set(friendsAtom, oldFriends => {
+            return oldFriends.filter(f => f.contactId !== friendId);
+        });
+    }
+});
+
+
 
 
 export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
     backdropState, userAvatarState, addContactViewOpenState,
-    friendsAtom, friendSelector
+    friendsAtom, friendSelector,updateFriendSelector, deleteFriendSelector,
+    clearUserDataSelector
 };

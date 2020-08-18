@@ -1,22 +1,49 @@
 import React from 'react';
-import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, ListItemIcon, IconButton, Badge, Divider, Menu, MenuItem } from '@material-ui/core';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Badge, Divider, Menu, Tooltip } from '@material-ui/core';
+import { red, green } from '@material-ui/core/colors';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-import DeleteIcon from '@material-ui/icons/Delete';
+import InfoIcon from '@material-ui/icons/Info';
+
 import {DEFAULT_CONFIG} from '../../../conf/configuration';
 
 import text from './idioma.json';
-/*
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    }
-}));*/
 
+import ActionProxy from './contactAction.proxy';
+
+const useStyle = makeStyles((theme) => ({
+    infoIcon: {
+        marginRight: '-12px',
+        overflow: 'visible',
+        textAlign: 'center',
+        flex: '0 0 auto',
+        
+        color: 'rgba(0, 0, 0, 0.54)',
+        padding: '12px',
+        fontSize: '1.5rem',
+        transition: 'background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        borderRadius: '50%',
+
+        
+        border: 0,
+        cursor: 'pointer',
+        margin: 0,
+        display: 'inline-flex',
+        outline: 0,
+        
+        position: 'relative',
+        alignItems: 'center',
+        userSelect: 'none',
+        
+        verticalAlign: 'middle',
+        
+        justifyContent: 'center',
+        textDecoration: 'none'
+    },
+    listItemText: {
+        paddingRight: theme.spacing(10)
+    }
+}));
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -67,25 +94,37 @@ const StyledMenu = withStyles({
     />
   ));
 
-const StyledMenuItem = withStyles((theme) => ({
-    root: {
-      '&:focus': {
-        backgroundColor: theme.palette.primary.main,
-        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-          color: theme.palette.common.white,
-        },
-      },
+const useCustomTooltipGreenStyle = makeStyles((theme) => ({
+    arrow: {
+      color: green[500]
     },
-  }))(MenuItem);
+    tooltip: {
+      backgroundColor: green[500]
+    },
+  }));
+  const useCustomTooltipRedStyle = makeStyles((theme) => ({
+    arrow: {
+      color: red[500]
+    },
+    tooltip: {
+      backgroundColor: red[500]
+    },
+  }));
+const CustomTooltip = props => {
+    const classesRed = useCustomTooltipRedStyle();
+    const classesGreen = useCustomTooltipGreenStyle();
+
+    return <Tooltip arrow classes={props.color === 'red' ? classesRed : classesGreen} {...props} />;
+}
 
 
 const ContactView = ({idioma, contact, handleMenu,
     handleClose, anchorEl}) => {
 
 
-    const lastMsg = `The following npm package, @material-ui/icons, includes the 1,100+ official Material icons converted to SvgIcon components.`;
-
+    const lastMsg = `A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A`;
     
+    const classes = useStyle();
 
     const labelId = `checkbox-list-secondary-label-${contact.email}`;
     return (<React.Fragment key={contact.email}>
@@ -110,11 +149,30 @@ const ContactView = ({idioma, contact, handleMenu,
             <ListItemText
                 id={labelId}
                 primary={contact.nickname}
-                secondary={`${lastMsg.slice(0, 55)}...`}
+                secondary={contact.friendShipStatus > 1 ? text[contact.friendShipStatusCode][idioma] : `${lastMsg.slice(0, 55)}...`}
+                secondaryTypographyProps={contact.friendShipStatus > 3 
+                    ? {
+                        style: {color: `${red[500]}`}
+
+                    } 
+                    : contact.friendShipStatus < 4 && contact.friendShipStatus > 1 ? {
+                        style: {color: `${green[500]}`}
+                    } : {}
+                }
+                className={classes.listItemText}
             />
+            
             <ListItemSecondaryAction>
+                {contact.friendShipStatus > 1 ?
+                    <CustomTooltip title={text[`desc${contact.friendShipStatusCode}`][idioma]} color={contact.friendShipStatus > 3 ? 'red' : 'geen'}>
+                        <div className={classes.infoIcon}>
+                            <InfoIcon fontSize="small" style={{color: contact.friendShipStatus > 3 ? red[500] : green[500]}}/>
+                        </div>
+                    </CustomTooltip>
+                : null }
+                
                 <IconButton edge="end" aria-label="delete" onClick={handleMenu}>
-                    <MoreVertIcon />
+                    <MoreVertIcon fontSize="default"/>
                 </IconButton>
             </ListItemSecondaryAction>
             
@@ -124,25 +182,8 @@ const ContactView = ({idioma, contact, handleMenu,
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-            >
-                <StyledMenuItem>
-                    <ListItemIcon>
-                        <SendIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Sent mail" />
-                </StyledMenuItem>
-                <StyledMenuItem>
-                    <ListItemIcon>
-                        <DraftsIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Drafts" />
-                </StyledMenuItem>
-                <StyledMenuItem>
-                    <ListItemIcon>
-                        <DeleteIcon fontSize="small" color="error"/>
-                    </ListItemIcon>
-                    <ListItemText primary={text.delete[idioma]} />
-                </StyledMenuItem>
+            >   
+                <ActionProxy handleClose={handleClose} contact={contact}/>
             </StyledMenu>
 
 
@@ -152,4 +193,6 @@ const ContactView = ({idioma, contact, handleMenu,
     );
 
 }
+
+
 export default ContactView;

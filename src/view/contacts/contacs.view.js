@@ -1,18 +1,22 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import Contact from './contact';
 
-const ContactsView = ({idioma, contacts}) => {
-    
-
-    
+const ContactsView = ({idioma, text, contacts}) => {
 
     return (
         <List>
-            {contacts.map((contact) => {
-                return <Contact contact={contact}/>
-            })}
+            {contacts.length > 0 
+                ? contacts.map((contact) => <Contact contact={contact}/>)
+                : <>
+                <Divider/>
+                    <Typography variant="h5" align='justify'>{text.goMakeFriends[idioma]}</Typography>
+                    <Divider/>
+                    <Typography variant="subtitle1" align='justify' >{text.beta[idioma]}</Typography>
+                </>
+            }
         </List>
     );
 

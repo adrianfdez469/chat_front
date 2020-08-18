@@ -1,0 +1,11 @@
+{
+    "delete":{
+        "es": "Eliminar contacto",
+        "en": "Delete contact"
+    },
+    "onDeleteError":{
+        "es": "El contacto no se pudo eliminar",
+        "en": "Contact could not be removed"
+    }
+    
+}

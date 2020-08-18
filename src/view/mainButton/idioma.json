@@ -6,5 +6,9 @@
     "sendMsg": {
         "es": "Enviar",
         "en": "Send"
+    },
+    "shareMsg": {
+        "es": "Compartir",
+        "en": "Share"
     }
 }

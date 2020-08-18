@@ -5,6 +5,7 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ShareIcon from '@material-ui/icons/Share';
 import MessageIcon from '@material-ui/icons/Message';
 import text from './idioma.json'
 
@@ -45,6 +46,16 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
             tooltipOpen
             onClick={() => {
               console.log('Enviar mensaje a un contacto que no esta en tu lista de contacto');
+              alert('Not implemented!')
+            }}
+          />
+          <SpeedDialAction
+            key='share'
+            icon={<ShareIcon color="error"/>}
+            tooltipTitle={text.shareMsg[idioma]}
+            tooltipOpen
+            onClick={() => {
+              console.log('Compartir la aplicacion por correo electronivo');
               alert('Not implemented!')
             }}
           />

@@ -1,10 +1,12 @@
 import React from 'react';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import axios from 'axios';
-import {idiomaState, deleteFriendSelector} from '../../../../components/recoil/atoms';
+import {idiomaState, loginData/*, deleteFriendSelector*/} from '../../../../components/recoil/atoms';
+import { friendSelector } from '../../../../components/recoil/selectors';
 import authMiddleware from '../../../../authMiddleware';
 import useNotificationHook from '../../../../components/uiComponents/notification/notification.hook';
 import {DEFAULT_CONFIG} from '../../../../conf/configuration';
+import socketClient from '../../../../utils/socket';
 
 import text from './idioma.json'
 
@@ -15,7 +17,9 @@ const DeclineInvActionController = ({preAction, contact}) => {
 
     const idioma = useRecoilValue(idiomaState);
     const {openErrorNotification} = useNotificationHook();
-    const eliminarContacto = useSetRecoilState(deleteFriendSelector);
+    //const eliminarContacto = useSetRecoilState(deleteFriendSelector);
+    const friendDispatcher = useSetRecoilState(friendSelector);
+    const userData = useRecoilValue(loginData);
 
     const onClick = () => {
         preAction();
@@ -29,9 +33,17 @@ const DeclineInvActionController = ({preAction, contact}) => {
             })
             .then(resp => {
                 if(resp.status === 200){
-                    console.log(resp.data);
-                    eliminarContacto(contact.contactId);
+                    friendDispatcher({action: 'delete', payload: {friendId: contact.contactId}});
                 }
+            })
+            .then(() => {
+                const socket = socketClient.getSocket();
+                socket.emit('decline friendship', {
+                    declinerId: userData.userId,
+                    declinedId: contact.contactId,
+                    socketIdDeclined: contact.socketId,
+                    token: token
+                });
             })
             .catch(err => {
                 openErrorNotification(text.errorDeclining[idioma]);

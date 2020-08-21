@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ChatEditorView from './chatEditor.view';
+import ChatEditorController from './chatEditor.controller';
 const ChatEditor = props => {
 
-    return <ChatEditorView />;
+    return <ChatEditorController />;
 
 }
 export default ChatEditor;

@@ -70,68 +70,24 @@ const subscribeToEventsState = atom({
     default: false
 })
 
-
-
 const addContactViewOpenState = atom({
     key: 'addContactViewOpenState',
     default: false
 });
-
 
 const friendsAtom = atom({
     key: 'friendsAtom',
     default: []
 });
 
-const friendSelector = selector({
-    key: 'friendSelector',
-    get: ({get}) => {
-        const friends = [...get(friendsAtom)];
-        return friends.sort(
-            (f1,f2) => {
-                if(f1.friendShipStatus < f2.friendShipStatus) return -1; 
-                if(f1.friendShipStatus > f2.friendShipStatus) return 1;
-                if(f1.email < f2.email) return -1; 
-                if(f1.email > f2.email) return 1; 
-            }
-        );
-    },
-    set: ({set}, friend) => {
-        set(friendsAtom, oldFriends => {
-            const friends = [...oldFriends];
-            friends.push(friend);
-            return friends;
-        });
-    }
+const activeChatWith = atom({
+    key: 'activeChatWith',
+    default: null
 });
-
-const updateFriendSelector = selector({
-    key: 'updateFriendSelector',
-    set: ({set}, friend) => {
-        set(friendsAtom, oldFriends => {
-            const fIndex = oldFriends.findIndex(f => f.contactId === friend.contactId);
-            const friends = oldFriends.slice(0, fIndex)
-                                    .concat([friend])
-                                    .concat(oldFriends.slice(fIndex+1));
-            return friends;
-        });
-    }
-});
-
-const deleteFriendSelector = selector({
-    key: 'deleteFriendSelector',
-    set: ({set}, friendId) => {
-        set(friendsAtom, oldFriends => {
-            return oldFriends.filter(f => f.contactId !== friendId);
-        });
-    }
-});
-
-
-
 
 export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
     backdropState, userAvatarState, addContactViewOpenState,
-    friendsAtom, friendSelector,updateFriendSelector, deleteFriendSelector,
-    clearUserDataSelector
+    friendsAtom, 
+    clearUserDataSelector,
+    activeChatWith
 };

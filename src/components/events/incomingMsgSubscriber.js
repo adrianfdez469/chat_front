@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useRecoilState} from 'recoil';
 import {chatConversation} from '../recoil/atoms';
-import socket from '../socket'
+import socket from '../../utils/socket'
 const IncomingMsgSubscriber = props => {
 
     const [conversation, setConvertation] = useRecoilState(chatConversation);

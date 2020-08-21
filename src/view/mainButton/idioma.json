@@ -3,6 +3,10 @@
         "es": "Adicionar",
         "en": "Add"
     },
+    "addGroup": {
+        "es": "Grupo",
+        "en": "Group"
+    },
     "sendMsg": {
         "es": "Enviar",
         "en": "Send"

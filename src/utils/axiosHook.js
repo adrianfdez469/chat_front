@@ -23,7 +23,7 @@ const useAxiosHook = () => {
                 })
                 .then(resp => {
                     if(messageOnSuccess) openSuccessNotification(messageOnSuccess);
-                    if(doFnAfterSuccess) doFnAfterSuccess(resp);
+                    if(doFnAfterSuccess) doFnAfterSuccess(resp, token);
                 })
                 .catch(err => {
                     if(messageOnError) openErrorNotification(messageOnError);

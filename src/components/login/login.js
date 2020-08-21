@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {idiomaState, view, subscribeToEventsState, backdropState} from '../recoil/atoms';
 import text from './idioma.json';
-import socket from '../socket';
+import socket from '../../utils/socket';
 import './login.css';
 
 const Login = props => {

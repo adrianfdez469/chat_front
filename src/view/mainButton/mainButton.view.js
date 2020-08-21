@@ -7,6 +7,7 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import ShareIcon from '@material-ui/icons/Share';
 import MessageIcon from '@material-ui/icons/Message';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import text from './idioma.json'
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +39,16 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
             tooltipTitle={text.addContact[idioma]}
             tooltipOpen
             onClick={openAddContactView}
+          />
+          <SpeedDialAction
+            key='addgroup'
+            icon={<GroupAddIcon color="error"/>}
+            tooltipTitle={text.addGroup[idioma]}
+            tooltipOpen
+            onClick={() => {
+              console.log('Crear un grupo');
+              alert('Not implemented!')
+            }}
           />
           <SpeedDialAction
             key='send'

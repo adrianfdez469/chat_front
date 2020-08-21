@@ -1,24 +1,30 @@
 import React, {useEffect} from 'react';
-import {useRecoilState} from 'recoil';
-import {contactListState, chatConversation} from '../recoil/atoms';
-import socket from '../socket'
+import {useSetRecoilState} from 'recoil';
+import {friendSelector} from '../recoil/selectors';
+import socket from '../../utils/socket';
+import {useSnackbar} from 'notistack';
+import text from './idioma.json';
 
 const UserSubscriber = props => {
-    const [contactList, setContactListState] = useRecoilState(contactListState);
-    const [conversation, setConversation] = useRecoilState(chatConversation);
+    const friendDispatcher = useSetRecoilState(friendSelector);
     const client = socket.getSocket();
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         
         client.on('user disconnect', data => {
-            setContactListState(contactList.filter(contact => contact.socketId !== data.socketId));
-            if(conversation.active === data.socketId){
-                setConversation({...conversation, activeOnline: false});
-            }
+            friendDispatcher({
+                action: 'disconnect', 
+                payload: {
+                    socketId: data.socketId,
+                    notification: enqueueSnackbar,
+                    msg: text.disconnected
+                }
+            })
         });
 
         return () => client.off('user disconnect');
-    }, [conversation]);
+    }, []);
 
     return (
         <></>

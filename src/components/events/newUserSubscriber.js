@@ -1,26 +1,35 @@
 import React, {useEffect} from 'react';
-import {useRecoilState, useSetRecoilState} from 'recoil';
-import {contactListState, loginData} from '../recoil/atoms';
-import socket from '../socket'
+import {useSetRecoilState, useRecoilValue} from 'recoil';
+import {friendSelector} from '../recoil/selectors';
+import socket from '../../utils/socket'
+import {loginData} from '../recoil/atoms';
+import {useSnackbar} from 'notistack';
+import text from './idioma.json';
 
-const UserSubscriber = props => {
-    const [contactList, setContactListState] = useRecoilState(contactListState);    
-    const setLoginData = useSetRecoilState(loginData);
+
+const UserSubscriber = props => {   
     const client = socket.getSocket();
+    const friendDispatcher = useSetRecoilState(friendSelector);
+    const userData = useRecoilValue(loginData);
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
 
         client.on('new user', data => {
-            if(Array.isArray(data)){
-                setContactListState(data.filter(socket => socket.socketId !== client.id));
-                setLoginData(data.find(socket => socket.socketId === client.id));
-            }  
-            else
-                setContactListState([...contactList, {nick: data.nickname, _id: data._id, socketId: data.socketId}]);
+            friendDispatcher({
+                action: 'connect', 
+                payload: {
+                    data:data,
+                    notification: enqueueSnackbar,
+                    msg: text.connected
+                }
+            });
         });
 
+        client.emit('new user', {userId: userData.userId});
+
         return () => client.off('new user');
-    }, [contactList]);
+    }, [friendDispatcher, client, userData]);
 
     return (
         <></>

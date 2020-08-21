@@ -36,6 +36,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1),
         marginBottom:  theme.spacing(1),
         maxHeight: theme.spacing(10),
+        minHeight: theme.spacing(4),
         overflowY: 'auto',
         borderRadius: theme.spacing(0.5),
         marginLeft: theme.spacing(2),

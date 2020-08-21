@@ -6,10 +6,11 @@ import DeleteFriend from './deleteAction';
 import BlockContact from './blockAction';
 /*
     1- ACEPTED -> Eliminar, Bloquear
-    2- REQUESTED -> Cancelar, Bolquear
+    2- REQUESTED -> Cancelar, Bloquear
     3- ASKED -> Aceptar, Cancelar, bloquear
     4- DECLINED -> Cancelar, Bloquear
     5- Blocked -> Eliminar
+    6- Deleted -> Eliminar
 */
 
 const ContactActionProxy = ({handleClose, contact}) => {

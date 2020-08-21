@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Badge, Divider, Menu, Tooltip } from '@material-ui/core';
 import { red, green } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -45,7 +46,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }));
 
-const StyledBadge = withStyles((theme) => ({
+const OnlineStyledBadge = withStyles((theme) => ({
     badge: {
         backgroundColor: '#44b700',
         color: '#44b700',
@@ -73,6 +74,65 @@ const StyledBadge = withStyles((theme) => ({
         },
     },
 }))(Badge);
+
+const OfflineStyledBadge = withStyles((theme) => ({
+    badge: {
+        backgroundColor: theme.palette.grey[500],
+        color: theme.palette.grey[500],
+        
+        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        '&::after': {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            border: '1px solid currentColor',
+            content: '""',
+        },
+    },
+    '@keyframes ripple': {
+        '0%': {
+            transform: 'scale(.8)',
+            opacity: 1,
+        },
+        '100%': {
+            transform: 'scale(2.4)',
+            opacity: 0,
+        },
+    },
+}))(Badge);
+
+const OnlineBadge = props => {
+    
+    if(props.contact.socketId && props.contact.friendShipStatus === 1){
+        return (<OnlineStyledBadge
+                overlap="circle"
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    variant="dot"
+                >
+                    {props.children}
+                </OnlineStyledBadge>)
+            ;
+    }
+    else {
+        return (<OfflineStyledBadge
+            overlap="circle"
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                variant="dot"
+            >
+                {props.children}
+            </OfflineStyledBadge>)
+        ;
+    }
+}
 
 const StyledMenu = withStyles({
     paper: {
@@ -119,32 +179,26 @@ const CustomTooltip = props => {
 
 
 const ContactView = ({idioma, contact, handleMenu,
-    handleClose, anchorEl}) => {
-
-
+    handleClose, anchorEl, openChat}) => {
+    const history = useHistory();
     const lastMsg = `A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A`;
     
     const classes = useStyle();
 
     const labelId = `checkbox-list-secondary-label-${contact.email}`;
     return (<React.Fragment key={contact.email}>
-        <ListItem button>
+        <ListItem button onClick={openChat}>
             <ListItemAvatar>
-                <StyledBadge
-                    overlap="circle"
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                    }}
-                    variant="dot"
-                >
+                {
+                <OnlineBadge contact={contact}>
                     <Badge color="secondary" badgeContent="5">
                         <Avatar
                             alt={`Avatar n°${contact.nickname}`}
                             src={`${DEFAULT_CONFIG.server}${contact.avatarUrl}`}
                         />
                     </Badge>
-                </StyledBadge>
+                </OnlineBadge>
+                }
             </ListItemAvatar>
             <ListItemText
                 id={labelId}
@@ -174,17 +228,18 @@ const ContactView = ({idioma, contact, handleMenu,
                 <IconButton edge="end" aria-label="delete" onClick={handleMenu}>
                     <MoreVertIcon fontSize="default"/>
                 </IconButton>
+                <StyledMenu
+                    id="customized-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >   
+                    <ActionProxy handleClose={handleClose} contact={contact}/>
+                </StyledMenu>
             </ListItemSecondaryAction>
             
-            <StyledMenu
-                id="customized-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >   
-                <ActionProxy handleClose={handleClose} contact={contact}/>
-            </StyledMenu>
+            
 
 
         </ListItem>

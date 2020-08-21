@@ -1,8 +1,8 @@
 import React from 'react';
-import ChatHeaderView from './chatHeader.view';
+import ChatHeaderController from './chatHeader.controller';
 const ChatHeader = props => {
 
-    return <ChatHeaderView />;
+    return <ChatHeaderController {...props}/>;
 
 }
 export default ChatHeader;

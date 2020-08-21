@@ -25,7 +25,7 @@ import { loginData} from './components/recoil/atoms';
 
   */
 
-const AuthMiddleware = (nextOptimisticAction, nextPesimisticAction = null) => {
+const AuthMiddleware = async (nextOptimisticAction, nextPesimisticAction = null) => {
     // Revisar si el token esta en timepo
     const token = localStorage.getItem('token');
     const token_expires = localStorage.getItem('token_expires');
@@ -34,6 +34,9 @@ const AuthMiddleware = (nextOptimisticAction, nextPesimisticAction = null) => {
 
     if (token && token_expires && new Date(token_expires).getTime() > new Date().getTime()) {
       console.log('ejecuta optimistic 1');
+      const dataOptimistic = await nextOptimisticAction(token);
+      console.log(dataOptimistic);
+      return dataOptimistic;
       return nextOptimisticAction(token);
     } else {
       const refresh_token = localStorage.getItem('refresh_token');

@@ -3,7 +3,7 @@ import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
 import {idiomaState, chatConversation, loginData, view} from '../recoil/atoms';
 import text from './idioma.json';
 import Message from './message';
-import socket from '../socket';
+import socket from '../../utils/socket';
 import FriendHeader from './friendHeader/friendHeader';
 
 const Chat = props => {

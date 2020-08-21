@@ -1,0 +1,39 @@
+{
+    "disconnected": {
+        "es": "se ha desconectado",
+        "en": "has disconnected"
+    },
+    "connected": {
+        "es": "se ha conectado",
+        "en": "has connected"
+    },
+    
+    "accept":{
+        "es": "te ha aceptado",
+        "en": "has accepted you"
+    },
+    "decline":{
+        "es": "te ha rechazado",
+        "en": "has declined you"
+    },
+    "delete":{
+        "es": "te ha eliminado",
+        "en": "has deleted you"
+    },
+    "block":{
+        "es": "te he bloqueado",
+        "en": "has bloqued you"
+    },
+    "errorLoadingFriends":{
+        "es": "Error al cargar contactos",
+        "en": "Error while loading contacts"
+    },
+    "requestedInv":{
+        "es": "solicita ser su amigo",
+        "en": "request be your friend"
+    },
+    "declinedInv":{
+        "es": "ha cancelado la solicitud de amistad",
+        "en": "cancel the friend request"
+    }
+}

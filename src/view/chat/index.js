@@ -1,8 +1,9 @@
 import React from 'react';
-import ChatView from './chat.view';
+import ChatController from './chat.controller';
+
 const Chat = props => {
 
-    return <ChatView />;
+    return <ChatController />;
 
 }
 export default Chat;

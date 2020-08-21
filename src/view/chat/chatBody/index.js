@@ -1,8 +1,8 @@
 import React from 'react';
-import ChatBodyView from './chatBody.view';
+import ChatBodyController from './chatBody.controller';
 const ChatBody = props => {
 
-    return <ChatBodyView />;
+    return <ChatBodyController />;
 
 }
 export default ChatBody;

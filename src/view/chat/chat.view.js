@@ -2,15 +2,15 @@ import React from 'react';
 
 
 
-import ChatHEader from './chatHeader';
+import ChatHeader from './chatHeader';
 import ChatBody from './chatBody';
 import ChatEditor from './chatEditor';
 
-const ChatView = props => {
+const ChatView = ({closeChat}) => {
 
     return (
         <>
-            <ChatHEader />
+            <ChatHeader closeChat={closeChat}/>
             <ChatBody />
             <ChatEditor />
         </>

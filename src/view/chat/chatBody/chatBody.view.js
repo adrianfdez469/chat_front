@@ -2,7 +2,7 @@ import React from 'react';
 
 import {makeStyles} from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
-
+import {DEFAULT_CONFIG} from '../../../conf/configuration';
 
 const msgStatus = {
     "PUSHED": 1,
@@ -96,18 +96,19 @@ const useMessageStyle = makeStyles(theme => ({
     }
 }));
 
-const Message = ({myMsg = true, msg, style}) => {
+const Message = ({myMsg = true, msg, style, contact, avatarSrc}) => {
 
     const classes = useMessageStyle();
 
     const msgStyle = myMsg ? classes.mymsg : classes.notmymsg;
     const avatarStyle = myMsg ? classes.myMsgAvatar : classes.notMyMsgAvatar;
+    const avatarUrl = myMsg ? avatarSrc :  DEFAULT_CONFIG.server + contact.avatarUrl;
 
     return (<>
         <div className={`${classes.message} ${msgStyle}`} style={style}>
             <Avatar
-                alt={`Avatar n°${1}`}
-                src={`/static/images/avatar/${1}.jpg`}
+                alt={contact.nickname}
+                src={avatarUrl}
                 variant="circle"
                 className={`${classes.msgAvatar} ${avatarStyle}`}
                 
@@ -136,7 +137,7 @@ const useChatStyle = makeStyles(theme => ({
     }
 }));
 
-const ChatBodyView = props => {
+const ChatBodyView = ({contact, avatarSrc}) => {
 
     const classes = useChatStyle();
     return (
@@ -154,7 +155,7 @@ const ChatBodyView = props => {
                             style.borderRadius = elem.myMsg ? "10px 10px 10px 10px" : "10px 10px 10px 10px";
                         }
                         
-                        return <Message {...elem} key={idx} style={style}/>
+                        return <Message {...elem} key={idx} style={style} contact={contact} avatarSrc={avatarSrc}/>
                     })}
                     <div className={classes.offsetDown} />
                 </div>

@@ -6,9 +6,11 @@ import {DEFAULT_CONFIG} from '../../conf/configuration';
 import AddContactView from './addContact.view';
 import authMiddleware from '../../authMiddleware';
 import text from './idioma.json';
-import {addContactViewOpenState, friendSelector} from '../../components/recoil/atoms';
+import {addContactViewOpenState, loginData/*, friendSelector*/} from '../../components/recoil/atoms';
+import {friendSelector} from '../../components/recoil/selectors';
 
 import {idiomaState} from '../../components/recoil/atoms'
+import socketClient from '../../utils/socket';
 
 const AddContactController = props => {
     const idioma = useRecoilValue(idiomaState); 
@@ -16,8 +18,10 @@ const AddContactController = props => {
     const [users, setUsers] = useState([]);
     const {openErrorNotification} = useNotificationHook();
     const inputSearchRef = useRef({value: ''});
+    const userData = useRecoilValue(loginData);
 
-    const addContact = useSetRecoilState(friendSelector);
+    //const addContact = useSetRecoilState(friendSelector);
+    const friendDispatcher = useSetRecoilState(friendSelector);
     
 
     const buscarUsuarios = () => {
@@ -64,9 +68,18 @@ const AddContactController = props => {
                         return users.filter(user => user.userId !== userId);
                     });
 
-                    addContact(resp.data.friend);
-
+                    //addContact(resp.data.friend);
+                    friendDispatcher({action: 'add', payload: {friend: resp.data.friend}});
+                    
                 }
+            })
+            .then(() => {
+                const client = socketClient.getSocket();
+                client.emit('request friendship', {
+                    userIdRequester: userData.userId,
+                    userIdRequested: userId,
+                    token: token
+                });
             })
             .catch(err => {
                 openErrorNotification(text.lbErrorSendigFriendRequest[idioma]);

@@ -1,18 +1,22 @@
 import React from 'react';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import axios from 'axios';
-import {idiomaState, updateFriendSelector} from '../../../../components/recoil/atoms';
+import {idiomaState, loginData/*, updateFriendSelector*/} from '../../../../components/recoil/atoms';
+import {friendSelector} from '../../../../components/recoil/selectors';
 import { DEFAULT_CONFIG } from '../../../../conf/configuration';
 import useNotificationHook from '../../../../components/uiComponents/notification/notification.hook';
 import authMiddleware from '../../../../authMiddleware';
 import AcceptInvActionView from './acceptinv.view';
 import text from './idioma.json';
+import socketClient from '../../../../utils/socket';
 
 const AcceptInvActionController = ({preAction, contact}) => {
 
     const idioma = useRecoilValue(idiomaState);
+    const userData = useRecoilValue(loginData);
     const {openErrorNotification} = useNotificationHook();
-    const switchContact = useSetRecoilState(updateFriendSelector);
+    //const switchContact = useSetRecoilState(updateFriendSelector);
+    const friendDispatcher = useSetRecoilState(friendSelector);
 
     const onClick = () => {
         preAction();
@@ -25,9 +29,16 @@ const AcceptInvActionController = ({preAction, contact}) => {
                 }
             })
             .then(resp => {
-                console.log(resp.data.friend);
                 if(resp.status === 200){
-                    switchContact(resp.data.friend);
+                    //switchContact(resp.data.friend);
+                    friendDispatcher({action: 'update', payload: {friend: {...resp.data.friend, socketId: contact.socketId}}});
+                    const client = socketClient.getSocket();
+                    
+                    client.emit('accept friendship', {
+                        accepterId: userData.userId,
+                        socketIdRequester: contact.socketId,
+                        token: token
+                    });
                 }
             })
             .catch(err => {

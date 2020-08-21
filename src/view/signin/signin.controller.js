@@ -26,7 +26,6 @@ const SigninController = props => {
     useEffect(() => {
         
         const optimisticAction = token => {
-            console.log('ejecuta el optimistica action');
             axios.post(`${DEFAULT_CONFIG.server}/users/loginWithToken`,{
                 token: token
             })
@@ -51,7 +50,7 @@ const SigninController = props => {
                     });
                     setIdiomaState(language);
                     setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
-    
+
                     setRedirect(true);
                 }
             })
@@ -110,11 +109,6 @@ const SigninController = props => {
                 localStorage.setItem('token_expires', token_expires);
                 localStorage.setItem('refresh_token_expires', refresh_token_expires);
 
-                
-                /*setAuthTokenState({
-                    token: token,
-                    token_expiry: token_expires
-                });*/
                 setLoginData({
                     userId: _id, 
                     nickname: nickname,

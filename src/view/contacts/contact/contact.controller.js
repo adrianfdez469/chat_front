@@ -18,7 +18,7 @@ const ContactContrller = ({contact}) => {
         setAnchorEl(null);
     };
 
-    const openChat = () => {
+    const openChat = () => {        
         setActiveChat(contact.contactId);
     }
 

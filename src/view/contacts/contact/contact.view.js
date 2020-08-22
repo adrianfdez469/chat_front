@@ -180,7 +180,6 @@ const CustomTooltip = props => {
 
 const ContactView = ({idioma, contact, handleMenu,
     handleClose, anchorEl, openChat}) => {
-    const history = useHistory();
     const lastMsg = `A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A`;
     
     const classes = useStyle();

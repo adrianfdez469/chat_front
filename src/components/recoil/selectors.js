@@ -1,6 +1,6 @@
 import {selector} from 'recoil';
 
-import {friendsAtom, idiomaState} from './atoms';
+import {friendsAtom, idiomaState, messagesAtom, getConversationWithContact} from './atoms';
 
 const friendSelector = selector({
     key: 'friendSelector',
@@ -118,4 +118,57 @@ const friendSelector = selector({
     }
 });
 
-export {friendSelector}
+
+
+const messageStates = {
+    'NINGUNO': 0, // Cuando no es enviado por el propio usuario, sino que se lo enviaron a el, por lo que los estados no tienen sentido para este tipo de mensajes
+    'ENVIADO': 1,
+    'GUARDADO': 2,
+    'LEIDO': 3
+};
+
+const initConversationSelector = selector({
+    key:'conversationSelector',
+    set: ({set}, {contactId, conversation}) => {
+
+        const getMessageState = (userOriginId, UserDestinyId, contactId, readed) => {
+
+            if(userOriginId === contactId){
+                return 0;
+            }else if(UserDestinyId === contactId){
+                return readed ? 3 : 2;
+            }
+        }
+
+        set(getConversationWithContact(contactId), oldConversation => {
+            return conversation.map(message => {
+                return {
+                    _id: message._id,
+                    content: message.content,
+                    datetime: message.datetime,
+                    state: getMessageState(message.userOrigin, message.userDestiny, contactId, message.readed)
+                };
+            })
+        });
+    }
+});
+
+const addMsgToConversationSelector = selector({
+    key: 'addMessageToConversation',
+    set: ({set}, {contactId, messageId, content, datetime, state}) => {
+        const newMessageObj = {
+            _id: messageId,
+            content: content,
+            datetime: datetime,
+            state: state
+        };
+        
+        
+        set(getConversationWithContact(contactId), oldConversation => {
+            return oldConversation.concat([newMessageObj]);
+        });
+
+    }
+});
+
+export {friendSelector, initConversationSelector, addMsgToConversationSelector}

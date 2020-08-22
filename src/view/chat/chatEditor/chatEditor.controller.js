@@ -1,13 +1,55 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {loginData, activeChatWith} from '../../../components/recoil/atoms';
+import {friendSelector, addMsgToConversationSelector} from '../../../components/recoil/selectors';
 import ChatEditorView from './chatEditor.view';
+import socketClient from '../../../utils/socket';
 
 const ChatEditorController = props => {
 
-    const sendMsg = () => {
-        
+    const userData = useRecoilValue(loginData);
+    const addMsgToConversation = useSetRecoilState(addMsgToConversationSelector);
+    const idContact = useRecoilValue(activeChatWith);
+    const friends = useRecoilValue(friendSelector);
+    const contact = friends.find(f => f.contactId === idContact);
+    const refAreaTexto = useRef('');
+
+    const sendMessage = () => {
+
+        const oldtext = refAreaTexto.current.innerText;
+        const text = oldtext.replace(/^(\s*\r*)(.)(\s*\r*)$/, '$2');
+        if(text !== ''){
+            const client = socketClient.getSocket();
+            client.emit('send message', {
+                content: refAreaTexto.current.innerText,
+                userOriginId: userData.userId,
+                userDestinyId: idContact,
+                toSocketId: contact.socketId,
+                token: localStorage.getItem('token')
+            });
+
+            refAreaTexto.current.innerText = '';
+            refAreaTexto.current.focus();
+        }
     }
 
-    return <ChatEditorView />;
+    const keyPress = (event) => {
+        
+        if(event.charCode === 13){
+            event.preventDefault();
+            sendMessage();
+        }
+    }
+
+    useEffect(() => {
+        refAreaTexto.current.focus();
+    });
+
+    return <ChatEditorView 
+        sendMessage={sendMessage}
+        keyPress={keyPress}
+        refAreaTexto={refAreaTexto}
+    />;
 
 }
 export default ChatEditorController;

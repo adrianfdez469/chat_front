@@ -33,6 +33,7 @@ import RequestFriendSubscriber from './components/events/requestFriendshipSubscr
 import AcceptFriendshipSubscriber from './components/events/acceptedFriendshipSubscriber';
 import DeletedContactSubscriber from './components/events/deletedContactSubscriber';
 import BlokedContactSubscriber from './components/events/blokedContactSubscriber';
+import RecibedMessageSubscriber from './components/events/recibedMessageSubscriber';
 import {SnackbarProvider} from 'notistack';
 import {idiomaState} from './components/recoil/atoms';
 
@@ -101,6 +102,7 @@ const App = props => {
                                 <AcceptFriendshipSubscriber />
                                 <DeletedContactSubscriber />
                                 <BlokedContactSubscriber />
+                                <RecibedMessageSubscriber />
                             </>: null
             }
         </SnackbarProvider>

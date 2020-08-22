@@ -35,5 +35,9 @@
     "declinedInv":{
         "es": "ha cancelado la solicitud de amistad",
         "en": "cancel the friend request"
+    },
+    "writingYou":{
+        "es": "ha escrito",
+        "en": "has whritten"
     }
 }

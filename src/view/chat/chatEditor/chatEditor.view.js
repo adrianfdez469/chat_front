@@ -44,15 +44,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const ChatEditorView = props => {
+const ChatEditorView = ({sendMessage, refAreaTexto, keyPress}) => {
     const classes = useStyles();
 
     return (
         <AppBar color="primary"  className={classes.appBar}>
             <Toolbar variant="dense" className={classes.toolbar}>
-                <div className={classes.textarea} role="textbox" contentEditable></div>
+                <div className={classes.textarea} role="textbox" contentEditable ref={refAreaTexto} onKeyPress={keyPress}></div>
                 <div className={classes.grow} />
-                <IconButton color="inherit">
+                <IconButton color="inherit" onClick={sendMessage}>
                     <TelegramIcon className={classes.icon}/>
                 </IconButton>                
             </Toolbar>

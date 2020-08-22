@@ -1,3 +1,4 @@
+
 import {atom, selector} from 'recoil';
 
 const getDefaultLanguage= () => {
@@ -85,9 +86,19 @@ const activeChatWith = atom({
     default: null
 });
 
+const getConversationWithContact = contactId => atom({
+    key: `conversationWith_${contactId}`,
+    default: []
+});
+
+const messagesAtom = atom({
+    key: 'messagesAtom',
+    default: null
+});
+
 export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
     backdropState, userAvatarState, addContactViewOpenState,
     friendsAtom, 
     clearUserDataSelector,
-    activeChatWith
+    activeChatWith, messagesAtom, getConversationWithContact
 };

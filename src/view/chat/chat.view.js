@@ -6,11 +6,11 @@ import ChatHeader from './chatHeader';
 import ChatBody from './chatBody';
 import ChatEditor from './chatEditor';
 
-const ChatView = ({closeChat}) => {
+const ChatView = () => {
 
     return (
         <>
-            <ChatHeader closeChat={closeChat}/>
+            <ChatHeader />
             <ChatBody />
             <ChatEditor />
         </>

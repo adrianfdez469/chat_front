@@ -2,51 +2,12 @@ import React from 'react';
 
 import {makeStyles} from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
+import { grey, lightGreen, green } from '@material-ui/core/colors';
+import DoneIcon from '@material-ui/icons/Done';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
 import {DEFAULT_CONFIG} from '../../../conf/configuration';
-
-const msgStatus = {
-    "PUSHED": 1,
-    "SENDED": 2,
-    "RECIVED": 3,
-    "SEENED": 4
-};
-
-const conversation = {
-    active: '1A13254',
-    '1A13254':{
-        text: [
-            
-            
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas? 1213", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Hola, como estas?", datetime: ""},
-            {myMsg: false, msgStatus: null , msg: "Todo bien", datetime: ""},
-            {myMsg: false, msgStatus: null , msg: "Y tu y tu familia estan bien?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SEENED , msg: "Si por suerte todos estamos bien por aca, la pandemia nos tienes vielto locos por el lio de la cuarentena y el tema de que no se puede salir a la calle.", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.RECIVED , msg: "Queria hacerte una pregunta", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.SENDED , msg: "Sabes programar en JavaScript?", datetime: ""},
-            {myMsg: true, msgStatus: msgStatus.PUSHED , msg: "Es que tengo varias dudas sobre el tema", datetime: ""}
-
-        ]
-    }
-}
+import { formatRelative, subDays } from 'date-fns'
+import { es } from 'date-fns/locale'
 
 const useMessageStyle = makeStyles(theme => ({
     message: {
@@ -64,11 +25,11 @@ const useMessageStyle = makeStyles(theme => ({
     },
     timeMessage: {
         paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
+        //paddingRight: theme.spacing(2),
         maxWidth: '60%',
         marginBottom: theme.spacing(1),
         marginLeft: `${theme.spacing(2)}px`,
-        marginRight: `${theme.spacing(2)}px`,
+        marginRight: `${theme.spacing(1)}px`,
         color: theme.palette.text.disabled,
         ...theme.typography.subtitle2
     },
@@ -93,19 +54,35 @@ const useMessageStyle = makeStyles(theme => ({
     },
     notMyMsgAvatar: {
         left: `-${theme.spacing(1.5)}px`
+    },
+    doneIcon: {
+        marginRight: theme.spacing(1),
+        fontSize: theme.spacing(2.2)
     }
 }));
 
-const Message = ({myMsg = true, msg, style, contact, avatarSrc}) => {
+const Message = ({state, content, datetime ,contact, avatarSrc, idioma}) => {
 
     const classes = useMessageStyle();
 
-    const msgStyle = myMsg ? classes.mymsg : classes.notmymsg;
-    const avatarStyle = myMsg ? classes.myMsgAvatar : classes.notMyMsgAvatar;
-    const avatarUrl = myMsg ? avatarSrc :  DEFAULT_CONFIG.server + contact.avatarUrl;
+    const msgStyle = state > 0 ? classes.mymsg : classes.notmymsg;
+    const avatarStyle = state > 0 ? classes.myMsgAvatar : classes.notMyMsgAvatar;
+    const avatarUrl = state > 0 ? avatarSrc : DEFAULT_CONFIG.server + contact.avatarUrl;
+
+    //const date = new Date(datetime);
+    const options = idioma === 'es' ? { locale: es } : {};
+    const date = formatRelative(new Date(datetime), new Date(), options)
+    //formatRelative(subDays(new Date(), 3), new Date(), { locale: es })
+    //console.log(date);
+
+    let stateIcon = null;
+    if(state === 1) stateIcon = <DoneIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
+    if(state === 2) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
+    if(state === 3) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: lightGreen[500] }}/>
+    
 
     return (<>
-        <div className={`${classes.message} ${msgStyle}`} style={style}>
+        <div className={`${classes.message} ${msgStyle}`}>
             <Avatar
                 alt={contact.nickname}
                 src={avatarUrl}
@@ -113,9 +90,16 @@ const Message = ({myMsg = true, msg, style, contact, avatarSrc}) => {
                 className={`${classes.msgAvatar} ${avatarStyle}`}
                 
             />
-            {msg}
+            {content}
         </div>
-        <span className={`${classes.timeMessage} ${msgStyle}`}>Hora: 5:50PM</span></>
+        <span className={` ${msgStyle}`}>
+            <span className={`${classes.timeMessage}`}>
+                {date}
+            </span>
+            {stateIcon}
+        </span>
+        
+    </>
     );
 }
 
@@ -137,26 +121,24 @@ const useChatStyle = makeStyles(theme => ({
     }
 }));
 
-const ChatBodyView = ({contact, avatarSrc}) => {
+const ChatBodyView = ({contact, avatarSrc, messages, idioma}) => {
+
+    React.useEffect(() => {
+        var element = document.getElementById('chatConversation');
+        if(element)
+            element.scrollTop = element.scrollHeight;
+    });
 
     const classes = useChatStyle();
     return (
         
-                <div className={classes.chatConversation}>
-                <div className={classes.offset} />
-                    {conversation[conversation.active].text.map((elem, idx, arr) => {
-                        const style = {};
-
-                        if(arr[idx + 1] && elem.myMsg === arr[idx+1].myMsg){
-                            style.marginBottom = '-3px';
-                            style.borderRadius = elem.myMsg ? "10px 0px 10px 10px" : "0 10px 10px 10px";
-                        }
-                        if(idx > 0 && elem.myMsg === arr[idx-1].myMsg){
-                            style.borderRadius = elem.myMsg ? "10px 10px 10px 10px" : "10px 10px 10px 10px";
-                        }
-                        
-                        return <Message {...elem} key={idx} style={style} contact={contact} avatarSrc={avatarSrc}/>
-                    })}
+                <div id="chatConversation" className={classes.chatConversation}>
+                    <div className={classes.offset} />
+                    {
+                        messages.map((elem, idx, arr) => {
+                            return <Message {...elem} key={idx} contact={contact} avatarSrc={avatarSrc} idioma={idioma}/>
+                        })
+                    }
                     <div className={classes.offsetDown} />
                 </div>
 

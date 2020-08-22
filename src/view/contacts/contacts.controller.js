@@ -7,6 +7,7 @@ import text from './idioma.json';
 import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
 import {idiomaState, subscribeToEventsState/*friendSelector*/ /*, friendsAtom*/} from '../../components/recoil/atoms';
 import {friendSelector} from '../../components/recoil/selectors';
+import useAxiosHook from '../../utils/axiosHook';
 
 import ContactsView from './contacs.view';
 
@@ -17,40 +18,49 @@ const ContactsController = props => {
     const setSubscribeToEvents = useSetRecoilState(subscribeToEventsState);
     const {openErrorNotification} = useNotificationHook();
     //const setContacts = useSetRecoilState(friendsAtom);
+    const {postRequest} = useAxiosHook();
     
     //const [contacts, addContact] = useRecoilState(friendSelector);
     const [contacts, friendDispatcher] = useRecoilState(friendSelector);
 
     const idioma = useRecoilValue(idiomaState);
 
-
-    const searchFriends = () => {
-        console.log('Cargando listado de amigos...');
-        
-        const optimisticAction = token => {
-            axios.post(`${DEFAULT_CONFIG.server}/users/searchFirends`,{},
-            {
-                headers: {
-                    'Authorization': token
-                }
-            })
-            .then(resp => {
+    const getFriendData = () => {
+        postRequest({
+            url: '/users/getContactData',
+            messageOnError: text.errorLoadingFriendsData[idioma],
+            doFnAfterSuccess: resp => {
                 if(resp.status === 200){
                     friendDispatcher({
-                        action: 'initialize', 
+                        action: 'set_message_info',
                         payload: {
-                            friends: resp.data.friends
-                        }});
+                            dataObj: resp.data.contactsData
+                        }
+                    });
                 }
-            })
-            .then(() => {
-                setSubscribeToEvents(true);
-            })
-            .catch(err => {
-                openErrorNotification(text.errorLoadingFriends[idioma])
+            }
+        });
+    }
+    const searchFriends = () => {
+        if(contacts.length === 0){
+            postRequest({
+                url: '/users/searchFirends',
+                messageOnError: text.errorLoadingFriends[idioma],
+                doFnAfterSuccess: resp => {
+                    if(resp.status === 200){
+                        friendDispatcher({
+                            action: 'initialize', 
+                            payload: {
+                                friends: resp.data.friends
+                            }});
+                        setSubscribeToEvents(true);
+                        if(resp.data.friends.length > 0){
+                            getFriendData();
+                        }
+                    }
+                }
             });
         }
-        authMiddleware(optimisticAction);
     }
 
     useEffect(() => {

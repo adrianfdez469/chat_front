@@ -11,8 +11,6 @@ const ChatHeaderController = () => {
     const contact = friends.find(f => f.contactId === idContact);
 
     const closeChat = () => {
-        console.log('close chat');
-        
         setActiveChatWith(null);
     }
     

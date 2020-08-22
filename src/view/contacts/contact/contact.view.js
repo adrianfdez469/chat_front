@@ -180,7 +180,7 @@ const CustomTooltip = props => {
 
 const ContactView = ({idioma, contact, handleMenu,
     handleClose, anchorEl, openChat}) => {
-    const lastMsg = `A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A`;
+    const lastMsg = contact.lastMsg ? contact.lastMsg : '' ;
     
     const classes = useStyle();
 
@@ -190,12 +190,18 @@ const ContactView = ({idioma, contact, handleMenu,
             <ListItemAvatar>
                 {
                 <OnlineBadge contact={contact}>
-                    <Badge color="secondary" badgeContent="5">
+                    {contact.unread && contact.unread > 0 
+                    ? <Badge color="secondary" badgeContent={contact.unread}>
                         <Avatar
                             alt={`Avatar n°${contact.nickname}`}
                             src={`${DEFAULT_CONFIG.server}${contact.avatarUrl}`}
                         />
                     </Badge>
+                    : <Avatar
+                            alt={`Avatar n°${contact.nickname}`}
+                            src={`${DEFAULT_CONFIG.server}${contact.avatarUrl}`}
+                        />
+                    }
                 </OnlineBadge>
                 }
             </ListItemAvatar>

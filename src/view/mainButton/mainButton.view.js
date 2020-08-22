@@ -40,7 +40,7 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
             tooltipOpen
             onClick={openAddContactView}
           />
-          <SpeedDialAction
+          {/*<SpeedDialAction
             key='addgroup'
             icon={<GroupAddIcon color="error"/>}
             tooltipTitle={text.addGroup[idioma]}
@@ -69,7 +69,7 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
               console.log('Compartir la aplicacion por correo electronivo');
               alert('Not implemented!')
             }}
-          />
+          />*/}
         </SpeedDial>
       </>
     );

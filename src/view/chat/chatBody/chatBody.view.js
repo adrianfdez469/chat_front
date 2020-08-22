@@ -69,12 +69,9 @@ const Message = ({state, content, datetime ,contact, avatarSrc, idioma}) => {
     const avatarStyle = state > 0 ? classes.myMsgAvatar : classes.notMyMsgAvatar;
     const avatarUrl = state > 0 ? avatarSrc : DEFAULT_CONFIG.server + contact.avatarUrl;
 
-    //const date = new Date(datetime);
     const options = idioma === 'es' ? { locale: es } : {};
     const date = formatRelative(new Date(datetime), new Date(), options)
-    //formatRelative(subDays(new Date(), 3), new Date(), { locale: es })
-    //console.log(date);
-
+    
     let stateIcon = null;
     if(state === 1) stateIcon = <DoneIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
     if(state === 2) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: grey[500] }}/>

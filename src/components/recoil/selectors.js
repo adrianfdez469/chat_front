@@ -5,7 +5,6 @@ import {friendsAtom, idiomaState, messagesAtom, getConversationWithContact} from
 const friendSelector = selector({
     key: 'friendSelector',
     get: ({get}) => {
-        console.log(get(friendsAtom));
         if(get(friendsAtom).length > 0){
             const friends = [...get(friendsAtom)];
 
@@ -54,6 +53,35 @@ const friendSelector = selector({
                     return friends;
                 });
                 break;
+            case 'reset_cant_no_leidos':
+                set(friendsAtom, oldFriends => {
+                    const index = oldFriends.findIndex(friend => friend.contactId === payload.contactId);
+                    return oldFriends.slice(0, index).concat([{...oldFriends[index], unread: 0}]).concat(oldFriends.slice(index+1));
+                });
+                break;
+            case 'set_message_info': // Para poner la cantidad de mensajes sin leer, el ultimo mensaje y la fecha del ultimo mensaje
+                set(friendsAtom, oldFriends => {
+                    const data = payload.dataObj;
+                    const newFriends = oldFriends.map(friend => {
+                        if(data[friend.contactId]){
+                            let cantidad = 0;
+                            if(friend.unread){
+                                cantidad = friend.unread;
+                            }
+                            if(data[friend.contactId].cantidad){
+                                cantidad += data[friend.contactId].cantidad; 
+                            }
+                            return {...friend, 
+                                unread:  cantidad,
+                                lastMsg: data[friend.contactId].lastMessage,
+                                datetime: data[friend.contactId].datetime
+                            }
+                        }
+                        return friend;
+                    });
+                    return newFriends;
+                });
+            break;
             case 'delete':
                 set(friendsAtom, oldFriends => {
                     return oldFriends.filter(f => f.contactId !== payload.friendId);
@@ -161,8 +189,7 @@ const addMsgToConversationSelector = selector({
             content: content,
             datetime: datetime,
             state: state
-        };
-        
+        };        
         
         set(getConversationWithContact(contactId), oldConversation => {
             return oldConversation.concat([newMessageObj]);
@@ -171,4 +198,32 @@ const addMsgToConversationSelector = selector({
     }
 });
 
-export {friendSelector, initConversationSelector, addMsgToConversationSelector}
+
+const editMsgToStateSavedSelector = selector({
+    key: 'editMsgToStateSavedSelector',
+    set: ({set}, {contactId, messageId, datetime, consecutive}) => {
+        
+        set(getConversationWithContact(contactId), oldConversation => {
+            
+            const index = oldConversation.findIndex(message => message._id === consecutive && message.state === 1);
+            if(index >= 0){
+                const modMessage = {...oldConversation[index], state: 2, _id: messageId, datetime: datetime};
+                return oldConversation.slice(0, index).concat([modMessage]).concat(oldConversation.slice(index+1));
+            }
+            return oldConversation;
+        });
+    }
+});
+
+const editAllMsgToSavedSelector = selector({
+    key: 'editAllMsgToSavedSelector',
+    set: ({set}, {contactId}) => {
+        set(getConversationWithContact(contactId), oldConversation => {
+            return oldConversation.map(message => {
+                return {...message, state: 3}
+            });
+        });
+    }
+});
+
+export {friendSelector, initConversationSelector, addMsgToConversationSelector, editMsgToStateSavedSelector, editAllMsgToSavedSelector}

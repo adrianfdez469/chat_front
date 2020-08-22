@@ -33,16 +33,13 @@ const AuthMiddleware = async (nextOptimisticAction, nextPesimisticAction = null)
     
 
     if (token && token_expires && new Date(token_expires).getTime() > new Date().getTime()) {
-      console.log('ejecuta optimistic 1');
       const dataOptimistic = await nextOptimisticAction(token);
-      console.log(dataOptimistic);
       return dataOptimistic;
       return nextOptimisticAction(token);
     } else {
       const refresh_token = localStorage.getItem('refresh_token');
       const refresh_token_expires = localStorage.getItem('refresh_token_expires');
       if (refresh_token && refresh_token_expires && new Date(refresh_token_expires).getTime() > new Date().getTime()) {
-        console.log('ejecuta optimistic 2');
         return axios.post(`${DEFAULT_CONFIG.server}/users/refreshtoken`, {
           expiredToken: token, refresh_token: refresh_token
         })

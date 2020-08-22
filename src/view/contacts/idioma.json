@@ -3,6 +3,10 @@
         "es": "Error al cargar contactos",
         "en": "Error while loading contacts"
     },
+    "errorLoadingFriendsData": {
+        "es": "Error al cargar datos de contactos",
+        "en": "Error while loading contacts data"
+    },
     "delete":{
         "es": "Eliminar",
         "en": "Delete"

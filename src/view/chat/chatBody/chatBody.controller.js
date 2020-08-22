@@ -22,30 +22,32 @@ const ChatBodyController = () => {
 
 
     const loadConversation = () => {
-        postRequest({
-            url: '/messages/getMessagesByContact',
-            messageOnError: text.errorLoadConversation[idioma],
-            bodyParams: {contactId: contact.contactId},
-            doFnAfterSuccess: (resp, token) => {
-                if(resp.status === 200){
-                    
-                    initConversation({
-                        contactId: contact.contactId,
-                        conversation: resp.data.conversation
-                    });
-
-
-                    const client = socketClient.getSocket();
-                    client.emit('read messages', {
-                        readerId: userDate.userId,
-                        messengerId: contact.contactId,
-                        messengerSocketId: contact.socketId,
-                        token: token
-                    });
-                }
-            },
-            //doFnAfterError: err => console.log(err)
-        });
+        if(messages.length === 0){
+            postRequest({
+                url: '/messages/getMessagesByContact',
+                messageOnError: text.errorLoadConversation[idioma],
+                bodyParams: {contactId: contact.contactId},
+                doFnAfterSuccess: (resp, token) => {
+                    if(resp.status === 200){
+                        
+                        initConversation({
+                            contactId: contact.contactId,
+                            conversation: resp.data.conversation
+                        });
+    
+    
+                        const client = socketClient.getSocket();
+                        client.emit('read messages', {
+                            readerId: userDate.userId,
+                            messengerId: contact.contactId,
+                            messengerSocketId: contact.socketId,
+                            token: token
+                        });
+                    }
+                },
+                //doFnAfterError: err => console.log(err)
+            });
+        }
     }
 
     useEffect(() => {

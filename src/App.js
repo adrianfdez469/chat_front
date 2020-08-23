@@ -15,6 +15,8 @@ import Backdrop from './components/backdrop/backdrop';*/
 import {Switch, Route, Redirect} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import Signin from './view/signin';
 import ContactList from './view/contacts';
 import MainButton from './view/mainButton';
@@ -80,9 +82,9 @@ const App = props => {
             }}
             ref={notistackRef}
             action={(key) => (
-                <Button variant="outlined" size="small" color="inherit" onClick={onClickDismiss(key)}>
-                    {idioma === 'es' ?  "Cerrar" : "Close"}
-                </Button>
+                <IconButton onClick={onClickDismiss(key)}>
+                    <CloseIcon fontSize="small" style={{color: 'white'}} />
+                </IconButton>
             )}
         >
             <Switch>

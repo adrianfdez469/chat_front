@@ -4,17 +4,17 @@ import axios from 'axios';
 import {tokenTimeoutAtom} from '../components/recoil/atoms';
 import useLogout from './useLogout';
 import {DEFAULT_CONFIG} from '../conf/configuration'
+import { useCallback } from 'react';
 
 const useRefreshToken = () => {
 
     const setTokenTimeout = useSetRecoilState(tokenTimeoutAtom);
     const logout = useLogout();
-
-    const token = localStorage.getItem('token');
-    const refresh_token = localStorage.getItem('refresh_token');
-    const refresh_token_expires = localStorage.getItem('refresh_token_expires');
     
-    const refreshToken = () => {
+    const refreshToken = useCallback(() => {
+        const token = localStorage.getItem('token');
+        const refresh_token = localStorage.getItem('refresh_token');
+        const refresh_token_expires = localStorage.getItem('refresh_token_expires');
         if (refresh_token && refresh_token_expires && new Date(refresh_token_expires).getTime() > new Date().getTime()) {
             console.log('Antes de llamar al endpoint refreshtoken');
             
@@ -31,22 +31,16 @@ const useRefreshToken = () => {
                   setTokenTimeout({
                         timeleft: new_token_expires
                   })
-                  console.log('token refrescado');
-                  
                 }          
               })
               .catch(err => {
-                  console.log('Error que dio el endpoint');
-                  
                   logout();
               });
     
         }else{
-            console.log('Las condiciones del if no se cumplieron');
-            
             logout();
         }
-    }
+    }, [logout, setTokenTimeout])
     
     return refreshToken;
   }

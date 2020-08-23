@@ -60,7 +60,6 @@ const SigninController = props => {
             })
             .catch(err => {
                 console.log('Error al cargar los datos del usuario usando el token');
-                
             })
         }
         

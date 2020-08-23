@@ -43,20 +43,13 @@ const TimerCmp = () => {
 
     const refreshToken = useRefreshToken();
     const timeoutData = useRecoilValue(tokenTimeoutAtom);
-    console.log('Renderizando el TimerComponent');
     
     React.useEffect(() => {
         
         let timeleft = new Date(timeoutData.timeleft).getTime() - new Date().getTime();
-        console.log(`Comenzando cuenta regresiva de ${timeleft}`);
         if(timeleft >= 10000){
             setTimeout(()=> {
-    
-                // Se ejecuta el metodo de buscar un nuevo token a partir de los existentes, cuando se obtenga el nuevo token se cambia el atomo "timeoutData"
-                // para que se vuelva a renderizar este componente y por ende ejecutarse el useEffect
-                console.log('tratando de refrescar el token');
                 refreshToken();
-                
             }, timeleft - 10000);
         }
 

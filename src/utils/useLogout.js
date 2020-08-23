@@ -1,5 +1,7 @@
 import {useSetRecoilState} from 'recoil';
+import axios from 'axios';
 import {loginData, userAvatarState, subscribeToEventsState} from '../components/recoil/atoms';
+import { useCallback } from 'react';
 
 
 const useLogout = () => {
@@ -9,8 +11,8 @@ const useLogout = () => {
     const setSubscribe = useSetRecoilState(subscribeToEventsState);
     
 
-    return () => {
-        console.log('Logout')
+    return useCallback(() => {
+
         localStorage.removeItem('token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('refresh_token_expires');
@@ -18,6 +20,6 @@ const useLogout = () => {
         setSubscribe(false);
         setLoginData(null);
         setUserAvatar(null);
-    } 
+    });
 }
 export default useLogout;

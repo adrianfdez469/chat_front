@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState} from 'react';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {useSetRecoilState, useRecoilState} from 'recoil';
-import {idiomaState, /*authTokenState,*/ userAvatarState, loginData} from '../../components/recoil/atoms';
+import {idiomaState, /*authTokenState,*/ userAvatarState, loginData, tokenTimeoutAtom} from '../../components/recoil/atoms';
 import Signin from "./signin.view";
 import {DEFAULT_CONFIG} from '../../conf/configuration';
 import NotificationHook from '../../components/uiComponents/notification/notification.hook';
@@ -14,6 +14,7 @@ const SigninController = props => {
     const [idioma, setIdiomaState] = useRecoilState(idiomaState);
     //const setAuthTokenState = useSetRecoilState(authTokenState);
     const setUserAvatarState = useSetRecoilState(userAvatarState);
+    const setTokenTimeOut = useSetRecoilState(tokenTimeoutAtom);
     const setLoginData = useSetRecoilState(loginData);
     const [redirectState, setRedirect] = useState(null);
     const {openErrorNotification} = NotificationHook();
@@ -39,6 +40,9 @@ const SigninController = props => {
                     
                     localStorage.setItem('token', token);
                     localStorage.setItem('token_expires', token_expires);
+                    setTokenTimeOut({
+                        timeleft: token_expires
+                    });
     
                     setLoginData({
                         userId: _id, 
@@ -108,6 +112,9 @@ const SigninController = props => {
                 localStorage.setItem('refresh_token', refresh_token);
                 localStorage.setItem('token_expires', token_expires);
                 localStorage.setItem('refresh_token_expires', refresh_token_expires);
+                setTokenTimeOut({
+                    timeleft: token_expires
+                });
 
                 setLoginData({
                     userId: _id, 

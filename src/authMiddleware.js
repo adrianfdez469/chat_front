@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {DEFAULT_CONFIG} from './conf/configuration'
 import {useSetRecoilState} from 'recoil';
-import { loginData} from './components/recoil/atoms';
+import { loginData, tokenTimeoutAtom} from './components/recoil/atoms';
 
 /*                                                       VERIFICO SI HAY UN AUTH TOKEN VALIDO 
                                                                  /                       \
@@ -9,7 +9,7 @@ import { loginData} from './components/recoil/atoms';
                                                                SI                         NO
                                                               /                             \
                                                              /                               \
-                                                BUSCO DATOS DEL USUARIO         VERIFICO SI SE PUEDE BUSCAR UNO
+                                                BUSCO DATOS DEL USUARIO                     LOGOUT
                                            Y SIGO EL FLUJO SIN AUTENTICACION      A PARTIR DE UN REFRESH TOKEN   
                                                                                     /                      \
                                                                                    /                        \
@@ -35,9 +35,11 @@ const AuthMiddleware = async (nextOptimisticAction, nextPesimisticAction = null)
     if (token && token_expires && new Date(token_expires).getTime() > new Date().getTime()) {
       const dataOptimistic = await nextOptimisticAction(token);
       return dataOptimistic;
-      return nextOptimisticAction(token);
-    } else {
-      const refresh_token = localStorage.getItem('refresh_token');
+      //return nextOptimisticAction(token);
+    } /*else {
+      
+      
+        const refresh_token = localStorage.getItem('refresh_token');
       const refresh_token_expires = localStorage.getItem('refresh_token_expires');
       if (refresh_token && refresh_token_expires && new Date(refresh_token_expires).getTime() > new Date().getTime()) {
         return axios.post(`${DEFAULT_CONFIG.server}/users/refreshtoken`, {
@@ -63,7 +65,11 @@ const AuthMiddleware = async (nextOptimisticAction, nextPesimisticAction = null)
                 return nextPesimisticAction();
             
       }
-    }
+
+
+
+    }*/
   }
+
   
   export default AuthMiddleware;

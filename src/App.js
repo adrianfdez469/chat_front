@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import {useRecoilValue, useRecoilState} from 'recoil';
-import {view, subscribeToEventsState, loginData, activeChatWith} from './components/recoil/atoms';
-import axios from 'axios';
-import {DEFAULT_CONFIG} from './conf/configuration';
+import React from 'react';
+import {useRecoilValue} from 'recoil';
+import {subscribeToEventsState, loginData, activeChatWith} from './components/recoil/atoms';
+
 /*import Login from './components/login/login';
 import Contacts from './components/contacts/contacts';
 import Chat from './components/chat/chat';
@@ -14,7 +13,6 @@ import Backdrop from './components/backdrop/backdrop';*/
 // --------------------------- New Style --------------------- //
 import {Switch, Route, Redirect} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Signin from './view/signin';
@@ -37,14 +35,41 @@ import DeletedContactSubscriber from './components/events/deletedContactSubscrib
 import BlokedContactSubscriber from './components/events/blokedContactSubscriber';
 import RecibedMessageSubscriber from './components/events/recibedMessageSubscriber';
 import {SnackbarProvider} from 'notistack';
-import {idiomaState} from './components/recoil/atoms';
 
-const App = props => {
+
+import {tokenTimeoutAtom} from './components/recoil/atoms';
+import useRefreshToken from './utils/useRefreshToken';
+const TimerCmp = () => {
+
+    const refreshToken = useRefreshToken();
+    const timeoutData = useRecoilValue(tokenTimeoutAtom);
+    console.log('Renderizando el TimerComponent');
+    
+    React.useEffect(() => {
+        
+        let timeleft = new Date(timeoutData.timeleft).getTime() - new Date().getTime();
+        console.log(`Comenzando cuenta regresiva de ${timeleft}`);
+        if(timeleft >= 10000){
+            setTimeout(()=> {
+    
+                // Se ejecuta el metodo de buscar un nuevo token a partir de los existentes, cuando se obtenga el nuevo token se cambia el atomo "timeoutData"
+                // para que se vuelva a renderizar este componente y por ende ejecutarse el useEffect
+                console.log('tratando de refrescar el token');
+                refreshToken();
+                
+            }, timeleft - 10000);
+        }
+
+    }, [timeoutData]);
+
+    return <></>;
+}
+
+const App = () => {
 
     const subscribe = useRecoilValue(subscribeToEventsState);
     const userData = useRecoilValue(loginData);
     const chatWith = useRecoilValue(activeChatWith);
-    const idioma = useRecoilValue(idiomaState);
     const notistackRef = React.createRef();
     const onClickDismiss = key => () => { 
         notistackRef.current.closeSnackbar(key);
@@ -54,13 +79,12 @@ const App = props => {
     ? <>
             {
                 chatWith 
-                ? <ChatCmp />
-                :<Route path="/contacts" exact render={ () => (
+                ? <ChatCmp />                
+                : <Route path="/contacts" exact render={ () => (
                     <>
                         <Toolbar />
                         <MainButton />
                         <ContactList />
-                
                     </>
                 )} />
             }
@@ -95,19 +119,22 @@ const App = props => {
                 <Route path="/activateuser/:token/:nickname" exact component={ActivateUser} /> 
                 <Redirect from='/' to='/' />       
             </Switch>
+            
             {subscribe ? <>
-                                <NewUserSubscriber />
-                                <UserDisconnectSubscriber />
-                                <IncomingMsgSubscriber />
-                                <RequestFriendSubscriber />
-                                <DeclinedFriendshipSubscriber />
-                                <AcceptFriendshipSubscriber />
-                                <DeletedContactSubscriber />
-                                <BlokedContactSubscriber />
-                                <RecibedMessageSubscriber />
-                            </>: null
+                    <NewUserSubscriber />
+                    <UserDisconnectSubscriber />
+                    <IncomingMsgSubscriber />
+                    <RequestFriendSubscriber />
+                    <DeclinedFriendshipSubscriber />
+                    <AcceptFriendshipSubscriber />
+                    <DeletedContactSubscriber />
+                    <BlokedContactSubscriber />
+                    <RecibedMessageSubscriber />
+                </>: null
             }
+            <TimerCmp />
         </SnackbarProvider>
+        
     </MainContainter>
   );
 }

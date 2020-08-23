@@ -96,9 +96,16 @@ const messagesAtom = atom({
     default: null
 });
 
+const tokenTimeoutAtom = atom({
+    key: 'tokenTimeoutAtom',
+    default: {
+        tokentimeout: 0
+    }
+});
+
 export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
     backdropState, userAvatarState, addContactViewOpenState,
     friendsAtom, 
     clearUserDataSelector,
-    activeChatWith, messagesAtom, getConversationWithContact
+    activeChatWith, messagesAtom, getConversationWithContact, tokenTimeoutAtom
 };

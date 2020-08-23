@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSetRecoilState, useRecoilValue, useRecoilState} from 'recoil';
 import socketClient from '../../utils/socket';
-import {addMsgToConversationSelector, friendSelector, editMsgToStateSavedSelector, editAllMsgToSavedSelector} from '../recoil/selectors';
+import {addMsgToConversationSelector, friendSelector, editMsgToStateSavedSelector, editAllMsgToReadedSelector} from '../recoil/selectors';
 import {loginData, activeChatWith, idiomaState} from '../recoil/atoms';
 import {useSnackbar} from 'notistack';
 import text from './idioma.json';
@@ -11,7 +11,7 @@ const RecibedMessageSubscriber = props => {
     const client = socketClient.getSocket();
     const addMsgToConversation = useSetRecoilState(addMsgToConversationSelector);
     const editMsgToStateSaved = useSetRecoilState(editMsgToStateSavedSelector);
-    const editAllMsgToSaved = useSetRecoilState(editAllMsgToSavedSelector);
+    const editAllMsgToReaded = useSetRecoilState(editAllMsgToReadedSelector);
     const userData = useRecoilValue(loginData);
     const activeChatContactId = useRecoilValue(activeChatWith);
     const {enqueueSnackbar} = useSnackbar();
@@ -69,7 +69,7 @@ const RecibedMessageSubscriber = props => {
         });
 
         client.on('readed messages', ({contactId}) => {
-            editAllMsgToSaved({contactId})
+            editAllMsgToReaded({contactId})
         });
 
         return () => {

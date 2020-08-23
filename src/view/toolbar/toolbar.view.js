@@ -5,8 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+//import MenuItem from '@material-ui/core/MenuItem';
+//import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
 
 const ToolbarView = ({avatarSrc, userData}) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  //const [anchorEl, setAnchorEl] = React.useState(null);
+  //const open = Boolean(anchorEl);
 
 
-  const handleMenu = (event) => {
+  /*const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
-  };
+  };*/
 
-  const handleClose = () => {
+  /*const handleClose = () => {
     setAnchorEl(null);
-  };
+  };*/
 
   return (
     <div className={classes.root}>
@@ -43,7 +43,6 @@ const ToolbarView = ({avatarSrc, userData}) => {
           
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
-            
           </IconButton>
           
           <Typography variant="h6" className={classes.title}>
@@ -54,10 +53,9 @@ const ToolbarView = ({avatarSrc, userData}) => {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleMenu}
+                //onClick={handleMenu}
                 color="inherit"
               >
-                {/*<SettingsCircle />*/}
                 <Avatar
                   alt={userData.nickname}
                   src={avatarSrc}
@@ -65,7 +63,7 @@ const ToolbarView = ({avatarSrc, userData}) => {
                   {userData.nickname.toUpperCase().split('')[0]}
                 </Avatar>
               </IconButton>
-              <Menu
+              {/*<Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -82,7 +80,7 @@ const ToolbarView = ({avatarSrc, userData}) => {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
+              </Menu>*/}
             </div>          
         </Toolbar>
       </AppBar>

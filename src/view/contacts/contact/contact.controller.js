@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {idiomaState, activeChatWith, loginData} from '../../../components/recoil/atoms';
 import {friendSelector} from '../../../components/recoil/selectors';
@@ -17,9 +17,9 @@ const ContactContrller = ({contact}) => {
         setAnchorEl(event.currentTarget);
     };
     
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setAnchorEl(null);
-    };
+    },[]);
 
     const openChat = () => {        
         setActiveChat(contact.contactId);

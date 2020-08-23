@@ -178,7 +178,8 @@ const CustomTooltip = props => {
 }
 
 
-const ContactView = ({idioma, contact, handleMenu,
+const ContactView = React.memo(
+    ({idioma, contact, handleMenu,
     handleClose, anchorEl, openChat}) => {
     const lastMsg = contact.lastMsg ? contact.lastMsg : '' ;
     
@@ -243,16 +244,11 @@ const ContactView = ({idioma, contact, handleMenu,
                     <ActionProxy handleClose={handleClose} contact={contact}/>
                 </StyledMenu>
             </ListItemSecondaryAction>
-            
-            
-
-
         </ListItem>
         <Divider variant="inset" component="li" />
         </React.Fragment>
     );
-
-}
+})
 
 
 export default ContactView;

@@ -48,22 +48,22 @@ const App = props => {
         notistackRef.current.closeSnackbar(key);
     }
   
-  const cmp  = userData !== null 
-  ? <>
-        {
-            chatWith 
-            ? <ChatCmp />
-            :<Route path="/contacts" exact render={ () => (
-                <>
-                    <Toolbar />
-                    <MainButton />
-                    <ContactList />
-            
-                </>
-            )} />
-        }
-    </> 
-  : null ;
+    const cmp  = userData !== null 
+    ? <>
+            {
+                chatWith 
+                ? <ChatCmp />
+                :<Route path="/contacts" exact render={ () => (
+                    <>
+                        <Toolbar />
+                        <MainButton />
+                        <ContactList />
+                
+                    </>
+                )} />
+            }
+        </> 
+    : null ;
 
 
   return (
@@ -108,18 +108,6 @@ const App = props => {
         </SnackbarProvider>
     </MainContainter>
   );
-
-  /*return (
-    <>
-    <Backdrop />
-      <div className="main">
-      
-        <Header />        
-        {cmp}
-        {subscriptions}
-        
-      </div></>
-  );*/
 }
 
 export default App;

@@ -215,15 +215,19 @@ const editMsgToStateSavedSelector = selector({
     }
 });
 
-const editAllMsgToSavedSelector = selector({
+const editAllMsgToReadedSelector = selector({
     key: 'editAllMsgToSavedSelector',
     set: ({set}, {contactId}) => {
         set(getConversationWithContact(contactId), oldConversation => {
-            return oldConversation.map(message => {
-                return {...message, state: 3}
-            });
+            return oldConversation
+                .map(message => {
+                    if(message.state !== 0)
+                        return {...message, state: 3}
+                    else
+                        return message;
+                });
         });
     }
 });
 
-export {friendSelector, initConversationSelector, addMsgToConversationSelector, editMsgToStateSavedSelector, editAllMsgToSavedSelector}
+export {friendSelector, initConversationSelector, addMsgToConversationSelector, editMsgToStateSavedSelector, editAllMsgToReadedSelector}

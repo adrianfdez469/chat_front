@@ -61,7 +61,8 @@ const useMessageStyle = makeStyles(theme => ({
     }
 }));
 
-const Message = ({state, content, datetime ,contact, avatarSrc, idioma}) => {
+const Message = React.memo(
+    ({state, content, datetime ,contact, avatarSrc, idioma}) => {
 
     const classes = useMessageStyle();
 
@@ -98,7 +99,7 @@ const Message = ({state, content, datetime ,contact, avatarSrc, idioma}) => {
         
     </>
     );
-}
+});
 
 const useChatStyle = makeStyles(theme => ({
     chatConversation: {

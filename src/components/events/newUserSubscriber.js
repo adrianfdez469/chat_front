@@ -16,6 +16,8 @@ const UserSubscriber = props => {
     useEffect(() => {
 
         client.on('new user', data => {
+            console.log('new user');
+            
             friendDispatcher({
                 action: 'connect', 
                 payload: {
@@ -25,8 +27,9 @@ const UserSubscriber = props => {
                 }
             });
         });
-
-        client.emit('new user', {userId: userData.userId});
+        
+        if(userData)
+            client.emit('new user', {userId: userData.userId});
 
         return () => client.off('new user');
     }, [friendDispatcher, client, userData]);

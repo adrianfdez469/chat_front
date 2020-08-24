@@ -4,12 +4,10 @@ import {useSetRecoilState} from 'recoil';
 import authMidleware from '../authMiddleware';
 import useNotificationHook from '../components/uiComponents/notification/notification.hook';
 import {DEFAULT_CONFIG} from '../conf/configuration';
-//import {clearUserDataSelector} from '../components/recoil/atoms';
 
 const useAxiosHook = () => {
 
     const {openErrorNotification, openSuccessNotification} = useNotificationHook();
-    //const clearUserData = useSetRecoilState(clearUserDataSelector);
 
     const postRequest = ({url, bodyParams= {}, doFnAfterSuccess=null, doFnAfterError = null, messageOnSuccess=null, messageOnError=null}) => {
         

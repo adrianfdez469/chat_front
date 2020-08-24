@@ -89,9 +89,12 @@ const friendSelector = selector({
                 break;
             case 'connect':                
                 if(Array.isArray(payload.data)){
+                    console.log(payload.data);
+                    
 
+                    
                     set(friendsAtom, oldFriends => {
-        
+        console.log(oldFriends);
                         return oldFriends.map(friend => {
                             const idx = payload.data.findIndex(dat => dat.userId === friend.contactId);
                             if(idx >= 0){
@@ -102,10 +105,11 @@ const friendSelector = selector({
                         });
                     }); 
                 }else{
+
                     const {userId, socketId} = payload.data;
                     let conectedFriendName = null;
                     let friendShipStatus = 0;
-
+                    
                     set(friendsAtom, oldFriends => {
                         const fIndex = oldFriends.findIndex(f => f.contactId === userId);
                         if(fIndex >= 0){
@@ -129,11 +133,12 @@ const friendSelector = selector({
                 let friendShipStatus = 0;
                 
                 set(friendsAtom, oldFriends => {
+                    
                     const index = oldFriends.findIndex(friend => friend.socketId === payload.socketId);
                     if(index >= 0){
                         disconectedFriendName = oldFriends[index].nickname;
                         friendShipStatus = oldFriends[index].friendShipStatus;
-                        return [...oldFriends].slice(0, index).concat([{...oldFriends[index], socketId: undefined}]).concat(oldFriends.slice(index+1));
+                        return [...oldFriends].slice(0, index).concat([{...oldFriends[index], socketId: null}]).concat(oldFriends.slice(index+1));
                     }
                     return oldFriends;
                 });

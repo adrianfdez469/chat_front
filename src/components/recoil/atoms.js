@@ -23,17 +23,7 @@ const userAvatarState = atom({
     key: 'userAvatarState',
     default: null
 });
-const clearUserDataSelector = selector({
-    key: 'clearUserDataSelector',
-    set: ({set}) => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refresh_token');
-        localStorage.removeItem('token_expires');
-        localStorage.removeItem('refresh_token_expires');
-        set(userAvatarState, null);
-        set(loginData, null)
-    }
-}); 
+
 
 
 const chatConversation = atom({
@@ -106,6 +96,5 @@ const tokenTimeoutAtom = atom({
 export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
     backdropState, userAvatarState, addContactViewOpenState,
     friendsAtom, 
-    clearUserDataSelector,
     activeChatWith, messagesAtom, getConversationWithContact, tokenTimeoutAtom
 };

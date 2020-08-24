@@ -1,8 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import {DEFAULT_CONFIG} from '../../conf/configuration'
-import authMiddleware from '../../authMiddleware';
-import useNotificationHook from '../../components/uiComponents/notification/notification.hook';
+import React, { useEffect} from 'react';
 import text from './idioma.json';
 import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
 import {idiomaState, subscribeToEventsState/*friendSelector*/ /*, friendsAtom*/} from '../../components/recoil/atoms';
@@ -16,7 +12,6 @@ import ContactsView from './contacs.view';
 const ContactsController = props => {
 
     const setSubscribeToEvents = useSetRecoilState(subscribeToEventsState);
-    const {openErrorNotification} = useNotificationHook();
     //const setContacts = useSetRecoilState(friendsAtom);
     const {postRequest} = useAxiosHook();
     
@@ -42,12 +37,17 @@ const ContactsController = props => {
         });
     }
     const searchFriends = () => {
+        console.log('search friendssss');
+        
         if(contacts.length === 0){
+            console.log('manda a buscar los friends');
+            
             postRequest({
                 url: '/users/searchFirends',
                 messageOnError: text.errorLoadingFriends[idioma],
                 doFnAfterSuccess: resp => {
                     if(resp.status === 200){
+                        
                         friendDispatcher({
                             action: 'initialize', 
                             payload: {
@@ -60,6 +60,8 @@ const ContactsController = props => {
                     }
                 }
             });
+        }else{
+            console.log('NO LOS MANDA A BUSCAR');
         }
     }
 

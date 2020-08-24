@@ -14,5 +14,9 @@
     "shareMsg": {
         "es": "Compartir",
         "en": "Share"
+    },
+    "sendAll": {
+        "es": "Difusión",
+        "en": "Diffusion"
     }
 }

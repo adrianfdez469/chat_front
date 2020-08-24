@@ -5,9 +5,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-//import MenuItem from '@material-ui/core/MenuItem';
-//import Menu from '@material-ui/core/Menu';
+import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
+import ProfileOpt from './profileOptions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
 
 const ToolbarView = ({avatarSrc, userData}) => {
   const classes = useStyles();
-  //const [anchorEl, setAnchorEl] = React.useState(null);
-  //const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
 
-  /*const handleMenu = (event) => {
+  const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
-  };*/
+  };
 
-  /*const handleClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
-  };*/
+  };
 
   return (
     <div className={classes.root}>
@@ -41,46 +41,45 @@ const ToolbarView = ({avatarSrc, userData}) => {
         
         <Toolbar>
           
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
+            </IconButton>
           
-          <Typography variant="h6" className={classes.title}>
-            Shutapp
-          </Typography>          
+            <Typography variant="h6" className={classes.title}>
+                Shutapp
+            </Typography>          
             <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                //onClick={handleMenu}
-                color="inherit"
-              >
-                <Avatar
-                  alt={userData.nickname}
-                  src={avatarSrc}
+                <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
                 >
-                  {userData.nickname.toUpperCase().split('')[0]}
-                </Avatar>
-              </IconButton>
-              {/*<Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>*/}
+                    <Avatar
+                        alt={userData.nickname}
+                        src={avatarSrc}
+                    >
+                        {userData.nickname.toUpperCase().split('')[0]}
+                    </Avatar>
+                </IconButton>
+                <Popover 
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                >
+                    <ProfileOpt />
+                </Popover>
+
+              
             </div>          
         </Toolbar>
       </AppBar>

@@ -8,6 +8,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import ShareIcon from '@material-ui/icons/Share';
 import MessageIcon from '@material-ui/icons/Message';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import CallSplitIcon from '@material-ui/icons/CallSplit';
 import text from './idioma.json'
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,16 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
             tooltipTitle={text.addContact[idioma]}
             tooltipOpen
             onClick={openAddContactView}
+          />
+          <SpeedDialAction
+            key='addgroup'
+            icon={<CallSplitIcon color="error"/>}
+            tooltipTitle={text.sendAll[idioma]}
+            tooltipOpen
+            onClick={() => {
+              console.log('Enviar mensaje de difusion');
+              alert('Not implemented!')
+            }}
           />
           {/*<SpeedDialAction
             key='addgroup'

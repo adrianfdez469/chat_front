@@ -1,0 +1,38 @@
+{
+    "share":{
+        "es": "Compartir",
+        "en": "Share"
+    },
+    "shareDesc": {
+        "es":"Envia un correo electónico a tus amigos para compartir la aplicación",
+        "en":"Send a email to your friends to share."
+    },
+    "report":{
+        "es": "Reportar un error",
+        "en": "Report a bug"
+    },
+    "reportDesc": {
+        "es":"Reporta un error y lo corregiremos lo mas pronto posible.",
+        "en":"Report a bug and we will correct it as soon as possible."
+    },
+    "feedback":{
+        "es": "Retroalimenzación",
+        "en": "Feedback"
+    },
+    "feedbackDesc": {
+        "es":"Háganos saber que piensa de la aplicación y que podemos hacer para mejorar.",
+        "en":"Let us know what you think of the application and what we can do to improve."
+    },
+    "edit":{
+        "es": "Editar perfil",
+        "en": "Edit profile"
+    },
+    "editDesc": {
+        "es":"Edita los datos de tu perfil.",
+        "en":"Edit your profile data."
+    },
+    "logout": {
+        "es": "Salir",
+        "en": "Logout"
+    }
+}

@@ -11,6 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import StarIcon from '@material-ui/icons/Star';
 
 const useStyles = makeStyles( theme => ({
@@ -72,7 +73,23 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout}) => {
                     </ListItemIcon>
                     <ListItemText 
                         primary={text.edit[idioma]}
-                        secondary={text.editDesc[idioma]}
+                        primaryTypographyProps={{style: {fontSize: '0.9em'}}}
+                        //secondary={text.editDesc[idioma]}
+                        //secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
+                    />
+                </ListItem>
+                <ListItem 
+                    button
+                    onClick={() => alert('Not implemented')}
+                >
+                    <ListItemIcon>
+                        <VpnKeyIcon />
+                    </ListItemIcon>
+                    <ListItemText 
+                        primary={text.editpass[idioma]}
+                        primaryTypographyProps={{style: {fontSize: '0.9em'}}}
+                        //secondary={text.editpassDesc[idioma]}
+                        //secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
                     />
                 </ListItem>
                 <Divider />

@@ -34,5 +34,13 @@
     "logout": {
         "es": "Salir",
         "en": "Logout"
+    },
+    "editpass": {
+        "es": "Cambiar contraseña",
+        "en": "Edit password"
+    },
+    "editpassDesc": {
+        "es":"Permite cambiar su contraseña.",
+        "en":"Allow edit your password."
     }
 }

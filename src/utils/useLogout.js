@@ -2,7 +2,7 @@ import {useSetRecoilState} from 'recoil';
 import axios from 'axios';
 import {loginData, userAvatarState, subscribeToEventsState} from '../components/recoil/atoms';
 import { useCallback } from 'react';
-
+import socketClient from './socket';
 
 const useLogout = () => {
 
@@ -13,6 +13,7 @@ const useLogout = () => {
 
     return useCallback(() => {
 
+        socketClient.close();
         localStorage.removeItem('token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('refresh_token_expires');

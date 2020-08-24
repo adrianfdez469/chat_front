@@ -10,6 +10,9 @@ const socketClient =
             return socket;    
         }
         return socket;
+    },
+    close: () => {
+        socket.close();
     }
 };
 

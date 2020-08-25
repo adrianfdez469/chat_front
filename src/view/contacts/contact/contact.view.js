@@ -1,10 +1,11 @@
 import React from 'react';
-import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Badge, Divider, Menu, Tooltip } from '@material-ui/core';
+import { formatRelative } from 'date-fns';
+import { es } from 'date-fns/locale';
+import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Badge, Divider, Menu, Tooltip, Typography } from '@material-ui/core';
 import { red, green } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoIcon from '@material-ui/icons/Info';
-
 import {DEFAULT_CONFIG} from '../../../conf/configuration';
 
 import text from './idioma.json';
@@ -189,7 +190,11 @@ const ContactView = React.memo(
     ({idioma, contact, handleMenu,
     handleClose, anchorEl, openChat}) => {
     const lastMsg = contact.lastMsg ? contact.lastMsg : '' ;
-
+    
+    const options = idioma === 'es' ? { locale: es } : {};
+    const lastMsgTime = contact.datetime ? formatRelative(new Date(contact.datetime), new Date(), options) : '';
+    
+    
     const classes = useStyle();
 
 
@@ -213,12 +218,10 @@ const ContactView = React.memo(
                 </OnlineBadge>
                 
             </ListItemAvatar>
-            
-            
                 <ListItemText
                     primary={contact.nickname}
                     
-                    secondary={contact.friendShipStatus > 1 ? text[contact.friendShipStatusCode][idioma] : `${lastMsg.slice(0, 55)}...`}
+                    secondary={contact.friendShipStatus > 1 ? text[contact.friendShipStatusCode][idioma] : `${lastMsg.slice(0, 55)}... ${lastMsgTime}`}
                     secondaryTypographyProps={contact.friendShipStatus > 3 
                         ? {
                             style: {color: `${red[500]}`}
@@ -234,9 +237,7 @@ const ContactView = React.memo(
                         secondary: classes.secondaryText
                     }}
                 />
-            
-            {
-            <ListItemSecondaryAction>
+                
                 {contact.friendShipStatus > 1 ?
                     <CustomTooltip title={text[`desc${contact.friendShipStatusCode}`][idioma]} color={contact.friendShipStatus > 3 ? 'red' : 'geen'}>
                         <div className={classes.infoIcon}>
@@ -244,6 +245,9 @@ const ContactView = React.memo(
                         </div>
                     </CustomTooltip>
                 : null }
+            
+            <ListItemSecondaryAction>
+                
                 
                 <IconButton edge="end" aria-label="delete" onClick={handleMenu}>
                     <MoreVertIcon fontSize="default"/>
@@ -258,7 +262,7 @@ const ContactView = React.memo(
                     <ActionProxy handleClose={handleClose} contact={contact}/>
                 </StyledMenu>
             </ListItemSecondaryAction>
-            }
+            
         </ListItem>
         <Divider variant="inset" component="li" />
         </>

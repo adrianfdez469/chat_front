@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import RouterLink from 'react-router-dom/Link';
+import {Link as RouterLink} from 'react-router-dom';
 import text from './idioma.json'
 
 

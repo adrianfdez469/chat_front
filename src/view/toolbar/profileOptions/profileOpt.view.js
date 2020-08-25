@@ -6,28 +6,37 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { CardHeader, Avatar, Badge, IconButton, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { CardHeader, Avatar, Badge, IconButton, Divider, List, ListItem, ListItemIcon, ListItemText, Container, FormControl, Select, MenuItem } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import StarIcon from '@material-ui/icons/Star';
+import LanguageIcon from '@material-ui/icons/Language';
+import ColorLensIcon from '@material-ui/icons/ColorLens';
 
 const useStyles = makeStyles( theme => ({
-  root: {
-    maxWidth: 345,
-  },
-  avatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7)
-  },
-  cardHeaderAction: {
-    alignSelf: 'flex-end'
-  }
+    root: {
+        maxWidth: 345,
+    },
+    avatar: {
+        width: theme.spacing(7),
+        height: theme.spacing(7)
+    },
+    cardHeaderAction: {
+        alignSelf: 'flex-end'
+    },
+    langSelect: {
+        fontSize: '0.9em', 
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        fontWeight: 400,
+        lineHeight: 1.5,
+        letterSpacing:'0.00938em'
+    }
 }));
 
-const ProfileView = ({text, idioma, avatarUrl, userData, logout}) => {
+const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma}) => {
     console.log(avatarUrl);
     
   const classes = useStyles();
@@ -74,8 +83,6 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout}) => {
                     <ListItemText 
                         primary={text.edit[idioma]}
                         primaryTypographyProps={{style: {fontSize: '0.9em'}}}
-                        //secondary={text.editDesc[idioma]}
-                        //secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
                     />
                 </ListItem>
                 <ListItem 
@@ -88,10 +95,34 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout}) => {
                     <ListItemText 
                         primary={text.editpass[idioma]}
                         primaryTypographyProps={{style: {fontSize: '0.9em'}}}
-                        //secondary={text.editpassDesc[idioma]}
-                        //secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
                     />
                 </ListItem>
+
+
+
+                <ListItem>
+                    <ListItemIcon>
+                        <LanguageIcon />
+                    </ListItemIcon>
+                    
+                    
+                        <FormControl >
+                            <Select
+                                value={idioma}
+                                onChange={changeIdioma}
+                                displayEmpty
+                                className={classes.langSelect}
+                                inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                <MenuItem value={'en'}>English</MenuItem>
+                                <MenuItem value={'es'}>Español</MenuItem>
+                            </Select>
+                            
+                        </FormControl>
+                </ListItem>
+
+
+
                 <Divider />
                 <ListItem 
                     button

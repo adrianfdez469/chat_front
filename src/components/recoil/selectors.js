@@ -89,18 +89,12 @@ const friendSelector = selector({
                 break;
             case 'connect':                
                 if(Array.isArray(payload.data)){
-                    console.log(payload.data);
-                    
-
-                    
                     set(friendsAtom, oldFriends => {
-        console.log(oldFriends);
                         return oldFriends.map(friend => {
                             const idx = payload.data.findIndex(dat => dat.userId === friend.contactId);
                             if(idx >= 0){
                                 return {...friend, socketId: payload.data[idx].socketId};     
                             }
-                            
                             return {...friend};
                         });
                     }); 

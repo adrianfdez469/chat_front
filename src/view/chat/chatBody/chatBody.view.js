@@ -6,8 +6,8 @@ import { grey, lightGreen, green } from '@material-ui/core/colors';
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import {DEFAULT_CONFIG} from '../../../conf/configuration';
-import { formatRelative, subDays } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { formatRelative } from 'date-fns'
+import { es } from 'date-fns/locale';
 
 const useMessageStyle = makeStyles(theme => ({
     message: {

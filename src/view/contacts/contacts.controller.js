@@ -37,10 +37,8 @@ const ContactsController = props => {
         });
     }
     const searchFriends = () => {
-        console.log('search friendssss');
         
         if(contacts.length === 0){
-            console.log('manda a buscar los friends');
             
             postRequest({
                 url: '/users/searchFirends',

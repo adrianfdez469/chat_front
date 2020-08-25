@@ -34,7 +34,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   link: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: theme.palette.text.secondary,
+    '&:hover':{
+        textDecoration: 'underline',
+    }
   }
 }));
 
@@ -98,9 +103,13 @@ export default function SignIn({idioma, emailRef, passRef, onSignIn, rememberChe
               </Link>
             </Grid>
             <Grid item>
-              <RouterLink to="/signup">
-                {text.gosignup[idioma]}
-              </RouterLink>
+                {
+                <RouterLink to="/signup" /*style={{textDecoration: 'none'}}*/ className={classes.link}>
+                    
+                    {text.gosignup[idioma]}
+                    
+                </RouterLink>
+                }
             </Grid>
           </Grid>
         </form>

@@ -19,7 +19,7 @@ const useMessageStyle = makeStyles(theme => ({
         marginLeft: `${theme.spacing(2)}px`,
         marginRight: `${theme.spacing(2)}px`,        
         borderRadius: '10px',
-        backgroundColor: theme.palette.info.light,
+        backgroundColor: theme.palette.info.dark,
         color: theme.palette.info.contrastText,
         position: "relative"
     },

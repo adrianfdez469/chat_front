@@ -42,5 +42,9 @@
     "editpassDesc": {
         "es":"Permite cambiar su contraseña.",
         "en":"Allow edit your password."
+    },
+    "darkMode": {
+        "es": "Modo noche",
+        "en": "Dark mode"
     }
 }

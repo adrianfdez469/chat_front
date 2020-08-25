@@ -30,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  link: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: theme.palette.text.secondary,
+    '&:hover':{
+        textDecoration: 'underline',
+    }
+  }
 }));
 
 export default function SignUp({idioma, onSignUp,emailState, onEmailChange, passState, onPassChange, nameState, onNameChange, lastNameRef}) {
@@ -118,7 +126,7 @@ export default function SignUp({idioma, onSignUp,emailState, onEmailChange, pass
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <RouterLink to="/">
+              <RouterLink to="/" className={classes.link}>
               {text.signin[idioma]}
               </RouterLink>
             </Grid>

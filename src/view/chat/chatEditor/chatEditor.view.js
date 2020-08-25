@@ -30,8 +30,10 @@ const useStyles = makeStyles(theme => ({
         fontFamily: 'inherit',
         fontSize: 'large',    
         padding: '1px 6px',
-        backgroundColor: 'white',
-        color: 'rgba(0,0,0,0.7)',
+        backgroundColor: theme.palette.background.paper,
+        //color: 'rgba(0,0,0,0.7)',
+        color: theme.palette.text.primary,
+        
         width: '100%',
         marginTop: theme.spacing(1),
         marginBottom:  theme.spacing(1),

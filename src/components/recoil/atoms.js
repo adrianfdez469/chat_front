@@ -93,8 +93,13 @@ const tokenTimeoutAtom = atom({
     }
 });
 
+const darkModeAtom = atom({
+    key: 'themeAtom',
+    default: localStorage.getItem('darkMode') === 'true' ? true : false
+});
+
 export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
     backdropState, userAvatarState, addContactViewOpenState,
     friendsAtom, 
-    activeChatWith, messagesAtom, getConversationWithContact, tokenTimeoutAtom
+    activeChatWith, messagesAtom, getConversationWithContact, tokenTimeoutAtom, darkModeAtom
 };

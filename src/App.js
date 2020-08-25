@@ -2,14 +2,6 @@ import React from 'react';
 import {useRecoilValue} from 'recoil';
 import {subscribeToEventsState, loginData, activeChatWith} from './components/recoil/atoms';
 
-/*import Login from './components/login/login';
-import Contacts from './components/contacts/contacts';
-import Chat from './components/chat/chat';
-//import Chat from './components/chat/chat';
-import Header from './components/header/header';
-import './App.css';
-import Backdrop from './components/backdrop/backdrop';*/
-
 // --------------------------- New Style --------------------- //
 import {Switch, Route, Redirect} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -35,10 +27,12 @@ import DeletedContactSubscriber from './components/events/deletedContactSubscrib
 import BlokedContactSubscriber from './components/events/blokedContactSubscriber';
 import RecibedMessageSubscriber from './components/events/recibedMessageSubscriber';
 import {SnackbarProvider} from 'notistack';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
-
-import {tokenTimeoutAtom} from './components/recoil/atoms';
+import {tokenTimeoutAtom, darkModeAtom} from './components/recoil/atoms';
 import useRefreshToken from './utils/useRefreshToken';
+import { Container, makeStyles } from '@material-ui/core';
 const TimerCmp = () => {
 
     const refreshToken = useRefreshToken();
@@ -58,8 +52,14 @@ const TimerCmp = () => {
     return <></>;
 }
 
+const themeDark = createMuiTheme({palette: {type: 'dark',}});
+const themeDefault = createMuiTheme({});
+
+
+
 const App = () => {
 
+    const dark = useRecoilValue(darkModeAtom);
     const subscribe = useRecoilValue(subscribeToEventsState);
     const userData = useRecoilValue(loginData);
     const chatWith = useRecoilValue(activeChatWith);
@@ -74,62 +74,64 @@ const App = () => {
                 chatWith 
                 ? <ChatCmp />                
                 : <Route path="/contacts" exact render={ () => (
-                    <>
+                    <ThemeProvider theme={dark ? themeDark : themeDefault}>
                         <Toolbar />
                         <MainButton />
                         <ContactList />
-                    </>
+                    </ThemeProvider>
                 )} />
             }
         </> 
     : null ;
 
 
-  return (
-    <MainContainter>
-        <CssBaseline />
-        <UiComponents />
-        <SnackbarProvider 
-            maxSnack={3} 
-            autoHideDuration={3000}
-            preventDuplicate
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-            }}
-            ref={notistackRef}
-            action={(key) => (
-                <IconButton onClick={onClickDismiss(key)}>
-                    <CloseIcon fontSize="small" style={{color: 'white'}} />
-                </IconButton>
-            )}
-        >
-            <Switch>
-                <Route path="/" exact component={Signin} />
-                <Route path="/signup" exact component={Signup} />
-                {cmp}
-                <Route path="/changepass/:token" exact component={ChangePass} />
-                <Route path="/activateuser/:token/:nickname" exact component={ActivateUser} /> 
-                <Redirect from='/' to='/' />       
-            </Switch>
-            
-            {subscribe ? <>
-                    <NewUserSubscriber />
-                    <UserDisconnectSubscriber />
-                    <IncomingMsgSubscriber />
-                    <RequestFriendSubscriber />
-                    <DeclinedFriendshipSubscriber />
-                    <AcceptFriendshipSubscriber />
-                    <DeletedContactSubscriber />
-                    <BlokedContactSubscriber />
-                    <RecibedMessageSubscriber />
-                </>: null
-            }
-            <TimerCmp />
-        </SnackbarProvider>
-        
-    </MainContainter>
-  );
+    return (<ThemeProvider theme={dark ? themeDark : themeDefault}>
+       
+            <MainContainter>
+                <CssBaseline />
+                <UiComponents />
+                <SnackbarProvider 
+                    maxSnack={3} 
+                    autoHideDuration={3000}
+                    preventDuplicate
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                    ref={notistackRef}
+                    action={(key) => (
+                        <IconButton onClick={onClickDismiss(key)}>
+                            <CloseIcon fontSize="small" style={{color: 'white'}} />
+                        </IconButton>
+                    )}
+                >
+                    <Switch>
+                        <Route path="/" exact component={Signin} />
+                        <Route path="/signup" exact component={Signup} />
+                        {cmp}
+                        <Route path="/changepass/:token" exact component={ChangePass} />
+                        <Route path="/activateuser/:token/:nickname" exact component={ActivateUser} /> 
+                        <Redirect from='/' to='/' />       
+                    </Switch>
+                    
+                    {subscribe ? <>
+                            <NewUserSubscriber />
+                            <UserDisconnectSubscriber />
+                            <IncomingMsgSubscriber />
+                            <RequestFriendSubscriber />
+                            <DeclinedFriendshipSubscriber />
+                            <AcceptFriendshipSubscriber />
+                            <DeletedContactSubscriber />
+                            <BlokedContactSubscriber />
+                            <RecibedMessageSubscriber />
+                        </>: null
+                    }
+                    <TimerCmp />
+                </SnackbarProvider>
+            </MainContainter>
+        </ThemeProvider>);
 }
+
+
 
 export default App;

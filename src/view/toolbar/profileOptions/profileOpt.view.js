@@ -1,12 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { CardHeader, Avatar, Badge, IconButton, Divider, List, ListItem, ListItemIcon, ListItemText, Container, FormControl, Select, MenuItem } from '@material-ui/core';
+import { CardHeader, Avatar, Badge, IconButton, Divider, List, ListItem, ListItemIcon, ListItemText, FormControl, Select, MenuItem, FormControlLabel, Switch } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import ShareIcon from '@material-ui/icons/Share';
@@ -15,6 +11,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import StarIcon from '@material-ui/icons/Star';
 import LanguageIcon from '@material-ui/icons/Language';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
+
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -36,12 +33,11 @@ const useStyles = makeStyles( theme => ({
     }
 }));
 
-const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma}) => {
-    console.log(avatarUrl);
+const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme}) => {
     
-  const classes = useStyles();
+     const classes = useStyles();
 
-  return (
+    return (
     <Card className={classes.root}>
         <CardHeader
             classes={{
@@ -97,15 +93,10 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma}) 
                         primaryTypographyProps={{style: {fontSize: '0.9em'}}}
                     />
                 </ListItem>
-
-
-
                 <ListItem>
                     <ListItemIcon>
                         <LanguageIcon />
                     </ListItemIcon>
-                    
-                    
                         <FormControl >
                             <Select
                                 value={idioma}
@@ -120,13 +111,27 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma}) 
                             
                         </FormControl>
                 </ListItem>
-
-
-
+                <ListItem>
+                    <ListItemIcon>
+                        <ColorLensIcon />
+                    </ListItemIcon>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={darkMode}
+                                onChange={changeTheme}
+                                color="primary"
+                            />
+                        }
+                        label={text.darkMode[idioma]}
+                    />
+                </ListItem>
                 <Divider />
                 <ListItem 
                     button
-                    onClick={() => alert('Not implemented')}
+                    onClick={() => {
+                        alert('Not implemented')
+                    }}
                 >
                     <ListItemIcon>
                         <ShareIcon />
@@ -169,12 +174,32 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma}) 
             </List>
 
     </Card>
+    
   );
 }
 
+const useSmallPhotoCameraButtonStyle = makeStyles(theme => {
+        console.log(theme.palette.background.default);
+        
+        return {
+            iconButton: {
+                backgroundColor: theme.palette.background.default,
+                boxShadow: `0 0 5px ${theme.palette.action.disabled}`,
+                '&:hover': {
+                    backgroundColor: theme.palette.background.default
+                }
+            }
+        }
+    }
+);
+
 const SmallPhotoCameraButton = () => {
+    const classes = useSmallPhotoCameraButtonStyle();
     return (
-        <IconButton size="small" style={{backgroundColor:"white", boxShadow: '0 0 5px grey'}} onClick={() => alert('Cambiar foto de perfil')}>
+        <IconButton size="small" 
+            className={classes.iconButton}
+            onClick={() => alert('Cambiar foto de perfil')}
+        >
             <PhotoCameraOutlinedIcon fontSize="small"/>
         </IconButton>
         

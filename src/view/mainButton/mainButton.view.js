@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
       bottom: theme.spacing(2),
       right: theme.spacing(2),
     },
+    icon: {
+        color: theme.palette.text.secondary
+    }
   }));
 
 const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactView}) => {
@@ -36,14 +39,14 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
         >
           <SpeedDialAction
             key='add'
-            icon={<PersonAddIcon color="error"/>}
+            icon={<PersonAddIcon className={classes.icon}/>}
             tooltipTitle={text.addContact[idioma]}
             tooltipOpen
             onClick={openAddContactView}
           />
           <SpeedDialAction
             key='addgroup'
-            icon={<CallSplitIcon color="error"/>}
+            icon={<CallSplitIcon className={classes.icon}/>}
             tooltipTitle={text.sendAll[idioma]}
             tooltipOpen
             onClick={() => {
@@ -53,7 +56,7 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
           />
           {/*<SpeedDialAction
             key='addgroup'
-            icon={<GroupAddIcon color="error"/>}
+            icon={<GroupAddIcon className={classes.icon}/>}
             tooltipTitle={text.addGroup[idioma]}
             tooltipOpen
             onClick={() => {
@@ -63,7 +66,7 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
           />
           <SpeedDialAction
             key='send'
-            icon={<MessageIcon color="error"/>}
+            icon={<MessageIcon className={classes.icon}/>}
             tooltipTitle={text.sendMsg[idioma]}
             tooltipOpen
             onClick={() => {
@@ -73,7 +76,7 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
           />
           <SpeedDialAction
             key='share'
-            icon={<ShareIcon color="error"/>}
+            icon={<ShareIcon className={classes.icon}/>}
             tooltipTitle={text.shareMsg[idioma]}
             tooltipOpen
             onClick={() => {

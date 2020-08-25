@@ -1,5 +1,4 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
 import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Badge, Divider, Menu, Tooltip } from '@material-ui/core';
 import { red, green } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -43,6 +42,12 @@ const useStyle = makeStyles((theme) => ({
     },
     listItemText: {
         paddingRight: theme.spacing(10)
+    },
+    primaryText: {
+        color: theme.palette.text.primary
+    },
+    secondaryText: {
+        color: theme.palette.text.secondary
     }
 }));
 
@@ -50,7 +55,7 @@ const OnlineStyledBadge = withStyles((theme) => ({
     badge: {
         backgroundColor: '#44b700',
         color: '#44b700',
-        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        boxShadow: `0 0 0 2px white`,
         '&::after': {
             position: 'absolute',
             top: 0,
@@ -79,8 +84,10 @@ const OfflineStyledBadge = withStyles((theme) => ({
     badge: {
         backgroundColor: theme.palette.grey[500],
         color: theme.palette.grey[500],
+
         
-        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        
+        boxShadow: `0 0 0 2px white`,
         '&::after': {
             position: 'absolute',
             top: 0,
@@ -182,14 +189,14 @@ const ContactView = React.memo(
     ({idioma, contact, handleMenu,
     handleClose, anchorEl, openChat}) => {
     const lastMsg = contact.lastMsg ? contact.lastMsg : '' ;
-    
+
     const classes = useStyle();
 
-    const labelId = `checkbox-list-secondary-label-${contact.email}`;
-    return (<React.Fragment key={contact.email}>
+
+    return (<>
         <ListItem button onClick={openChat}>
             <ListItemAvatar>
-                {
+                
                 <OnlineBadge contact={contact}>
                     {contact.unread && contact.unread > 0 
                     ? <Badge color="secondary" badgeContent={contact.unread}>
@@ -204,24 +211,31 @@ const ContactView = React.memo(
                         />
                     }
                 </OnlineBadge>
-                }
+                
             </ListItemAvatar>
-            <ListItemText
-                id={labelId}
-                primary={contact.nickname}
-                secondary={contact.friendShipStatus > 1 ? text[contact.friendShipStatusCode][idioma] : `${lastMsg.slice(0, 55)}...`}
-                secondaryTypographyProps={contact.friendShipStatus > 3 
-                    ? {
-                        style: {color: `${red[500]}`}
-
-                    } 
-                    : contact.friendShipStatus < 4 && contact.friendShipStatus > 1 ? {
-                        style: {color: `${green[500]}`}
-                    } : {}
-                }
-                className={classes.listItemText}
-            />
             
+            
+                <ListItemText
+                    primary={contact.nickname}
+                    
+                    secondary={contact.friendShipStatus > 1 ? text[contact.friendShipStatusCode][idioma] : `${lastMsg.slice(0, 55)}...`}
+                    secondaryTypographyProps={contact.friendShipStatus > 3 
+                        ? {
+                            style: {color: `${red[500]}`}
+
+                        } 
+                        : contact.friendShipStatus < 4 && contact.friendShipStatus > 1 ? {
+                            style: {color: `${green[500]}`}
+                        } : {}
+                    }
+                    className={classes.listItemText}
+                    classes={{
+                        primary: classes.primaryText,
+                        secondary: classes.secondaryText
+                    }}
+                />
+            
+            {
             <ListItemSecondaryAction>
                 {contact.friendShipStatus > 1 ?
                     <CustomTooltip title={text[`desc${contact.friendShipStatusCode}`][idioma]} color={contact.friendShipStatus > 3 ? 'red' : 'geen'}>
@@ -244,9 +258,10 @@ const ContactView = React.memo(
                     <ActionProxy handleClose={handleClose} contact={contact}/>
                 </StyledMenu>
             </ListItemSecondaryAction>
+            }
         </ListItem>
         <Divider variant="inset" component="li" />
-        </React.Fragment>
+        </>
     );
 })
 

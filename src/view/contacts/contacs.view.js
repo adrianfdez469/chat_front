@@ -9,7 +9,7 @@ const ContactsView = ({idioma, text, contacts}) => {
     return (
         <List>
             {contacts.length > 0 
-                ? contacts.map((contact) => <Contact contact={contact}/>)
+                ? contacts.map((contact) => <Contact contact={contact} key={contact.contactId}/>)
                 : <>
                 <Divider/>
                     <Typography variant="h5" align='justify'>{text.goMakeFriends[idioma]}</Typography>

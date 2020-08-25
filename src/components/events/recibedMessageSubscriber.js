@@ -27,11 +27,12 @@ const RecibedMessageSubscriber = props => {
             if(activeChatContactId !== userOriginId){                
                 enqueueSnackbar(`${contact.nickname} ${text.writingYou[idioma]}`, {variant: 'info'});
 
-                let dataObj = {};
-                dataObj[userOriginId] = {
-                    cantidad: 1,
-                    lastMessage: content,
-                    datetime: datetime
+                const dataObj = {
+                    [userOriginId]: {
+                        cantidad: 1,
+                        lastMessage: content,
+                        datetime: datetime
+                    }
                 };
                 
                 friendDispatcher({
@@ -42,6 +43,22 @@ const RecibedMessageSubscriber = props => {
                 });
 
             }else{
+
+                const dataObj = {
+                    [userOriginId]: {
+                        cantidad: 0,
+                        lastMessage: content,
+                        datetime: datetime
+                    }
+                };
+                
+                friendDispatcher({
+                    action: 'set_message_info',
+                    payload: {
+                        dataObj: dataObj
+                    }
+                });
+
                 const client = socketClient.getSocket();
                 client.emit('read messages', {
                     userId: userData.userId,

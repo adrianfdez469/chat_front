@@ -58,6 +58,22 @@
     "goLogin": {
         "es": "Continuar",
         "en": "Continue"
+    },
+    "female": {
+        "es": "Femenino",
+        "en": "Female"
+    },
+    "male": {
+        "es": "Masculino",
+        "en": "Male"
+    },
+    "english": {
+        "es": "Ingles",
+        "en": "English"
+    },
+    "spanish": {
+        "es": "Español",
+        "en": "Spanish"
     }
     
 }

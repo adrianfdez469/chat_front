@@ -1,11 +1,11 @@
 {
     "REQUESTED": {
-        "es": "Estado: PEDIDO",
-        "en": "State: REQUESTED"
+        "es": "Estado: PENDIENTE",
+        "en": "State: PENDING"
     },
     "ASKED": {
         "es": "Estado: SOLICITADO",
-        "en": "State: ASKED"
+        "en": "State: REQUESTED"
     },
     "DECLINED": {
         "es": "Estado: RECHAZADO",

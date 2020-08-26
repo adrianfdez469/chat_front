@@ -46,54 +46,5 @@
     "darkMode": {
         "es": "Modo noche",
         "en": "Dark mode"
-    },
-
-    "title": {
-        "es": "Cambiar contraseña",
-        "en": "Change password"
-    },
-    "password": {
-        "es": "Contraseña",
-        "en": "Password"
-    },
-    "oldpassword": {
-        "es": "Contraseña actual",
-        "en": "Current password"
-    },
-    "invalidPass": {
-        "es": "Debe tener al menos 8 caracteres",
-        "en": "Must have at least 8 characters"
-    },
-    "invalidOldPass":{
-        "es": "No puede estar vacía",
-        "en": "Cant't be empty"
-    },
-    "repeatPassword":{
-        "es": "Repita la contraseña",
-        "en": "Repeat password"
-    },
-    "passNotEqual": {
-        "es": "Las contraseñas no son iguales",
-        "en": "The passwords are not equal"
-    },
-    "changePass": {
-        "es": "Cambiar contraseña",
-        "en": "Change password"
-    },
-    "passChangeOk": {
-        "es": "La contraseña ha sido cambiada",
-        "en": "Your password has been changed"
-    },
-    "passChangeError": {
-        "es": "La contraseña no se pudo cambiar",
-        "en": "The password can't be changed"
-    },
-    "passChange403Error": {
-        "es": "Contraseña actual incorrecta",
-        "en": "Wrong current password "
-    },
-    "signin": {
-        "es": "Ir a la página de registro",
-        "en": "Go to login page"
     }
 }

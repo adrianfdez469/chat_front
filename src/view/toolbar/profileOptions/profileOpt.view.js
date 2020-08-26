@@ -14,6 +14,7 @@ import ColorLensIcon from '@material-ui/icons/ColorLens';
 
 import ChangePass from './changepass';
 import ChangeAvatar from './changeavatar';
+import EditProfile from './editprofile';
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles( theme => ({
 
 
 
-const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, changePass, setChangePass, changeAvatar, setChangeAvatar}) => {
+const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile}) => {
     
      const classes = useStyles();
 
@@ -76,7 +77,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                 <List>
                     <ListItem 
                         button
-                        onClick={() => alert('Not implemented')}
+                        onClick={setChangeProfile}
                     >
                         <ListItemIcon>
                             <EditIcon />
@@ -186,6 +187,10 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
         <ChangeAvatar
             avatarOpen={changeAvatar}
             avatarClose={setChangeAvatar}
+        />
+        <EditProfile 
+            isOpen={editProfile}
+            setClose={setChangeProfile}
         />
     </>
 

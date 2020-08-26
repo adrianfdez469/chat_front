@@ -16,7 +16,10 @@ const ProfileOptController = props => {
     const setChangeAvatar  = () => {
         setChangeAvat(oldState => !oldState);
     }
-
+    const [editProfile, setEditProfileState] = useState(false);
+    const setChangeProfile  = () => {
+        setEditProfileState(oldState => !oldState);
+    }
 
     const [idioma, setIdioma] = useRecoilState(idiomaState);
     const [darkMode, setDarkMode] = useRecoilState(darkModeAtom);
@@ -58,6 +61,9 @@ const ProfileOptController = props => {
 
                 changeAvatar={changeAvatar}
                 setChangeAvatar={setChangeAvatar}
+
+                editProfile={editProfile}
+                setChangeProfile={setChangeProfile}
             />
         </>
         ;

@@ -1,0 +1,73 @@
+{
+    "title":{
+        "es": "Editar perfil",
+        "en": "Edit profile"
+    },
+    "email":{
+        "es": "Correo",
+        "en": "Email"
+    },
+    "firstName":{
+        "es": "Nombre",
+        "en": "First name"
+    },
+    "lastName":{
+        "es": "Apellidos",
+        "en": "Last name"
+    },
+    "nickname":{
+        "es": "Nombre de pila",
+        "en": "Nick name"
+    },
+    "gender": {
+        "es": "Género",
+        "en": "Gender"
+    },
+
+
+
+    "invalidEmail": {
+        "es": "Correo inválido",
+        "en": "Invalid email"
+    },
+    "nicknameNull": {
+        "es": "El nombre de pila no puede estar vacio",
+        "en": "Nickname can't be empty"
+    },
+    "nameInvalid": {
+        "es": "Sin espacios. Sin números.",
+        "en": "No spaces. No numbers."
+    },
+    "nameShort": {
+        "es": "Muy corto (min 2)",
+        "en": "Too Short (2 min)"
+    },
+    "nameLong": {
+        "es": "Muy largo (max 20)",
+        "en": "Too long (max 20)"
+    },
+    "duplicated": {
+        "es": "El correo ya se encuentra registrado.",
+        "en": "The email is already registered."
+    },
+    "error": {
+        "es": "Error interno",
+        "en": "Internal error"
+    },
+    "onSaveSuccess": {
+        "es": "Perfil editado correctamente",
+        "en": "Profile edited successfully"
+    },
+    "save": {
+        "es": "Guardar",
+        "en": "Save"
+    },
+    "female": {
+        "es": "Femenino",
+        "en": "Female"
+    },
+    "male": {
+        "es": "Masculino",
+        "en": "Male"
+    }
+}

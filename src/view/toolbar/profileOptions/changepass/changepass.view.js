@@ -5,7 +5,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const usePassStyles = makeStyles((theme) => ({
     paper: {
-      marginTop: theme.spacing(8),
+      marginTop: theme.spacing(4),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -31,7 +31,7 @@ const ChangepassView = ({text, idioma, open, onClose, oldPassState, passState, p
                 <Container component="main" maxWidth="xs">  
                     <div className={classes.paper}>
                         <Avatar className={classes.avatar}>
-                            <LockOutlinedIcon />
+                            <LockOutlinedIcon fontSize="large"/>
                         </Avatar>
                         <Typography component="h1" variant="h5">
                         {text.title[idioma]}

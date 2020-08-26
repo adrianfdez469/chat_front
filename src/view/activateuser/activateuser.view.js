@@ -105,8 +105,8 @@ const ActivateUserView = ({idioma, activeStep, handleFinish,
                                 value={idioma}
                                 onChange={handleLanguageChange}
                             >
-                                <MenuItem value={'en'}>English</MenuItem>
-                                <MenuItem value={'es'}>Español</MenuItem>
+                                <MenuItem value={'en'}>{text.english[idioma]}</MenuItem>
+                                <MenuItem value={'es'}>{text.spanish[idioma]}</MenuItem>
                             </Select>
                             <Button
                                 variant="contained"
@@ -129,8 +129,8 @@ const ActivateUserView = ({idioma, activeStep, handleFinish,
                                 value={sexState}
                                 onChange={sexSelectHandler}
                             >
-                                <MenuItem value={'M'}>Masculino</MenuItem>
-                                <MenuItem value={'F'}>Femenino</MenuItem>
+                                <MenuItem value={'M'}>{text.male[idioma]}</MenuItem>
+                                <MenuItem value={'F'}>{text.female[idioma]}</MenuItem>
                             </Select>
                         </FormControl>
                         <div className={classes.actionsContainer}>

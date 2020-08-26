@@ -34,7 +34,7 @@ const SigninController = props => {
                 if(resp.status === 200){
                     const {
                         token, token_expires, _id, nickname, firstName,
-                        lastname, email, gender, language, avatarUrl
+                        lastName, email, gender, language, avatarUrl
                     } = resp.data;
     
                     
@@ -48,7 +48,7 @@ const SigninController = props => {
                         userId: _id, 
                         nickname: nickname,
                         firstName: firstName,
-                        lastName: lastname,
+                        lastName: lastName,
                         email: email,
                         gender: gender
                     });
@@ -102,7 +102,7 @@ const SigninController = props => {
                 
                 const {
                     token, token_expires, _id, nickname, firstName,
-                    lastname, email, gender, language, avatarUrl,
+                    lastName, email, gender, language, avatarUrl,
                     refresh_token, refresh_token_expires
                 } = resp.data;
 
@@ -119,7 +119,7 @@ const SigninController = props => {
                     userId: _id, 
                     nickname: nickname,
                     firstName: firstName,
-                    lastName: lastname,
+                    lastName: lastName,
                     email: email,
                     gender: gender
                 });

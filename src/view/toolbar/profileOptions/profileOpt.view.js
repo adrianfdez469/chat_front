@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
-import { CardHeader, Avatar, Badge, IconButton, Divider, List, ListItem, ListItemIcon , FormControl, ListItemText, Select, MenuItem, FormControlLabel, Switch } from '@material-ui/core';
+import { CardHeader, Avatar, Badge, IconButton, Divider, List, ListItem, ListItemIcon , FormControl, ListItemText, Select, MenuItem, FormControlLabel, Switch, Dialog, Tooltip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import ShareIcon from '@material-ui/icons/Share';
@@ -11,6 +10,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import StarIcon from '@material-ui/icons/Star';
 import LanguageIcon from '@material-ui/icons/Language';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import ChangePass from './changepass';
 import ChangeAvatar from './changeavatar';
@@ -26,7 +26,11 @@ const useStyles = makeStyles( theme => ({
         height: theme.spacing(7)
     },
     cardHeaderAction: {
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+    },
+    cardHeaderContent:{
+        overflowX: "hidden",
+        marginRight: theme.spacing(2)
     },
     langSelect: {
         fontSize: '0.9em', 
@@ -50,7 +54,8 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
         <Card className={classes.root}>
             <CardHeader
                 classes={{
-                    action: classes.cardHeaderAction
+                    action: classes.cardHeaderAction,
+                    content: classes.cardHeaderContent,
                 }}
                 avatar={
                     <Badge
@@ -70,7 +75,11 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     </Badge>
                 }
                 action={
-                    <Button variant="outlined" onClick={logout}>{text.logout[idioma]}</Button>
+                    <Tooltip title={text.logout[idioma]}>
+                        <IconButton onClick={logout}>
+                            <ExitToAppIcon />
+                        </IconButton>
+                    </Tooltip>
                 }
                 title={userData.nickname}
                 subheader={userData.email}
@@ -140,8 +149,6 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     <ListItem 
                         button
                         onClick={setShareApp}
-                            alert('Not implemented')
-                        }}
                     >
                         <ListItemIcon>
                             <ShareIcon />
@@ -183,19 +190,19 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     </ListItem>
                 </List>
         </Card>
+        
+        <Dialog open={changePass} onClose={setChangePass}>
+            <ChangePass />
+        </Dialog>
 
-        <ChangePass 
-            isopen={changePass}
-            close={setChangePass}
-        />
-        <ChangeAvatar
-            avatarOpen={changeAvatar}
-            avatarClose={setChangeAvatar}
-        />
-        <EditProfile 
-            isOpen={editProfile}
-            setClose={setChangeProfile}
-        />
+        <Dialog open={changeAvatar} onClose={setChangeAvatar}>
+            <ChangeAvatar close={setChangeAvatar}/>
+        </Dialog>
+        
+        <Dialog open={editProfile} onClose={setChangeProfile}>
+            <EditProfile close={setChangeProfile}/>
+        </Dialog>
+        
         <Dialog open={shareApp} onClose={setShareApp}>
             <ShareApp close={setShareApp}/>
         </Dialog>

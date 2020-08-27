@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Dialog, Container, Avatar, Button} from '@material-ui/core';
+import { Container, Avatar, Button} from '@material-ui/core';
 import { pink } from '@material-ui/core/colors';
 import AvatarEdit from 'react-avatar-edit';
 
@@ -27,12 +27,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ChangeAvatarView = ({text, idioma, preview, setPreview, avatarRef, avatarOpen, close, onAvatarChange}) => {
+const ChangeAvatarView = ({text, idioma, preview, setPreview, avatarRef, onAvatarChange}) => {
 
     const classes = useStyles(); 
 
-    return <Dialog open={avatarOpen} onClose={close} >
-        <Container component="main" maxWidth="xs">
+    return <Container component="main" maxWidth="xs">
             <div className={classes.avatarEdit}>
                 <AvatarEdit
                         width={120}
@@ -61,6 +60,5 @@ const ChangeAvatarView = ({text, idioma, preview, setPreview, avatarRef, avatarO
                 {text.btnCambiar[idioma]}
             </Button>
         </Container>
-    </Dialog>
 }
 export default ChangeAvatarView;

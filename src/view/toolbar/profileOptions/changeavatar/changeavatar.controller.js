@@ -6,7 +6,7 @@ import {DEFAULT_CONFIG} from '../../../../conf/configuration'
 import ChangeavatarView from './changeavatar.view';
 import text from './idioma.json';
 
-const ChangeavatarController = ({avatarOpen, avatarClose}) => {
+const ChangeavatarController = ({close}) => {
 
     const idioma = useRecoilValue(idiomaState);
     const {postRequest} = useAxiosHook();
@@ -23,7 +23,7 @@ const ChangeavatarController = ({avatarOpen, avatarClose}) => {
             messageOnError: text.onError[idioma],
             doFnAfterSuccess: resp => {
                 if(resp.status === 200){
-                    avatarClose();
+                    close();
                     setAvatar(`${DEFAULT_CONFIG.server}${resp.data.avatarUrl}`);
                 }
             }
@@ -36,8 +36,7 @@ const ChangeavatarController = ({avatarOpen, avatarClose}) => {
         preview={previewAvatar}
         setPreview={setPreviewAvatar}
         avatarRef={avatarRef}
-        avatarOpen={avatarOpen}
-        close={avatarClose}
+        
         onAvatarChange={onAvatarChange}
     />;
 

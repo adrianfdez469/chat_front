@@ -6,7 +6,7 @@ import useNotification from '../../../../components/uiComponents/notification/no
 import EditProfileView from './editprofile.view';
 import text from './idioma.json'; 
 
-const EditProfileController = ({isOpen, setClose}) => {
+const EditProfileController = ({close}) => {
 
     const idioma = useRecoilValue(idiomaState);
     const avatarSrc = useRecoilValue(userAvatarState);
@@ -76,7 +76,7 @@ const EditProfileController = ({isOpen, setClose}) => {
                 },
                 doFnAfterSuccess: resp => {
                     setUserData({...userData, ...newUserData});
-                    setClose();
+                    close();
                 }
             })
         }
@@ -84,8 +84,6 @@ const EditProfileController = ({isOpen, setClose}) => {
 
 
     return <EditProfileView 
-        isOpen={isOpen}
-        setClose={setClose}
         userData={userData}
         text={text}
         idioma={idioma}

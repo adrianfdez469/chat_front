@@ -1,13 +1,12 @@
 import React from 'react';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
-import {Dialog, Container, TextField, Grid, Button, Avatar, CssBaseline, Typography, Switch} from '@material-ui/core';
+import {Container, TextField, Grid, Button, Avatar, CssBaseline, Typography, Switch} from '@material-ui/core';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
-import {lightBlue, pink, blue} from '@material-ui/core/colors';
+import {pink, blue} from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(4),
-        //margin: theme.spacing(2, 0),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -63,15 +62,15 @@ const EditProfileView = ({text, idioma, isOpen, setClose, userData,
     
     const classes = useStyles();
     
-    return <Dialog open={isOpen} onClose={setClose}>
-        <Container component="main" maxWidth="xs">    
-            <CssBaseline /> <div className={classes.paper}>
-            <Avatar className={classes.avatar}> 
-                <PermIdentityOutlinedIcon fontSize="large"/>
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                {text.title[idioma]}
-            </Typography>       
+    return <Container component="main" maxWidth="xs">    
+            <CssBaseline /> 
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}> 
+                    <PermIdentityOutlinedIcon fontSize="large"/>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    {text.title[idioma]}
+                </Typography>       
             
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
@@ -161,8 +160,7 @@ const EditProfileView = ({text, idioma, isOpen, setClose, userData,
                 
         
             </div>
-        </Container>
-    </Dialog>;
+        </Container>;
 
 }
 export default EditProfileView;

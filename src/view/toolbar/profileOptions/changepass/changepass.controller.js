@@ -7,7 +7,7 @@ import useNotificationHook from '../../../../components/uiComponents/notificatio
 import ChangepassView from './changepass.view';
 import text from './idioma.json';
 
-const ChangepassController = ({isopen, close}) => {
+const ChangepassController = () => {
 
     const idioma = useRecoilValue(idiomaState);
     const logout = useLogout();
@@ -66,8 +66,6 @@ const ChangepassController = ({isopen, close}) => {
     return <ChangepassView 
         text={text}
         idioma={idioma}
-        open={isopen}
-        onClose={close}
 
         oldPassState={oldPassState}
         passState={passState}

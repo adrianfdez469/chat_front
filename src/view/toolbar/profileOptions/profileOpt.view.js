@@ -15,6 +15,7 @@ import ColorLensIcon from '@material-ui/icons/ColorLens';
 import ChangePass from './changepass';
 import ChangeAvatar from './changeavatar';
 import EditProfile from './editprofile';
+import ShareApp from '../../shareapp';
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -38,9 +39,12 @@ const useStyles = makeStyles( theme => ({
 
 
 
-const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile}) => {
+const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, 
+    changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile, shareApp, setShareApp
+
+}) => {
     
-     const classes = useStyles();
+    const classes = useStyles();
 
     return (<>
         <Card className={classes.root}>
@@ -135,7 +139,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     <Divider />
                     <ListItem 
                         button
-                        onClick={() => {
+                        onClick={setShareApp}
                             alert('Not implemented')
                         }}
                     >
@@ -192,6 +196,9 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
             isOpen={editProfile}
             setClose={setChangeProfile}
         />
+        <Dialog open={shareApp} onClose={setShareApp}>
+            <ShareApp close={setShareApp}/>
+        </Dialog>
     </>
 
   );

@@ -20,7 +20,11 @@ const ProfileOptController = props => {
     const setChangeProfile  = () => {
         setEditProfileState(oldState => !oldState);
     }
-
+    const [shareApp, setShareAppState] = useState(false);
+    const setShareApp  = () => {
+        setShareAppState(oldState => !oldState);
+    }
+    
     const [idioma, setIdioma] = useRecoilState(idiomaState);
     const [darkMode, setDarkMode] = useRecoilState(darkModeAtom);
     const userData = useRecoilValue(loginData);
@@ -64,6 +68,9 @@ const ProfileOptController = props => {
 
                 editProfile={editProfile}
                 setChangeProfile={setChangeProfile}
+
+                shareApp={shareApp}
+                setShareApp={setShareApp}
             />
         </>
         ;

@@ -17,7 +17,9 @@ const ActivateUserController = props => {
     const [sexState, setSexState] = useState(null);
     const [nicknameState, setNickname] = useState(props.match.params.nickname);
     const [previewAvatar, setPreviewAvatar] = useState(null);
+    const [passState, setPassState] = useState({value: "", valid: true});
     const avatarRef = useRef(null);
+
 
     const handleLanguageChange = ({target: {value}}) => {
         setIdioma(value);
@@ -38,6 +40,14 @@ const ActivateUserController = props => {
     const setNicknameHandler = ({target: {value}}) => {
         setNickname(value);
     }
+    const onChangePass = ({target:{value}}) => {
+
+        if(value.length < 8){
+            setPassState({...passState,value: value, valid: false, msg: 'passShort'});
+        }else{
+            setPassState({...passState,value: value, valid: true, msg: null});
+        }
+    }
 
 
     const sendActivation = () => {
@@ -50,7 +60,9 @@ const ActivateUserController = props => {
                 language: idioma,
                 gender: sexState,
                 nickname: nicknameState,
-                avatar: previewAvatar
+                avatar: previewAvatar,
+                isUserInvited: props.match.params.invited === 'invited',
+                password: passState.value
             })
         .then(resp => {
             if(resp.status === 200){
@@ -85,6 +97,10 @@ const ActivateUserController = props => {
         sendActivation={sendActivation}
         activationError={activationError}
         avatarRef={avatarRef}
+
+        isUserInvited={props.match.params.invited === 'invited'}
+        passState={passState}
+        onChangePass={onChangePass}
 
     />;
 

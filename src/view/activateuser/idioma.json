@@ -8,8 +8,8 @@
         "en": ", help us to configure your profile"
     },
     "descriptionText":{
-        "es": "En esta vista puede realizar algunas de las configuraciones iniciales de la aplicación. Estas no son obligatorias y pueden ser ajustadas o modificadas en cualquier momento.",
-        "en": "In this interface, you can make some initial configurations of the application. These are not mandatory and can be adjusted or modified any time."
+        "es": "En esta vista puede realizar algunas de las configuraciones iniciales de la aplicación. Estas pueden ser ajustadas o modificadas en cualquier momento.",
+        "en": "In this interface, you can make some initial configurations of the application. They can be adjusted or modified any time."
     },
     "labelIdioma": {
         "es": "Seleccione el idioma",
@@ -74,6 +74,17 @@
     "spanish": {
         "es": "Español",
         "en": "Spanish"
+    },
+    "password": {
+        "es": "Creando contraseña",
+        "en": "Creating password"
+    },
+    "passShort": {
+        "es": "Debe tener al menos 8 caracteres",
+        "en": "Must have at least 8 characters"
+    },
+    "pass": {
+        "es": "Contraseña",
+        "en": "Password"
     }
-    
 }

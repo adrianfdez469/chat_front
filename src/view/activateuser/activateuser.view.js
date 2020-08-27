@@ -81,7 +81,8 @@ const ActivateUserView = ({idioma, activeStep, handleFinish,
     preview, setPreview,
     goNextConf,goBackConf,
     sendActivation, activationError,
-    avatarRef
+    avatarRef,
+    isUserInvited, passState, onChangePass
 }) => {
 
     const classes = useStyles();    
@@ -228,7 +229,7 @@ const ActivateUserView = ({idioma, activeStep, handleFinish,
                                 disabled={nicknameState === ''}
                                 variant="contained"
                                 color="primary"
-                                onClick={sendActivation}
+                                onClick={isUserInvited ? goNextConf : sendActivation}
                                 className={classes.button}
                             >
                                 {text.next[idioma]}
@@ -238,6 +239,55 @@ const ActivateUserView = ({idioma, activeStep, handleFinish,
                     </StepContent>
                 </Step>
                 
+                {isUserInvited 
+                ? <Step >
+                    <StepLabel >{text.password[idioma]}</StepLabel>
+                    <StepContent>
+                        
+                        <FormControl variant="standard" className={classes.combo}>
+                            <TextField
+                                variant="standard"
+                                required
+                                fullWidth
+                                name="password"
+                                label={text.pass[idioma]}
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                value={passState.value}
+                                helperText={!passState.valid ? text[passState.msg][idioma] : ''}
+                                error={!passState.valid}
+                                onChange={onChangePass}
+                            />
+                            
+                            <div className={classes.actionsContainer}>
+                                <div>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        onClick={goBackConf}
+                                        className={classes.button}
+                                    >
+                                        {text.back[idioma]}
+                                    </Button>
+                                    <Button
+                                        disabled={!passState.valid || !passState.value.length > 0}
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={sendActivation}
+                                        className={classes.button}
+                                    >
+                                        {text.next[idioma]}
+                                    </Button>
+                                </div>
+                            </div>
+                        </FormControl>
+
+                    </StepContent>
+                </Step>
+                : null
+                 }
+
                 <Step >
                     <StepLabel error={activationError}>{text.label1[idioma]}</StepLabel>
                 </Step>

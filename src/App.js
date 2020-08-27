@@ -110,6 +110,7 @@ const App = () => {
                         <Route path="/signup" exact component={Signup} />
                         {cmp}
                         <Route path="/changepass/:token" exact component={ChangePass} />
+                        <Route path="/activateuser/:token/:nickname/:invited" exact component={ActivateUser} /> 
                         <Route path="/activateuser/:token/:nickname" exact component={ActivateUser} /> 
                         <Redirect from='/' to='/' />       
                     </Switch>

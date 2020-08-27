@@ -1,0 +1,42 @@
+{
+    "winTitle": {
+        "es": "Compartir",
+        "en": "Share"
+    }, 
+    "text": {
+        "es": "Escribe el nombre y la direccion de correo eléctronico de un amigo para invitarlo y se pueda comunicar contigo por esta vía",
+        "en": "Write the name and the email address to invite your friend and can comunicate with you using this app"
+    },
+    "email": {
+        "es": "Correo Electrónico",
+        "en": "Email Address"
+    },
+    "name": {
+        "es": "Nombre",
+        "en": "First Name"
+    },
+    "send": {
+        "es": "Enviar",
+        "en": "Send"
+    },
+    "sendSuccess": {
+        "es": "Invitación eviada",
+        "en": "Invitation sended"
+    },
+    "nameInvalid": {
+        "es": "Sin espacios. Sin números.",
+        "en": "No spaces. No numbers."
+    },
+    "nameShort": {
+        "es": "Muy corto (min 2)",
+        "en": "Too Short (2 min)"
+    },
+    "nameLong": {
+        "es": "Muy largo (max 20)",
+        "en": "Too long (max 20)"
+    },
+    "emailExist": {
+        "es": "El usuario ya está registrado en el sistema",
+        "en": "The user is already in the system"
+    }
+}

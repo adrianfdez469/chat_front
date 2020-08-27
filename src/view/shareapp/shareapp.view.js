@@ -8,7 +8,7 @@ const ShareAppView = ({idioma, text, nameState, onNameChange, emailState, onEmai
     
 
     return <Container maxWidth="sm"> 
-            <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+            <DialogTitle id="form-dialog-title">{text.winTitle[idioma]}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     {text.text[idioma]}

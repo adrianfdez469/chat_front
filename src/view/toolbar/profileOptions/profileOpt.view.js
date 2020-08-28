@@ -16,6 +16,7 @@ import ChangePass from './changepass';
 import ChangeAvatar from './changeavatar';
 import EditProfile from './editprofile';
 import ShareApp from '../../shareapp';
+import Feedback from '../../feedback';
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles( theme => ({
 
 
 const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, 
-    changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile, shareApp, setShareApp
+    changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile, shareApp, setShareApp, feedback, setFeedback
 
 }) => {
     
@@ -162,7 +163,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     </ListItem>
                     <ListItem 
                         button
-                        onClick={() => alert('Not implemented')}
+                        onClick={setFeedback}
                     >
                         <ListItemIcon>
                             <StarIcon />
@@ -205,6 +206,10 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
         
         <Dialog open={shareApp} onClose={setShareApp}>
             <ShareApp close={setShareApp}/>
+        </Dialog>
+        
+        <Dialog open={feedback} onClose={setFeedback}>
+            <Feedback close={setFeedback}/>
         </Dialog>
     </>
 

@@ -24,6 +24,10 @@ const ProfileOptController = props => {
     const setShareApp  = () => {
         setShareAppState(oldState => !oldState);
     }
+    const [feedback, setFeedbackState] = useState(false);
+    const setFeedback  = () => {
+        setFeedbackState(oldState => !oldState);
+    }
     
     const [idioma, setIdioma] = useRecoilState(idiomaState);
     const [darkMode, setDarkMode] = useRecoilState(darkModeAtom);
@@ -71,6 +75,9 @@ const ProfileOptController = props => {
 
                 shareApp={shareApp}
                 setShareApp={setShareApp}
+
+                feedback={feedback}
+                setFeedback={setFeedback}
             />
         </>
         ;

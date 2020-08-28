@@ -1,0 +1,87 @@
+{
+    "title": {
+        "es": "Califícanos",
+        "en": "Rate us"
+    },
+    "comment": {
+        "es": "Comentario",
+        "en": "Comment"
+    },
+    "unrated": {
+        "es": "Sin calificar",
+        "en": "Unrated"
+    },
+    "useless": {
+        "es": "Inservible",
+        "en": "Useless"
+    },
+    "useless+": {
+        "es": "Inservible+",
+        "en": "Useless+"
+    },
+    "poor": {
+        "es": "Pobre",
+        "en": "Poor"
+    },
+    "poor+": {
+        "es": "Pobre+",
+        "en": "Poor+"
+    },
+    "ok": {
+        "es": "Ok",
+        "en": "Ok"
+    },
+    "ok+": {
+        "es": "Ok+",
+        "en": "Ok+"
+    },
+   
+    "good": {
+        "es": "Bueno",
+        "en": "Good"
+    },
+    "good+": {
+        "es": "Bueno+",
+        "en": "Good+"
+    },
+    "excellent": {
+        "es": "Excelente",
+        "en": "Excellent"
+    },
+    "excellent+": {
+        "es": "Excelente+",
+        "en": "Excellent+"
+    },
+    "design":{
+        "es": "Diseño",
+        "en": "Design"
+    },
+    "performance":{
+        "es": "Rendimiento",
+        "en": "Performance"
+    },
+    "usability":{
+        "es": "Usabilidad",
+        "en": "Usability"
+    },
+    "lbAverage":{
+        "es": "Promedio",
+        "en": "Average"
+    },
+    "lbOnLoadError":{
+        "es": "Error al cargar su calificación previa",
+        "en": "Error loading previous rating"
+    },
+    "lbOnSaveError":{
+        "es": "Error al guardar su calificación",
+        "en": "Error saving your rating"
+    },
+    "lbOnsaveOk":{
+        "es": "Calificación guardada",
+        "en": "Rating saved"
+    },
+    "save":{
+        "es": "Guardar",
+        "en": "Save"
+    }
+}

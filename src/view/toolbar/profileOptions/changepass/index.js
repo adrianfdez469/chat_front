@@ -1,7 +1,7 @@
 import React from 'react';
 import ChangepassController from './changepass.controller';
-const ChangePass = props => {
-
+const ChangePass = props => { 
+    
     return <ChangepassController {...props}/>;
 
 }

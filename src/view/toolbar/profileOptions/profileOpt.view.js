@@ -17,6 +17,7 @@ import ChangeAvatar from './changeavatar';
 import EditProfile from './editprofile';
 import ShareApp from '../../shareapp';
 import Feedback from '../../feedback';
+import BugReport from '../../bugreport';
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -45,8 +46,8 @@ const useStyles = makeStyles( theme => ({
 
 
 const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, 
-    changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile, shareApp, setShareApp, feedback, setFeedback
-
+    changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile, shareApp, setShareApp, feedback, setFeedback,
+    bugreport, setBugreport
 }) => {
     
     const classes = useStyles();
@@ -177,7 +178,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     </ListItem>
                     <ListItem 
                         button
-                        onClick={() => alert('Not implemented')}
+                        onClick={setBugreport}
                     >
                         <ListItemIcon>
                             <BugReportIcon />
@@ -210,6 +211,10 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
         
         <Dialog open={feedback} onClose={setFeedback}>
             <Feedback close={setFeedback}/>
+        </Dialog>
+        
+        <Dialog open={bugreport} onClose={setBugreport}>
+            <BugReport close={setBugreport}/>
         </Dialog>
     </>
 

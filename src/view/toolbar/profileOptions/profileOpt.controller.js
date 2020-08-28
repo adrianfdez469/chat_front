@@ -28,6 +28,10 @@ const ProfileOptController = props => {
     const setFeedback  = () => {
         setFeedbackState(oldState => !oldState);
     }
+    const [bugreport, setBugreportState] = useState(false);
+    const setBugreport  = () => {
+        setBugreportState(oldState => !oldState);
+    }
     
     const [idioma, setIdioma] = useRecoilState(idiomaState);
     const [darkMode, setDarkMode] = useRecoilState(darkModeAtom);
@@ -78,6 +82,9 @@ const ProfileOptController = props => {
 
                 feedback={feedback}
                 setFeedback={setFeedback}
+
+                bugreport={bugreport}
+                setBugreport={setBugreport}
             />
         </>
         ;

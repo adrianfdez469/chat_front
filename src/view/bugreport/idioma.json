@@ -1,0 +1,26 @@
+{
+    "winTitle": {
+        "es": "Reportar error",
+        "en": "Report bug"
+    },
+    "text": {
+        "es": "Su reporte nos ayuda a identificar errores en la aplicación. Sea lo más específico posible cuando los redacte.",
+        "en": "Your report help us to identify errors in the application. Be as most specific as posible."
+    },
+    "send": {
+        "es": "Enviar",
+        "en": "Send"
+    },
+    "report": {
+        "es": "Escriba el reporte aquí ...",
+        "en": "Report here ..."
+    },
+    "sendError": {
+        "es": "Ocurrió un error!",
+        "en": "Something went wrong!"
+    },
+    "sendOk": {
+        "es": "El reporte fue enviado!",
+        "en": "The report was sended!"
+    }
+}

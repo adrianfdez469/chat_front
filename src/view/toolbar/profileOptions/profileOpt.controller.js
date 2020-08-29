@@ -85,6 +85,7 @@ const ProfileOptController = props => {
 
                 bugreport={bugreport}
                 setBugreport={setBugreport}
+                {...props}
             />
         </>
         ;

@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 //import MenuIcon from '@material-ui/icons/Menu';
 import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
-import ProfileOpt from './profileOptions';
 import {blue, pink} from '@material-ui/core/colors';
+
+//import ProfileOpt from './profileOptions';
+const AsyncProfileOpt = React.lazy(() => import('./profileOptions'));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +49,6 @@ const ToolbarView = ({avatarSrc, userData}) => {
   };
 
   const avatarGender = userData.gender === "M" ? 'avatarMan' : 'avatarWoman';
-  console.log(avatarSrc);
 
   return (
     <div className={classes.root}>
@@ -74,7 +77,14 @@ const ToolbarView = ({avatarSrc, userData}) => {
                     />
                     
                 </IconButton>
-                <Popover 
+                <Suspense fallback={
+                        <Backdrop className={classes.backdrop} open={true} >
+                            <CircularProgress color="inherit" />
+                        </Backdrop>}
+                    >
+                    <AsyncProfileOpt open={open} anchorEl={anchorEl} handleClose={handleClose}/>
+                </Suspense>
+                {/*<Popover 
                     open={open}
                     anchorEl={anchorEl}
                     onClose={handleClose}
@@ -87,8 +97,8 @@ const ToolbarView = ({avatarSrc, userData}) => {
                         horizontal: 'right',
                     }}
                 >
-                    <ProfileOpt />
-                </Popover>
+                    
+                </Popover>*/}
 
               
             </div>          

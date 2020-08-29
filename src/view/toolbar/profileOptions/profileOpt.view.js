@@ -1,7 +1,25 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import { CardHeader, Avatar, Badge, IconButton, Divider, List, ListItem, ListItemIcon , FormControl, ListItemText, Select, MenuItem, FormControlLabel, Switch, Dialog, Tooltip } from '@material-ui/core';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import FormControl from '@material-ui/core/FormControl';
+import ListItemText from '@material-ui/core/ListItemText';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Tooltip from '@material-ui/core/Tooltip';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Dialog from '@material-ui/core/Dialog';
+import Popover from '@material-ui/core/Popover';
+
+
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import ShareIcon from '@material-ui/icons/Share';
@@ -19,6 +37,7 @@ import EditProfile from './editprofile';
 import ShareApp from '../../shareapp';
 import Feedback from '../../feedback';
 import BugReport from '../../bugreport';
+
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -56,12 +75,29 @@ const useStyles = makeStyles( theme => ({
 
 const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, 
     changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile, shareApp, setShareApp, feedback, setFeedback,
-    bugreport, setBugreport
+    bugreport, setBugreport,
+    open, anchorEl, handleClose
 }) => {
     
     const classes = useStyles();
 
-    return (<>
+    return (<Popover
+        
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                >
+
+
+
         <Card className={classes.root}>
             <CardHeader
                 classes={{
@@ -224,7 +260,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
         <Dialog open={bugreport} onClose={setBugreport}>
             <BugReport close={setBugreport}/>
         </Dialog>
-    </>
+    </Popover>
 
   );
 }

@@ -3,7 +3,7 @@ import ProfileOptController from './profileOpt.controller';
 
 const ProfileOptions = props => {
 
-    return <ProfileOptController />;
+    return <ProfileOptController {...props}/>;
 
 }
 export default ProfileOptions;

@@ -2,7 +2,7 @@ import React from 'react';
 import { formatRelative } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Badge, Divider, Menu, Tooltip, Typography } from '@material-ui/core';
-import { red, green } from '@material-ui/core/colors';
+import { red, green, blue, pink } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoIcon from '@material-ui/icons/Info';
@@ -49,7 +49,14 @@ const useStyle = makeStyles((theme) => ({
     },
     secondaryText: {
         color: theme.palette.text.secondary
-    }
+    },avatarMan: {
+        color: theme.palette.getContrastText(blue[400]),
+        backgroundColor: blue[400],
+    },
+    avatarWoman: {
+        color: theme.palette.getContrastText(pink[300]),
+        backgroundColor: pink[300],
+    },
 }));
 
 const OnlineStyledBadge = withStyles((theme) => ({
@@ -161,7 +168,6 @@ const StyledMenu = withStyles({
       {...props}
     />
   ));
-
 const useCustomTooltipGreenStyle = makeStyles((theme) => ({
     arrow: {
       color: green[500]
@@ -193,30 +199,29 @@ const ContactView = React.memo(
     
     const options = idioma === 'es' ? { locale: es } : {};
     const lastMsgTime = contact.datetime ? formatRelative(new Date(contact.datetime), new Date(), options) : '';
+    console.log(contact);
     
     
     const classes = useStyle();
-
+    const avatarUrl = contact.avatarUrl ? `${DEFAULT_CONFIG.server}${contact.avatarUrl}` : null;
 
     return (<>
         <ListItem button onClick={openChat}>
             <ListItemAvatar>
-                
                 <OnlineBadge contact={contact}>
                     {contact.unread && contact.unread > 0 
                     ? <Badge color="secondary" badgeContent={contact.unread}>
                         <Avatar
-                            alt={`Avatar n°${contact.nickname}`}
-                            src={`${DEFAULT_CONFIG.server}${contact.avatarUrl}`}
+                            src={avatarUrl}
+                            className={contact.gender === "M" ? classes.avatarMan : classes.avatarWoman}
                         />
                     </Badge>
                     : <Avatar
-                            alt={`Avatar n°${contact.nickname}`}
-                            src={`${DEFAULT_CONFIG.server}${contact.avatarUrl}`}
+                            src={avatarUrl}
+                            className={contact.gender === "M" ? classes.avatarMan : classes.avatarWoman}
                         />
                     }
                 </OnlineBadge>
-                
             </ListItemAvatar>
                 <ListItemText
                     primary={contact.nickname}

@@ -9,9 +9,6 @@ const ToolbarController = props => {
 
     const avatarSrc = useRecoilValue(userAvatarState);
     const userData = useRecoilValue(loginData);
-
-     
-    
     
     return <ToolbarView 
         avatarSrc={avatarSrc}

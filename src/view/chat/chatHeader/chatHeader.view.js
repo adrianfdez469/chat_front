@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 
 import {makeStyles, withStyles} from '@material-ui/core/styles';
+import {blue, pink} from '@material-ui/core/colors';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -37,6 +38,14 @@ const useStyles = makeStyles((theme) => ({
             width: theme.breakpoints.values.sm,
         },
         right: 'auto'
+    },
+    avatarMan: {
+      color: theme.palette.getContrastText(blue[400]),
+      backgroundColor: blue[400],
+    },
+    avatarWoman: {
+      color: theme.palette.getContrastText(pink[300]),
+      backgroundColor: pink[300],
     }
 }));
 
@@ -133,6 +142,8 @@ const ChatHeaderView = ({closeChat, contact}) => {
 
     const classes = useStyles();
 
+    const avatarUrl = contact.avatarUrl ? DEFAULT_CONFIG.server + contact.avatarUrl : null;
+
     return (
         <AppBar position="fixed" className={classes.customAppBar}>
             <ToolBar>
@@ -147,8 +158,8 @@ const ChatHeaderView = ({closeChat, contact}) => {
                 </IconButton>
                     <OnlineBadge contact={contact}>
                         <Avatar
-                            alt={contact.nickname}
-                            src={DEFAULT_CONFIG.server + contact.avatarUrl}
+                            src={avatarUrl}
+                            className={contact.gender === "M" ? classes.avatarMan : classes.avatarWoman}
                         />
                     </OnlineBadge>
                 <Typography className={classes.title} variant="h5" noWrap>

@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
 import ProfileOpt from './profileOptions';
+import {blue, pink} from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,14 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  avatarMan: {
+    color: theme.palette.getContrastText(blue[400]),
+    backgroundColor: blue[400],
+  },
+  avatarWoman: {
+    color: theme.palette.getContrastText(pink[300]),
+    backgroundColor: pink[300],
   },
 }));
 
@@ -41,9 +50,9 @@ const ToolbarView = ({avatarSrc, userData}) => {
         
         <Toolbar>
           
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <MenuIcon />
-            </IconButton>
+            </IconButton>*/}
           
             <Typography variant="h6" className={classes.title}>
                 Shutapp
@@ -57,11 +66,10 @@ const ToolbarView = ({avatarSrc, userData}) => {
                     color="inherit"
                 >
                     <Avatar
-                        alt={userData.nickname}
                         src={avatarSrc}
-                    >
-                        {userData.nickname.toUpperCase().split('')[0]}
-                    </Avatar>
+                        className={userData.gender === "M" ? classes.avatarMan : classes.avatarWoman}
+                    />
+                    
                 </IconButton>
                 <Popover 
                     open={open}

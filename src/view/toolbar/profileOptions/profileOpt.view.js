@@ -11,6 +11,7 @@ import StarIcon from '@material-ui/icons/Star';
 import LanguageIcon from '@material-ui/icons/Language';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {blue, pink} from '@material-ui/core/colors'
 
 import ChangePass from './changepass';
 import ChangeAvatar from './changeavatar';
@@ -40,7 +41,15 @@ const useStyles = makeStyles( theme => ({
         fontWeight: 400,
         lineHeight: 1.5,
         letterSpacing:'0.00938em'
-    }
+    },
+    avatarMan: {
+        color: theme.palette.getContrastText(blue[400]),
+        backgroundColor: blue[400],
+    },
+    avatarWoman: {
+        color: theme.palette.getContrastText(pink[300]),
+        backgroundColor: pink[300],
+    },
 }));
 
 
@@ -70,10 +79,9 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     >   
                             <Avatar 
                                 aria-label="recipe" 
-                                className={classes.avatar} 
+                                className={`${classes.avatar} ${userData.gender === "M" ? classes.avatarMan : classes.avatarWoman}`} 
                                 src={avatarUrl}                            
-                            />
-                        
+                            />                        
                     </Badge>
                 }
                 action={
@@ -222,7 +230,6 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
 }
 
 const useSmallPhotoCameraButtonStyle = makeStyles(theme => {
-        console.log(theme.palette.background.default);
         
         return {
             iconButton: {

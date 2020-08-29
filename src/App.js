@@ -10,7 +10,10 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 // Materia UI
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { Backdrop, CircularProgress, CssBaseline, IconButton } from '@material-ui/core';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import {SnackbarProvider} from 'notistack';
 
@@ -19,22 +22,7 @@ import Signin from './view/signin';
 import MainContainter from './view/main';
 import Signup from './view/signup';
 import UiComponents from './components/uiComponents';
-import ChangePass from './view/changepass';
 import useRefreshToken from './utils/useRefreshToken';
-
-// Eventos
-import NewUserSubscriber from './components/events/newUserSubscriber';
-import UserDisconnectSubscriber from './components/events/userDisconnectSubscriber';
-import IncomingMsgSubscriber from './components/events/incomingMsgSubscriber';
-import DeclinedFriendshipSubscriber from './components/events/declinedFriendshipSubscriber';
-import RequestFriendSubscriber from './components/events/requestFriendshipSubscriber';
-import AcceptFriendshipSubscriber from './components/events/acceptedFriendshipSubscriber';
-import DeletedContactSubscriber from './components/events/deletedContactSubscriber';
-import BlokedContactSubscriber from './components/events/blokedContactSubscriber';
-import RecibedMessageSubscriber from './components/events/recibedMessageSubscriber';
-
-
-
 
 
 
@@ -43,12 +31,16 @@ import RecibedMessageSubscriber from './components/events/recibedMessageSubscrib
 //import ContactList from './view/contacts';
 //import ChatCmp from './view/chat';
 //import ActivateUser from './view/activateuser';
+//import Events from './components/events';
+//import ChangePass from './view/changepass';
 
 const AsyncToolbar = React.lazy(() => import('./view/toolbar'));
 const AsyncMainButton = React.lazy(() => import('./view/mainButton'));
 const AsyncContactList = React.lazy(() => import('./view/contacts'));
 const AsyncChatCmp = React.lazy(() => import('./view/chat'));
 const AsyncActivateUser = React.lazy(() => import('./view/activateuser'));
+const AsyncChangePass = React.lazy(() => import('./view/changepass'));
+const AsyncEvents = React.lazy(() => import('./components/events'));
 
 
 
@@ -150,7 +142,15 @@ const App = () => {
                         <Route path="/" exact component={Signin} />
                         <Route path="/signup" exact component={Signup} />
                         {cmp}
-                        <Route path="/changepass/:token" exact component={ChangePass} />
+                        <Route path="/changepass/:token" exact render={() => (
+                            <Suspense fallback={
+                                <Backdrop className={classes.backdrop} open={true} >
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>}
+                            >
+                                <AsyncChangePass />
+                            </Suspense>
+                        )} />
                         
                         
                         
@@ -179,17 +179,15 @@ const App = () => {
                         <Redirect from='/' to='/' />       
                     </Switch>
                     
-                    {subscribe ? <>
-                            <NewUserSubscriber />
-                            <UserDisconnectSubscriber />
-                            <IncomingMsgSubscriber />
-                            <RequestFriendSubscriber />
-                            <DeclinedFriendshipSubscriber />
-                            <AcceptFriendshipSubscriber />
-                            <DeletedContactSubscriber />
-                            <BlokedContactSubscriber />
-                            <RecibedMessageSubscriber />
-                        </>: null
+                    {subscribe ? 
+                        <Suspense fallback={
+                            <Backdrop className={classes.backdrop} open={true} >
+                                <CircularProgress color="inherit" />
+                            </Backdrop>}
+                        >
+                            <AsyncEvents />
+                        </Suspense>
+                    : null
                     }
                     <TimerCmp />
                 </SnackbarProvider>

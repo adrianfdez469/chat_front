@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+//import MenuIcon from '@material-ui/icons/Menu';
 import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
 import ProfileOpt from './profileOptions';
@@ -44,6 +44,9 @@ const ToolbarView = ({avatarSrc, userData}) => {
     setAnchorEl(null);
   };
 
+  const avatarGender = userData.gender === "M" ? 'avatarMan' : 'avatarWoman';
+  console.log(avatarSrc);
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -67,7 +70,7 @@ const ToolbarView = ({avatarSrc, userData}) => {
                 >
                     <Avatar
                         src={avatarSrc}
-                        className={userData.gender === "M" ? classes.avatarMan : classes.avatarWoman}
+                        className={userData.gender && classes[avatarGender]}
                     />
                     
                 </IconButton>

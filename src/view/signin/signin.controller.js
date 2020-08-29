@@ -53,7 +53,8 @@ const SigninController = props => {
                         gender: gender
                     });
                     setIdiomaState(language);
-                    setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+                    if(avatarUrl)
+                        setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
 
                     setRedirect(true);
                 }
@@ -124,7 +125,8 @@ const SigninController = props => {
                     gender: gender
                 });
                 setIdiomaState(language);
-                setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+                if(avatarUrl)
+                    setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
 
                 setRedirect(true);
 

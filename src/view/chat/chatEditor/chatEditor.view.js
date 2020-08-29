@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
         fontSize: theme.spacing(3.75)
     },
     textarea: {
-        border: '1px solid gray',
+        border: '1px solid white',
         fontFamily: 'inherit',
         fontSize: 'large',    
         padding: '1px 6px',
@@ -42,17 +42,18 @@ const useStyles = makeStyles(theme => ({
         overflowY: 'auto',
         borderRadius: theme.spacing(0.5),
         marginLeft: theme.spacing(2),
+        cursor: 'text'
     }
 }));
 
 
-const ChatEditorView = ({sendMessage, refAreaTexto, keyPress}) => {
+const ChatEditorView = ({sendMessage, refAreaTexto, keyPress, }) => {
     const classes = useStyles();
 
     return (
         <AppBar color="primary"  className={classes.appBar}>
             <Toolbar variant="dense" className={classes.toolbar}>
-                <div className={classes.textarea} role="textbox" contentEditable ref={refAreaTexto} onKeyPress={keyPress}></div>
+                <div className={classes.textarea}  role="textbox" contentEditable ref={refAreaTexto} onKeyPress={keyPress}></div>
                 <div className={classes.grow} />
                 <IconButton color="inherit" onClick={sendMessage}>
                     <TelegramIcon className={classes.icon}/>

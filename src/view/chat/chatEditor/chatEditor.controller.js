@@ -1,19 +1,24 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {loginData, activeChatWith} from '../../../components/recoil/atoms';
+import {loginData, activeChatWith, idiomaState} from '../../../components/recoil/atoms';
 import {friendSelector, addMsgToConversationSelector} from '../../../components/recoil/selectors';
+import useNotification from '../../../components/uiComponents/notification/notification.hook';
 import ChatEditorView from './chatEditor.view';
 import socketClient from '../../../utils/socket';
+import text from './idioma.json';
 
 const ChatEditorController = props => {
 
+    const {openWarningNotification} = useNotification();
     const userData = useRecoilValue(loginData);
+    const idioma = useRecoilValue(idiomaState);
     const addMsgToConversation = useSetRecoilState(addMsgToConversationSelector);
     const idContact = useRecoilValue(activeChatWith);
     const friends = useRecoilValue(friendSelector);
     const contact = friends.find(f => f.contactId === idContact);
     const refAreaTexto = useRef('');
-    const [consecutive, setConsecutive] = useState(0); 
+    const [consecutive, setConsecutive] = useState(0);
+
 
     const sendMessage = () => {
 
@@ -53,14 +58,14 @@ const ChatEditorController = props => {
     }
 
     useEffect(() => {
-        refAreaTexto.current.focus();
-    });
+        contact.friendShipStatus === 1 ? refAreaTexto.current.focus() : openWarningNotification(text.notEditable[idioma]);
+    }, []);
 
-    return <ChatEditorView 
+    return contact.friendShipStatus === 1 ? <ChatEditorView 
         sendMessage={sendMessage}
         keyPress={keyPress}
         refAreaTexto={refAreaTexto}
-    />;
+    /> : null;
 
 }
 export default ChatEditorController;

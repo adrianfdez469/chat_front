@@ -143,6 +143,7 @@ const ChatHeaderView = ({closeChat, contact}) => {
     const classes = useStyles();
 
     const avatarUrl = contact.avatarUrl ? DEFAULT_CONFIG.server + contact.avatarUrl : null;
+    const avatarGender = contact.gender === "M" ? 'avatarMan' : "avatarWoman";
 
     return (
         <AppBar position="fixed" className={classes.customAppBar}>
@@ -159,7 +160,7 @@ const ChatHeaderView = ({closeChat, contact}) => {
                     <OnlineBadge contact={contact}>
                         <Avatar
                             src={avatarUrl}
-                            className={contact.gender === "M" ? classes.avatarMan : classes.avatarWoman}
+                            className={contact.gender && avatarGender}
                         />
                     </OnlineBadge>
                 <Typography className={classes.title} variant="h5" noWrap>

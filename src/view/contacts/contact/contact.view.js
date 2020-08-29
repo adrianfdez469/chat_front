@@ -205,6 +205,8 @@ const ContactView = React.memo(
     const classes = useStyle();
     const avatarUrl = contact.avatarUrl ? `${DEFAULT_CONFIG.server}${contact.avatarUrl}` : null;
 
+    const avatarGender = contact.gender === "M" ? 'avatarMan' : "avatarWoman";
+
     return (<>
         <ListItem button onClick={openChat}>
             <ListItemAvatar>
@@ -213,12 +215,12 @@ const ContactView = React.memo(
                     ? <Badge color="secondary" badgeContent={contact.unread}>
                         <Avatar
                             src={avatarUrl}
-                            className={contact.gender === "M" ? classes.avatarMan : classes.avatarWoman}
+                            className={contact.gender && classes[avatarGender]}
                         />
                     </Badge>
                     : <Avatar
                             src={avatarUrl}
-                            className={contact.gender === "M" ? classes.avatarMan : classes.avatarWoman}
+                            className={contact.gender && classes[avatarGender]}
                         />
                     }
                 </OnlineBadge>

@@ -16,7 +16,6 @@ const useRefreshToken = () => {
         const refresh_token = localStorage.getItem('refresh_token');
         const refresh_token_expires = localStorage.getItem('refresh_token_expires');
         if (refresh_token && refresh_token_expires && new Date(refresh_token_expires).getTime() > new Date().getTime()) {
-            console.log('Antes de llamar al endpoint refreshtoken');
             
             return axios.post(`${DEFAULT_CONFIG.server}/users/refreshtoken`, {
                 token: token, refresh_token: refresh_token

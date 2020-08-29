@@ -1,22 +1,28 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {useRecoilValue} from 'recoil';
-import {subscribeToEventsState, loginData, activeChatWith} from './components/recoil/atoms';
 
-// --------------------------- New Style --------------------- //
+// Recoil Atoms
+import {subscribeToEventsState, loginData, activeChatWith, tokenTimeoutAtom, darkModeAtom} from './components/recoil/atoms';
+
+// React router
 import {Switch, Route, Redirect} from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import IconButton from '@material-ui/core/IconButton';
+
+// Materia UI
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { Backdrop, CircularProgress, CssBaseline, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import {SnackbarProvider} from 'notistack';
+
+// Componentes visuales
 import Signin from './view/signin';
-import ContactList from './view/contacts';
-import MainButton from './view/mainButton';
 import MainContainter from './view/main';
-import Toolbar from './view/toolbar';
-import ChatCmp from './view/chat';
 import Signup from './view/signup';
 import UiComponents from './components/uiComponents';
 import ChangePass from './view/changepass';
-import ActivateUser from './view/activateuser';
+import useRefreshToken from './utils/useRefreshToken';
+
+// Eventos
 import NewUserSubscriber from './components/events/newUserSubscriber';
 import UserDisconnectSubscriber from './components/events/userDisconnectSubscriber';
 import IncomingMsgSubscriber from './components/events/incomingMsgSubscriber';
@@ -26,13 +32,26 @@ import AcceptFriendshipSubscriber from './components/events/acceptedFriendshipSu
 import DeletedContactSubscriber from './components/events/deletedContactSubscriber';
 import BlokedContactSubscriber from './components/events/blokedContactSubscriber';
 import RecibedMessageSubscriber from './components/events/recibedMessageSubscriber';
-import {SnackbarProvider} from 'notistack';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
 
-import {tokenTimeoutAtom, darkModeAtom} from './components/recoil/atoms';
-import useRefreshToken from './utils/useRefreshToken';
-import { Container, makeStyles } from '@material-ui/core';
+
+
+
+
+
+//import Toolbar from './view/toolbar';
+//import MainButton from './view/mainButton';
+//import ContactList from './view/contacts';
+//import ChatCmp from './view/chat';
+//import ActivateUser from './view/activateuser';
+
+const AsyncToolbar = React.lazy(() => import('./view/toolbar'));
+const AsyncMainButton = React.lazy(() => import('./view/mainButton'));
+const AsyncContactList = React.lazy(() => import('./view/contacts'));
+const AsyncChatCmp = React.lazy(() => import('./view/chat'));
+const AsyncActivateUser = React.lazy(() => import('./view/activateuser'));
+
+
+
 const TimerCmp = () => {
 
     const refreshToken = useRefreshToken();
@@ -56,8 +75,17 @@ const themeDark = createMuiTheme({palette: {type: 'dark',}});
 const themeDefault = createMuiTheme({});
 
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
+
 
 const App = () => {
+
+    const classes = useStyles();
 
     const dark = useRecoilValue(darkModeAtom);
     const subscribe = useRecoilValue(subscribeToEventsState);
@@ -72,12 +100,25 @@ const App = () => {
     ? <>
             {
                 chatWith 
-                ? <ChatCmp />                
+                ? <Suspense fallback={
+                    <Backdrop className={classes.backdrop} open={true} >
+                        <CircularProgress color="inherit" />
+                    </Backdrop>}
+                >
+                    <AsyncChatCmp />
+                </Suspense>
+                                    
                 : <Route path="/contacts" exact render={ () => (
                     <ThemeProvider theme={dark ? themeDark : themeDefault}>
-                        <Toolbar />
-                        <MainButton />
-                        <ContactList />
+                        <Suspense fallback={
+                            <Backdrop className={classes.backdrop} open={true} >
+                                <CircularProgress color="inherit" />
+                            </Backdrop>}
+                        >
+                            <AsyncToolbar />
+                            <AsyncMainButton />
+                            <AsyncContactList />
+                        </Suspense>
                     </ThemeProvider>
                 )} />
             }
@@ -110,8 +151,31 @@ const App = () => {
                         <Route path="/signup" exact component={Signup} />
                         {cmp}
                         <Route path="/changepass/:token" exact component={ChangePass} />
-                        <Route path="/activateuser/:token/:nickname/:invited" exact component={ActivateUser} /> 
-                        <Route path="/activateuser/:token/:nickname" exact component={ActivateUser} /> 
+                        
+                        
+                        
+                        <Route path="/activateuser/:token/:nickname/:invited" exact render={() => (
+                            <Suspense fallback={
+                                <Backdrop className={classes.backdrop} open={true} >
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>}
+                            >
+                                <AsyncActivateUser />
+                            </Suspense>
+                        )} /> 
+                        <Route path="/activateuser/:token/:nickname" exact render={() => (
+                            <Suspense fallback={
+                                <Backdrop className={classes.backdrop} open={true} >
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>}
+                            >
+                                <AsyncActivateUser />
+                            </Suspense>
+                        )} /> 
+                        
+                        
+                        
+                        
                         <Redirect from='/' to='/' />       
                     </Switch>
                     

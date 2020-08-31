@@ -8,6 +8,7 @@ import authMiddleware from '../../authMiddleware';
 import text from './idioma.json';
 import {addContactViewOpenState, loginData/*, friendSelector*/} from '../../components/recoil/atoms';
 import {friendSelector} from '../../components/recoil/selectors';
+import useAxiosHook from '../../utils/axiosHook';
 
 import {idiomaState} from '../../components/recoil/atoms'
 import socketClient from '../../utils/socket';
@@ -19,6 +20,7 @@ const AddContactController = props => {
     const {openErrorNotification} = useNotificationHook();
     const inputSearchRef = useRef({value: ''});
     const userData = useRecoilValue(loginData);
+    const {postRequest} = useAxiosHook();
 
     //const addContact = useSetRecoilState(friendSelector);
     const friendDispatcher = useSetRecoilState(friendSelector);
@@ -26,26 +28,20 @@ const AddContactController = props => {
 
     const buscarUsuarios = () => {
         
-        const optimisticAction = (token) => {
-            axios.post(`${DEFAULT_CONFIG.server}/users/searchContact`, {
+        postRequest({
+            url: '/users/searchContact',
+            bodyParams: {
                 stringPattern: inputSearchRef.current.value,
                 start: 0,
                 limit: 20
-            }, {
-                headers: {
-                    "Authorization": token
-                }
-            })
-            .then(resp => {
+            },
+            doFnAfterSuccess: resp => {
                 if(resp.status === 200){
                     setUsers(resp.data.users);
                 }
-            })
-            .catch(err => {
-                openErrorNotification(text.lbErrorLoadingUsers[idioma]);
-            });
-        }
-        authMiddleware(optimisticAction);
+            },
+            messageOnError: text.lbErrorLoadingUsers[idioma]
+        });
     }
 
     useEffect(() => {
@@ -54,15 +50,12 @@ const AddContactController = props => {
 
     const sendFriendRequest = (userId) => {
         
-        const optimisticAction = (token) => {
-            axios.post(`${DEFAULT_CONFIG.server}/users/sendFriendRequest`, {
+        postRequest({
+            url: '/users/sendFriendRequest',
+            bodyParams: {
                 userId: userId
-            }, {
-                headers: {
-                    "Authorization": token
-                }
-            })
-            .then(resp => {
+            },
+            doFnAfterSuccess: (resp, token) => {
                 if(resp.status === 200){
                     setUsers(users => {
                         return users.filter(user => user.userId !== userId);
@@ -70,22 +63,16 @@ const AddContactController = props => {
 
                     //addContact(resp.data.friend);
                     friendDispatcher({action: 'add', payload: {friend: resp.data.friend}});
-                    
+                    const client = socketClient.getSocket();
+                    client.emit('request friendship', {
+                        userIdRequester: userData.userId,
+                        userIdRequested: userId,
+                        token: token
+                    });
                 }
-            })
-            .then(() => {
-                const client = socketClient.getSocket();
-                client.emit('request friendship', {
-                    userIdRequester: userData.userId,
-                    userIdRequested: userId,
-                    token: token
-                });
-            })
-            .catch(err => {
-                openErrorNotification(text.lbErrorSendigFriendRequest[idioma]);
-            });
-        }
-        authMiddleware(optimisticAction);
+            },
+            messageOnError: text.lbErrorSendigFriendRequest[idioma]
+        });
     }
 
     const closeAddContactWin = () => {

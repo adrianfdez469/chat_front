@@ -47,7 +47,9 @@ const DeclinedFriendshipSubscriber = props => {
                     enqueueSnackbar(`${friend.nickname} ${text.declinedInv[idioma]}`, {variant: "warning"});
                 })
                 .catch(err => {
-                    if(err.response.status === 404){
+                    if(!err.status){
+                        openErrorNotification(text.connError[idioma]);
+                    }else if(err.response.status === 404){
                         friendDispatcher({
                             action: 'delete', 
                             payload: {

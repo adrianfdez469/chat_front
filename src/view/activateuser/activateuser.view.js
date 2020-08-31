@@ -15,7 +15,7 @@ import { pink, blueGrey } from '@material-ui/core/colors';
 
 
 
-import text from './idioma.json';
+
 import { Container, Divider } from '@material-ui/core';
 
 import AvatarEdit from 'react-avatar-edit';
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
-const ActivateUserView = ({idioma, activeStep, handleFinish,
+const ActivateUserView = ({idioma, text,activeStep, handleFinish,
     handleLanguageChange, 
     sexSelectHandler,sexState,
     nicknameState, setNicknameHandler,

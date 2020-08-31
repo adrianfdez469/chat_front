@@ -32,7 +32,9 @@ const ForgotPassController = ({idioma, forgotWinState, forgetPassHandler}) => {
 
             })
             .catch(err => {
-                if(err.response.status === 404){
+                if(!err.status){
+                    openErrorNotification(text.connError[idioma]);
+                }else if(err.response.status === 404){
                     openErrorNotification(text.emailNotFound[idioma]);
                 }else{
                     openErrorNotification(text.error[idioma]);

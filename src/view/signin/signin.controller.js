@@ -60,7 +60,13 @@ const SigninController = props => {
                 }
             })
             .catch(err => {
-                console.log('Error al cargar los datos del usuario usando el token');
+                if(!err.status){
+                    openErrorNotification(text.connErr[idioma]);
+                }else if(err.response.status === 403){
+                    openErrorNotification(text.notAuthorized[idioma]);
+                }else{
+                    openErrorNotification(text.internalError[idioma]);
+                }
             })
         }
         
@@ -133,7 +139,11 @@ const SigninController = props => {
             }
         })
         .catch(err => {
-            if(err.response.status === 403){
+            
+            if(!err.status){
+                openErrorNotification(text.connErr[idioma]);
+            } 
+            else if(err.response.status === 403){
                 openErrorNotification(text.notAuthorized[idioma]);
             }else{
                 openErrorNotification(text.internalError[idioma]);

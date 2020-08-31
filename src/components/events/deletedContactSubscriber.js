@@ -46,7 +46,11 @@ const DeletedContactSubscriber = props => {
                     enqueueSnackbar(`${friend.nickname} ${text.delete[idioma]}`, {variant: "error"});
                 })
                 .catch(err => {
-                    openErrorNotification(text.errorLoadingFriends[idioma])
+                    if(!err.status){
+                        openErrorNotification(text.connError[idioma]);
+                    }else{
+                        openErrorNotification(text.errorLoadingFriends[idioma]);
+                    }
                 });
             }
             authMiddleware(optimisticAction);

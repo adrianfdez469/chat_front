@@ -92,25 +92,12 @@ const App = () => {
     ? <>
             {
                 chatWith 
-                ? <Suspense fallback={
-                    <Backdrop className={classes.backdrop} open={true} >
-                        <CircularProgress color="inherit" />
-                    </Backdrop>}
-                >
-                    <AsyncChatCmp />
-                </Suspense>
-                                    
+                ? <AsyncChatCmp />  
                 : <Route path="/contacts" exact render={ () => (
                     <ThemeProvider theme={dark ? themeDark : themeDefault}>
-                        <Suspense fallback={
-                            <Backdrop className={classes.backdrop} open={true} >
-                                <CircularProgress color="inherit" />
-                            </Backdrop>}
-                        >
-                            <AsyncToolbar />
-                            <AsyncMainButton />
-                            <AsyncContactList />
-                        </Suspense>
+                        <AsyncToolbar />
+                        <AsyncMainButton />
+                        <AsyncContactList />
                     </ThemeProvider>
                 )} />
             }
@@ -118,8 +105,13 @@ const App = () => {
     : null ;
 
 
-    return (<ThemeProvider theme={dark ? themeDark : themeDefault}>
-       
+    return (
+        <Suspense fallback={
+            <Backdrop className={classes.backdrop} open={true} >
+                <CircularProgress color="inherit" />
+            </Backdrop>}
+        >
+        <ThemeProvider theme={dark ? themeDark : themeDefault}>       
             <MainContainter>
                 <CssBaseline />
                 <UiComponents />
@@ -143,34 +135,22 @@ const App = () => {
                         <Route path="/signup" exact component={Signup} />
                         {cmp}
                         <Route path="/changepass/:token" exact render={() => (
-                            <Suspense fallback={
-                                <Backdrop className={classes.backdrop} open={true} >
-                                    <CircularProgress color="inherit" />
-                                </Backdrop>}
-                            >
+                            
                                 <AsyncChangePass />
-                            </Suspense>
+                            
                         )} />
                         
                         
                         
                         <Route path="/activateuser/:token/:nickname/:invited" exact render={() => (
-                            <Suspense fallback={
-                                <Backdrop className={classes.backdrop} open={true} >
-                                    <CircularProgress color="inherit" />
-                                </Backdrop>}
-                            >
+                            
                                 <AsyncActivateUser />
-                            </Suspense>
+                            
                         )} /> 
                         <Route path="/activateuser/:token/:nickname" exact render={() => (
-                            <Suspense fallback={
-                                <Backdrop className={classes.backdrop} open={true} >
-                                    <CircularProgress color="inherit" />
-                                </Backdrop>}
-                            >
+                            
                                 <AsyncActivateUser />
-                            </Suspense>
+                            
                         )} /> 
                         
                         
@@ -180,21 +160,18 @@ const App = () => {
                     </Switch>
                     
                     {subscribe ? 
-                        <Suspense fallback={
-                            <Backdrop className={classes.backdrop} open={true} >
-                                <CircularProgress color="inherit" />
-                            </Backdrop>}
-                        >
+                        
                             <AsyncEvents />
-                        </Suspense>
+                        
                     : null
                     }
                     <TimerCmp />
                 </SnackbarProvider>
             </MainContainter>
-        </ThemeProvider>);
+        </ThemeProvider>
+    </Suspense>    
+    );
 }
-
 
 
 export default App;

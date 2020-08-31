@@ -30,5 +30,9 @@
     "internalError": {
         "en": "Internal error",
         "es": "Error interno"
+    },
+    "connErr": {
+        "en": "Error de conexión",
+        "es": "Network error"
     }
 }

@@ -51,7 +51,9 @@ const SignupController = props => {
                 }
             })
             .catch(err => {
-                if(err.response.status === 409){
+                if(!err.status){
+                    openErrorNotification(text.connError[idioma]);
+                }else if(err.response.status === 409){
                     openErrorNotification(text.duplicated[idioma]);
                 }else{
                     openErrorNotification(text.error[idioma]);

@@ -39,5 +39,9 @@
     "writingYou":{
         "es": "ha escrito",
         "en": "has whritten"
+    },
+    "connError": {
+        "es": "Error de conexión",
+        "en": "Network error"
     }
 }

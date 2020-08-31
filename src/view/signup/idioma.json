@@ -54,5 +54,9 @@
     "userCreated": {
         "es": "Usuario creado. Revise su correo para activarlo.",
         "en": "User created. Check your email to activate it."
+    },
+    "connError": {
+        "es": "Error de conexión",
+        "en": "Network error"
     }
 }

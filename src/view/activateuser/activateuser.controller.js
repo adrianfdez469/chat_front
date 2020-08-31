@@ -4,12 +4,15 @@ import axios from 'axios';
 import {DEFAULT_CONFIG} from '../../conf/configuration';
 import {useRecoilState} from 'recoil';
 import {idiomaState} from '../../components/recoil/atoms';
-
+import useNotification from '../../components/uiComponents/notification/notification.hook';
 import ActivateUserView from './activateuser.view';
+import text from './idioma.json';
+
 
 const ActivateUserController = props => {
 
     const [idioma, setIdioma] = useRecoilState(idiomaState);
+    const {openErrorNotification} = useNotification();
 
     const [activeStep, setActiveStep] = useState(0);
     const [activationError, setActivationError] = useState(false);
@@ -71,7 +74,11 @@ const ActivateUserController = props => {
             
         })
         .catch(err => {
+            if(!err.status){
+                openErrorNotification(text.connError[idioma]);
+            }
             setActivationError(true);
+            
         });
     }
 
@@ -81,6 +88,7 @@ const ActivateUserController = props => {
 
     return <ActivateUserView 
         idioma={idioma}
+        text={text}
         activeStep={activeStep}
         handleFinish={handleFinish}
         handleLanguageChange={handleLanguageChange}

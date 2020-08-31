@@ -86,5 +86,9 @@
     "pass": {
         "es": "Contraseña",
         "en": "Password"
+    },
+    "connError": {
+        "es": "Error de conexión",
+        "en": "Network error"
     }
 }

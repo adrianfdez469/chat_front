@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {useRecoilValue} from 'recoil';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
 import useAxiosHook from '../../utils/axiosHook';
 import useNotification from '../../components/uiComponents/notification/notification.hook';
 import {idiomaState} from '../../components/recoil/atoms';
+import {friendSelector} from '../../components/recoil/selectors';
 import ShareAppView from './shareapp.view';
 import text from './idioma.json';
 
@@ -12,6 +13,7 @@ const ShareAppController = ({close}) => {
     
     const {postRequest} = useAxiosHook();
     const {openErrorNotification} = useNotification();
+    const friendDispatcher = useSetRecoilState(friendSelector);
 
     const [emailState, setEmailState] = useState({value: '', valid: true});
     const [nameState, setNameState] = useState({value: '', valid: true});  
@@ -48,12 +50,19 @@ const ShareAppController = ({close}) => {
                     hostname: window.location.host
                 },
                 messageOnSuccess: text.sendSuccess[idioma],
-                doFnAfterError: err => {
-                    if(err.response.status === 409){
+                doFnAfterError: err => {                    
+                    if(!err.response){
+                        openErrorNotification(text.connError[idioma]);
+                    }
+                    else if(err.response.status === 409){
                         openErrorNotification(text.emailExist[idioma]);
                     }
                 },
                 doFnAfterSuccess: resp => {
+                    if(resp.status === 201){
+                        const newFriend = resp.data.friend;
+                        friendDispatcher({action: 'add', payload: {friend: newFriend}});
+                    }
                     close();
                 }
             });

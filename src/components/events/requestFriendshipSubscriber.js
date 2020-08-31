@@ -49,7 +49,7 @@ const RequestFriendSubscriber = props => {
                         enqueueSnackbar(`${friend.nickname} ${text.requestedInv[idioma]}`, {variant: "success"});
                     })
                     .catch(err => {
-                        if(!err.status){
+                        if(!err.response){
                             openErrorNotification(text.connError[idioma]);
                         }else{
                             openErrorNotification(text.errorLoadingFriends[idioma]);

@@ -38,5 +38,9 @@
     "emailExist": {
         "es": "El usuario ya está registrado en el sistema",
         "en": "The user is already in the system"
+    },
+    "connError": {
+        "es": "Error de conexión",
+        "en": "Network error"
     }
 }

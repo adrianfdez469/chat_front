@@ -60,7 +60,7 @@ const SigninController = props => {
                 }
             })
             .catch(err => {
-                if(!err.status){
+                if(!err.response){
                     openErrorNotification(text.connErr[idioma]);
                 }else if(err.response.status === 403){
                     openErrorNotification(text.notAuthorized[idioma]);
@@ -140,7 +140,7 @@ const SigninController = props => {
         })
         .catch(err => {
             
-            if(!err.status){
+            if(!err.response){
                 openErrorNotification(text.connErr[idioma]);
             } 
             else if(err.response.status === 403){

@@ -1,10 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
-import axios from 'axios';
-import useNotificationHook from '../../components/uiComponents/notification/notification.hook';
-import {DEFAULT_CONFIG} from '../../conf/configuration';
 import AddContactView from './addContact.view';
-import authMiddleware from '../../authMiddleware';
 import text from './idioma.json';
 import {addContactViewOpenState, loginData/*, friendSelector*/} from '../../components/recoil/atoms';
 import {friendSelector} from '../../components/recoil/selectors';
@@ -17,12 +13,10 @@ const AddContactController = props => {
     const idioma = useRecoilValue(idiomaState); 
     const [addContactState, setAddContactState] = useRecoilState(addContactViewOpenState);
     const [users, setUsers] = useState([]);
-    const {openErrorNotification} = useNotificationHook();
     const inputSearchRef = useRef({value: ''});
     const userData = useRecoilValue(loginData);
     const {postRequest} = useAxiosHook();
 
-    //const addContact = useSetRecoilState(friendSelector);
     const friendDispatcher = useSetRecoilState(friendSelector);
     
 

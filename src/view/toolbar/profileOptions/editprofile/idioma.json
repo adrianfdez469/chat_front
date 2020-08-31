@@ -69,5 +69,9 @@
     "male": {
         "es": "Masculino",
         "en": "Male"
+    },
+    "connError": {
+        "es": "Error de conexión",
+        "en": "Network error"
     }
 }

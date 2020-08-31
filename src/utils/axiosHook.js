@@ -31,7 +31,7 @@ const useAxiosHook = () => {
                 })
                 .catch(err => {
                     //closeBackDrop();
-                    if(!err.status){
+                    if(!err.response){
                         const connMsgError = {"es": "Error de conexión", "en": "Network error"};
                         openErrorNotification(connMsgError[idioma]);
                     }else if(messageOnError) openErrorNotification(messageOnError);

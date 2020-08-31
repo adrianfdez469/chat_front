@@ -199,7 +199,7 @@ const ContactView = React.memo(
     
     const options = idioma === 'es' ? { locale: es } : {};
     const lastMsgTime = contact.datetime ? formatRelative(new Date(contact.datetime), new Date(), options) : '';
-    console.log(contact);
+    
     
     
     const classes = useStyle();

@@ -74,7 +74,7 @@ const ActivateUserController = props => {
             
         })
         .catch(err => {
-            if(!err.status){
+            if(!err.response){
                 openErrorNotification(text.connError[idioma]);
             }
             setActivationError(true);

@@ -52,8 +52,9 @@ const ChangepassController = () => {
                     }
                 },
                 doFnAfterError: err => {
-                    console.log(err.response);
-                    if(err.response.status === 403){
+                    if(!err.response){
+                        openErrorNotification(text.connError[idioma]);
+                    }else if(err.response.status === 403){
                         openErrorNotification(text.passChange403Error[idioma])
                     }else{
                         openErrorNotification(text.passChangeError[idioma])

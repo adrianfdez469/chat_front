@@ -68,7 +68,10 @@ const EditProfileController = ({close}) => {
                 bodyParams: newUserData,
                 messageOnSuccess: text.onSaveSuccess[idioma],
                 doFnAfterError: err => {
-                    if(err.response.status === 409){
+                    if(!err.response){
+                        openErrorNotification(text.connError[idioma]);
+                    }
+                    else if(err.response.status === 409){
                         openErrorNotification(text.duplicated[idioma]);
                     }else{
                         openErrorNotification(text.error[idioma]);

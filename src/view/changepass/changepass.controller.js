@@ -47,7 +47,7 @@ const ChangePassController = props => {
                 }
             })
             .catch(err => {
-                if(!err.status){
+                if(!err.response){
                     openErrorNotification(text.connError[idioma]);
                 }else{
                     openErrorNotification(text.passChangeError[idioma]);

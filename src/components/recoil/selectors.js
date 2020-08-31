@@ -1,6 +1,6 @@
 import {selector} from 'recoil';
 
-import {friendsAtom, idiomaState, messagesAtom, getConversationWithContact} from './atoms';
+import {friendsAtom, idiomaState, getConversationWithContact} from './atoms';
 
 const friendSelector = selector({
     key: 'friendSelector',
@@ -39,6 +39,10 @@ const friendSelector = selector({
                 break;
             case 'add':
                 set(friendsAtom, oldFriends => {
+                    console.log(oldFriends);
+                    console.log(payload.friend);
+                    
+                    
                     const friends = [...oldFriends];
                     friends.push(payload.friend);
                     return friends;

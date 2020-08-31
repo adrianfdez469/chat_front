@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import NotificationHook from '../../components/uiComponents/notification/notification.hook';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 
 import ChangePassView from './changepass.view';
 import {idiomaState} from './../../components/recoil/atoms';
@@ -16,6 +16,7 @@ const ChangePassController = props => {
     const {openErrorNotification, openSuccessNotification} = NotificationHook();
     const [passState, setPassState] = useState({value: "", valid: true});
     const [pass2State, setPass2State] = useState({value: "", valid: true});
+    const [redirect, setRedirect] = useState(false);
 
 
     const onPassChange = ({target: {value}}) => {
@@ -42,6 +43,7 @@ const ChangePassController = props => {
             .then(resp => {
                 if(resp.status === 200){
                     openSuccessNotification(text.passChangeOk[idioma]);
+                    setRedirect(true);
                 }
             })
             .catch(err => {
@@ -49,7 +51,10 @@ const ChangePassController = props => {
             });
         }
     }
-    
+
+    if(redirect){
+        return <Redirect to="/" />;
+    }
     return <ChangePassView idioma={idioma} 
             passState={passState}
             pass2State={pass2State}

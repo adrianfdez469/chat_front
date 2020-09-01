@@ -58,10 +58,10 @@ const ChatEditorController = props => {
     }
 
     useEffect(() => {
-        contact.friendShipStatus === 1 ? refAreaTexto.current.focus() : openWarningNotification(text.notEditable[idioma]);
+        contact.friendShipStatus !== 5 ? refAreaTexto.current.focus() : openWarningNotification(text.notEditable[idioma]);
     }, []);
 
-    return contact.friendShipStatus === 1 ? <ChatEditorView 
+    return contact.friendShipStatus !== 5 ? <ChatEditorView 
         sendMessage={sendMessage}
         keyPress={keyPress}
         refAreaTexto={refAreaTexto}

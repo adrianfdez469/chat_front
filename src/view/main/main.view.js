@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
       height: '100vh',
       overflowY: 'hidden',
       backgroundColor: theme.palette.background.paper
+    },
+    background: {
+        backgroundColor: theme.palette.background.default
     }
   }));
 
@@ -18,10 +21,12 @@ const MainView = props => {
     const classes = useStyles();
 
     return (
-        <Container maxWidth="sm" className={classes.container} component="main">
-            <CssBaseline />
-            {props.children}
-        </Container>
+        <div className={classes.background}>
+            <Container maxWidth="sm" className={classes.container} component="main">
+                <CssBaseline />
+                {props.children}
+            </Container>
+        </div>
     );
 
 }

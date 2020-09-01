@@ -15,7 +15,6 @@ import Avatar from '@material-ui/core/Avatar';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider';
-import {DEFAULT_CONFIG} from '../../conf/configuration';
 import { blue, pink, grey } from '@material-ui/core/colors';
 
 
@@ -141,7 +140,11 @@ const UserItem = ({user, sendFriendRequest}) => {
     return (
         <ListItem key={user.email} >
             <ListItemAvatar>
-                <Avatar className={user.gender && classes[avatarGender]} src={DEFAULT_CONFIG.server + user.avatarUrl}></Avatar>
+                <Avatar 
+                    className={user.gender && classes[avatarGender]} 
+                    //src={DEFAULT_CONFIG.server + user.avatarUrl}
+                    src={user.avatarUrl}
+                />
             </ListItemAvatar>
             <ListItemText
                 primary={user.nickname}

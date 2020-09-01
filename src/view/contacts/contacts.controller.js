@@ -58,8 +58,6 @@ const ContactsController = props => {
                     }
                 }
             });
-        }else{
-            console.log('NO LOS MANDA A BUSCAR');
         }
     }
 

@@ -92,12 +92,12 @@ const App = () => {
     ? <>
             {
                 chatWith 
-                ? <AsyncChatCmp />  
+                ? <AsyncChatCmp />
                 : <Route path="/contacts" exact render={ () => (
                     <ThemeProvider theme={dark ? themeDark : themeDefault}>
                         <AsyncToolbar />
-                        <AsyncMainButton />
                         <AsyncContactList />
+                        <AsyncMainButton />
                     </ThemeProvider>
                 )} />
             }

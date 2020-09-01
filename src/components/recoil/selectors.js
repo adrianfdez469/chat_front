@@ -1,6 +1,6 @@
 import {selector} from 'recoil';
 
-import {friendsAtom, idiomaState, getConversationWithContact} from './atoms';
+import {friendsAtom, idiomaState, getConversationWithContact, activeChatWith} from './atoms';
 
 const friendSelector = selector({
     key: 'friendSelector',
@@ -39,10 +39,6 @@ const friendSelector = selector({
                 break;
             case 'add':
                 set(friendsAtom, oldFriends => {
-                    console.log(oldFriends);
-                    console.log(payload.friend);
-                    
-                    
                     const friends = [...oldFriends];
                     friends.push(payload.friend);
                     return friends;
@@ -87,6 +83,12 @@ const friendSelector = selector({
                 });
             break;
             case 'delete':
+                const activeChatContactId = get(activeChatWith);
+                if(activeChatContactId === payload.friendId){
+                    set(activeChatWith, oldActive => {
+                        return null;
+                    });
+                }
                 set(friendsAtom, oldFriends => {
                     return oldFriends.filter(f => f.contactId !== payload.friendId);
                 });

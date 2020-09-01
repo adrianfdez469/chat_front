@@ -145,8 +145,6 @@ const ChatHeaderView = ({closeChat, contact}) => {
     //const avatarUrl = contact.avatarUrl ? DEFAULT_CONFIG.server + contact.avatarUrl : null;
     const avatarUrl = contact.avatarUrl ? contact.avatarUrl : null;
     const avatarGender = contact.gender === "M" ? 'avatarMan' : "avatarWoman";
-
-    console.log(contact);
     
 
     return (

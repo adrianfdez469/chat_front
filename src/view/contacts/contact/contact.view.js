@@ -1,12 +1,20 @@
 import React from 'react';
-import { formatRelative } from 'date-fns';
-import { es } from 'date-fns/locale';
-import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Badge, Divider, Menu, Tooltip, Typography } from '@material-ui/core';
+import formatRelative from 'date-fns/formatRelative';
+import  es from 'date-fns/locale/es';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
+import Divider from '@material-ui/core/Divider';
+import Menu from '@material-ui/core/Menu';
+import Tooltip from '@material-ui/core/Tooltip';
 import { red, green, blue, pink } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoIcon from '@material-ui/icons/Info';
-import {DEFAULT_CONFIG} from '../../../conf/configuration';
 
 import text from './idioma.json';
 

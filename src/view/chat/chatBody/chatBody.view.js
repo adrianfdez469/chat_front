@@ -5,9 +5,8 @@ import { Avatar } from '@material-ui/core';
 import { grey, lightGreen, blue, pink } from '@material-ui/core/colors';
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
-import {DEFAULT_CONFIG} from '../../../conf/configuration';
-import { formatRelative } from 'date-fns'
-import { es } from 'date-fns/locale';
+import  formatRelative  from 'date-fns/formatRelative'
+import es from 'date-fns/locale/es';
 
 const useMessageStyle = makeStyles(theme => ({
     message: {

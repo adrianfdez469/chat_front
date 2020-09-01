@@ -24,7 +24,8 @@ const ChangeavatarController = ({close}) => {
             doFnAfterSuccess: resp => {
                 if(resp.status === 200){
                     close();
-                    setAvatar(`${DEFAULT_CONFIG.server}${resp.data.avatarUrl}`);
+                    //setAvatar(`${DEFAULT_CONFIG.server}${resp.data.avatarUrl}`);
+                    setAvatar(resp.data.avatarUrl);
                 }
             }
         });

@@ -54,7 +54,8 @@ const SigninController = props => {
                     });
                     setIdiomaState(language);
                     if(avatarUrl)
-                        setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+                        //setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+                        setUserAvatarState(avatarUrl); // Porque aqui viene el avatar completo en base64
 
                     setRedirect(true);
                 }
@@ -132,7 +133,8 @@ const SigninController = props => {
                 });
                 setIdiomaState(language);
                 if(avatarUrl)
-                    setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+                    //setUserAvatarState(`${DEFAULT_CONFIG.server}${avatarUrl}`);
+                    setUserAvatarState(avatarUrl); // Porque aqui viene el avatar completo en base64
 
                 setRedirect(true);
 

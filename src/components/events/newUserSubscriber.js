@@ -16,7 +16,6 @@ const UserSubscriber = props => {
     useEffect(() => {
 
         client.on('new user', data => {
-            console.log('new user');
             
             friendDispatcher({
                 action: 'connect', 

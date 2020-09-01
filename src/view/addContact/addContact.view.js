@@ -141,7 +141,7 @@ const UserItem = ({user, sendFriendRequest}) => {
     return (
         <ListItem key={user.email} >
             <ListItemAvatar>
-                <Avatar className={classes[avatarGender]} src={DEFAULT_CONFIG.server + user.avatarUrl}></Avatar>
+                <Avatar className={user.gender && classes[avatarGender]} src={DEFAULT_CONFIG.server + user.avatarUrl}></Avatar>
             </ListItemAvatar>
             <ListItemText
                 primary={user.nickname}

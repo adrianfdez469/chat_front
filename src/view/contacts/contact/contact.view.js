@@ -49,7 +49,8 @@ const useStyle = makeStyles((theme) => ({
     },
     secondaryText: {
         color: theme.palette.text.secondary
-    },avatarMan: {
+    },
+    avatarMan: {
         color: theme.palette.getContrastText(blue[400]),
         backgroundColor: blue[400],
     },

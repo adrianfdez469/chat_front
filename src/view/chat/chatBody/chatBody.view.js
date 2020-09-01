@@ -2,7 +2,7 @@ import React from 'react';
 
 import {makeStyles} from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
-import { grey, lightGreen, green } from '@material-ui/core/colors';
+import { grey, lightGreen, blue, pink } from '@material-ui/core/colors';
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import {DEFAULT_CONFIG} from '../../../conf/configuration';
@@ -58,11 +58,19 @@ const useMessageStyle = makeStyles(theme => ({
     doneIcon: {
         marginRight: theme.spacing(1),
         fontSize: theme.spacing(2.2)
+    },
+    avatarMan: {
+        color: theme.palette.getContrastText(blue[400]),
+        backgroundColor: blue[400],
+    },
+    avatarWoman: {
+        color: theme.palette.getContrastText(pink[300]),
+        backgroundColor: pink[300],
     }
 }));
 
 const Message = React.memo(
-    ({state, content, datetime ,contact, avatarSrc, idioma}) => {
+    ({state, content, datetime ,contact, avatarSrc, userGender, idioma}) => {
 
     const classes = useMessageStyle();
 
@@ -78,6 +86,13 @@ const Message = React.memo(
     if(state === 2) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
     if(state === 3) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: lightGreen[500] }}/>
     
+    let avatarGender;
+    if( state === 0 ){
+        avatarGender = contact.gender === "M" ? 'avatarMan' : contact.gender === "F" ? "avatarWoman" : "";
+    }else{
+        avatarGender = userGender === "M" ? 'avatarMan' : userGender === "F" ? "avatarWoman" : "";
+    }  
+    
 
     return (<>
         <div className={`${classes.message} ${msgStyle}`}>
@@ -85,8 +100,7 @@ const Message = React.memo(
                 alt={contact.nickname}
                 src={avatarUrl}
                 variant="circle"
-                className={`${classes.msgAvatar} ${avatarStyle}`}
-                
+                className={`${classes.msgAvatar} ${avatarStyle} ${classes[avatarGender]}`}                
             />
             {content}
         </div>
@@ -119,7 +133,7 @@ const useChatStyle = makeStyles(theme => ({
     }
 }));
 
-const ChatBodyView = ({contact, avatarSrc, messages, idioma}) => {
+const ChatBodyView = ({contact, avatarSrc, messages, idioma, userGender}) => {
 
     React.useEffect(() => {
         var element = document.getElementById('chatConversation');
@@ -134,7 +148,7 @@ const ChatBodyView = ({contact, avatarSrc, messages, idioma}) => {
                     <div className={classes.offset} />
                     {
                         messages.map((elem, idx, arr) => {
-                            return <Message {...elem} key={idx} contact={contact} avatarSrc={avatarSrc} idioma={idioma}/>
+                            return <Message {...elem} key={idx} contact={contact} avatarSrc={avatarSrc} userGender={userGender} idioma={idioma}/>
                         })
                     }
                     <div className={classes.offsetDown} />

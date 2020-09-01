@@ -13,7 +13,7 @@ const ChatBodyController = () => {
     const initConversation = useSetRecoilState(initConversationSelector);
     const messages = useRecoilValue(getConversationWithContact(idContact));
     const avatarSrc = useRecoilValue(userAvatarState);
-    const userDate = useRecoilValue(loginData);
+    const userData = useRecoilValue(loginData);
     const idioma = useRecoilValue(idiomaState);
     
     const friends = useRecoilValue(friendSelector);
@@ -38,7 +38,7 @@ const ChatBodyController = () => {
     
                         const client = socketClient.getSocket();
                         client.emit('read messages', {
-                            readerId: userDate.userId,
+                            readerId: userData.userId,
                             messengerId: contact.contactId,
                             messengerSocketId: contact.socketId,
                             token: token
@@ -58,6 +58,7 @@ const ChatBodyController = () => {
         return <ChatBodyView 
                     contact={contact}
                     avatarSrc={avatarSrc}
+                    userGender={userData.gender}
                     messages={messages}
                     idioma={idioma}
                 /> ;

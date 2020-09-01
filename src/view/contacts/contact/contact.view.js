@@ -204,7 +204,8 @@ const ContactView = React.memo(
     
     
     const classes = useStyle();
-    const avatarUrl = contact.avatarUrl ? `${DEFAULT_CONFIG.server}${contact.avatarUrl}` : null;
+    //const avatarUrl = contact.avatarUrl ? `${DEFAULT_CONFIG.server}${contact.avatarUrl}` : null;
+    const avatarUrl = contact.avatarUrl ? contact.avatarUrl : null;
 
     const avatarGender = contact.gender === "M" ? 'avatarMan' : "avatarWoman";
 

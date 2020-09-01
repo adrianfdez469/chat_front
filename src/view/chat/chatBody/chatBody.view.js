@@ -76,7 +76,8 @@ const Message = React.memo(
 
     const msgStyle = state > 0 ? classes.mymsg : classes.notmymsg;
     const avatarStyle = state > 0 ? classes.myMsgAvatar : classes.notMyMsgAvatar;
-    const avatarUrl = state > 0 ? avatarSrc : DEFAULT_CONFIG.server + contact.avatarUrl;
+    //const avatarUrl = state > 0 ? avatarSrc : DEFAULT_CONFIG.server + contact.avatarUrl;
+    const avatarUrl = state > 0 ? avatarSrc : contact.avatarUrl;
 
     const options = idioma === 'es' ? { locale: es } : {};
     const date = formatRelative(new Date(datetime), new Date(), options)

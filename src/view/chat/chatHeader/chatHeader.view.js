@@ -142,7 +142,8 @@ const ChatHeaderView = ({closeChat, contact}) => {
 
     const classes = useStyles();
 
-    const avatarUrl = contact.avatarUrl ? DEFAULT_CONFIG.server + contact.avatarUrl : null;
+    //const avatarUrl = contact.avatarUrl ? DEFAULT_CONFIG.server + contact.avatarUrl : null;
+    const avatarUrl = contact.avatarUrl ? contact.avatarUrl : null;
     const avatarGender = contact.gender === "M" ? 'avatarMan' : "avatarWoman";
 
     console.log(contact);
@@ -178,4 +179,4 @@ const ChatHeaderView = ({closeChat, contact}) => {
     );
 
 }
-export default ChatHeaderView;
+export default React.memo(ChatHeaderView);

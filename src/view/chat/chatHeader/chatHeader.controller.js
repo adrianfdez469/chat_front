@@ -10,9 +10,9 @@ const ChatHeaderController = () => {
     const friends = useRecoilValue(friendSelector);
     const contact = friends.find(f => f.contactId === idContact);
 
-    const closeChat = () => {
+    const closeChat = React.useCallback(() => {
         setActiveChatWith(null);
-    }
+    }, [])
     
     return <ChatHeaderView 
         closeChat={closeChat}
@@ -20,4 +20,4 @@ const ChatHeaderController = () => {
     />;
 
 }
-export default ChatHeaderController;
+export default React.memo(ChatHeaderController);

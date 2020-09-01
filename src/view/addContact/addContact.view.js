@@ -16,7 +16,7 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider';
 import {DEFAULT_CONFIG} from '../../conf/configuration';
-import { blue, red, grey } from '@material-ui/core/colors';
+import { blue, pink, grey } from '@material-ui/core/colors';
 
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -28,10 +28,10 @@ import text from './idioma.json';
 import { ListItemSecondaryAction } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-    avatar: {
+    /*avatar: {
       backgroundColor: blue[100],
       color: blue[600],
-    },
+    },*/
     dialogContent: {
       padding: 0
     },
@@ -58,23 +58,30 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
       },
-      inputRoot: {
+    inputRoot: {
         color: 'inherit',
-      },
-      inputInput: {
+    },
+    inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
         width: '100%',
         /*[theme.breakpoints.up('sm')]: {
-          width: '12ch',
-          '&:focus': {
+            width: '12ch',
+            '&:focus': {
             width: '20ch',
-          },
+            },
         },*/
-      },
-
+    },
+    avatarMan: {
+        color: theme.palette.getContrastText(blue[400]),
+        backgroundColor: blue[400],
+    },
+    avatarWoman: {
+        color: theme.palette.getContrastText(pink[300]),
+        backgroundColor: pink[300],
+    }
   }));
 
 const AddContactView = ({idioma, closeAddContactWin, open,
@@ -128,10 +135,13 @@ const UserItem = ({user, sendFriendRequest}) => {
 
     }
 
+
+    const avatarGender = user.gender === "M" ? 'avatarMan' : "avatarWoman";
+
     return (
         <ListItem key={user.email} >
             <ListItemAvatar>
-                <Avatar className={classes.avatar} src={DEFAULT_CONFIG.server + user.avatarUrl}></Avatar>
+                <Avatar className={classes[avatarGender]} src={DEFAULT_CONFIG.server + user.avatarUrl}></Avatar>
             </ListItemAvatar>
             <ListItemText
                 primary={user.nickname}

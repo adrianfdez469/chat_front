@@ -144,8 +144,9 @@ const SigninController = props => {
             
             if(!err.response){
                 openErrorNotification(text.connErr[idioma]);
-            } 
-            else if(err.response.status === 403){
+            }else if(err.response.message === "User not active") {
+                openErrorNotification(text.notActive[idioma]);
+            } else if(err.response.status === 403){
                 openErrorNotification(text.notAuthorized[idioma]);
             }else{
                 openErrorNotification(text.internalError[idioma]);

@@ -27,6 +27,10 @@
         "en": "Not authorized",
         "es": "No autorizado"
     },
+    "notActive": {
+        "en": "User not active. Check your email and follow the link to activate it.",
+        "es": "Usuario sin activar. Revise su correo y siga el vínculo para activarlo."
+    },
     "internalError": {
         "en": "Internal error",
         "es": "Error interno"

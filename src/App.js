@@ -24,7 +24,7 @@ import Signup from './view/signup';
 import UiComponents from './components/uiComponents';
 import useRefreshToken from './utils/useRefreshToken';
 
-
+import FirebaseAuth from './view/firebaseAuth';
 
 //import Toolbar from './view/toolbar';
 //import MainButton from './view/mainButton';
@@ -40,7 +40,7 @@ const AsyncContactList = React.lazy(() => import('./view/contacts'));
 const AsyncChatCmp = React.lazy(() => import('./view/chat'));
 const AsyncActivateUser = React.lazy(() => import('./view/activateuser'));
 const AsyncChangePass = React.lazy(() => import('./view/changepass'));
-const AsyncEvents = React.lazy(() => import('./components/events'));
+
 
 
 
@@ -80,12 +80,17 @@ const App = () => {
     const classes = useStyles();
 
     const dark = useRecoilValue(darkModeAtom);
+    
     const subscribe = useRecoilValue(subscribeToEventsState);
     const userData = useRecoilValue(loginData);
     const chatWith = useRecoilValue(activeChatWith);
     const notistackRef = React.createRef();
     const onClickDismiss = key => () => { 
         notistackRef.current.closeSnackbar(key);
+    }
+    let AsyncEvents = null;
+    if(subscribe){
+        const AsyncEvents = React.lazy(() => import('./components/events'));
     }
   
     const cmp  = userData !== null 
@@ -131,8 +136,9 @@ const App = () => {
                     )}
                 >
                     <Switch>
-                        <Route path="/" exact component={Signin} />
-                        <Route path="/signup" exact component={Signup} />
+                        {/*<Route path="/" exact component={Signin} />
+                        <Route path="/signup" exact component={Signup} />*/}
+                        <Route path="/" exact component={FirebaseAuth} />
                         {cmp}
                         <Route path="/changepass/:token" exact render={() => (
                             
@@ -158,6 +164,7 @@ const App = () => {
                         
                         <Redirect from='/' to='/' />       
                     </Switch>
+                    
                     
                     {subscribe ? 
                         

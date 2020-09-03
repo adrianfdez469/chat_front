@@ -140,24 +140,22 @@ const App = () => {
                         <Route path="/signup" exact component={Signup} />*/}
                         <Route path="/" exact component={FirebaseAuth} />
                         {cmp}
-                        <Route path="/changepass/:token" exact render={() => (
+                        {/*<Route path="/changepass/:token" exact render={() => (
                             
                                 <AsyncChangePass />
                             
-                        )} />
+                        )} />*/}
                         
                         
                         
-                        <Route path="/activateuser/:token/:nickname/:invited" exact render={() => (
-                            
+                        {/*<Route path="/activateuser/:token/:nickname/:invited" exact render={() => (
                                 <AsyncActivateUser />
-                            
                         )} /> 
                         <Route path="/activateuser/:token/:nickname" exact render={() => (
                             
                                 <AsyncActivateUser />
                             
-                        )} /> 
+                        )} /> */}
                         
                         
                         

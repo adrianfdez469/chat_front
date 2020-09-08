@@ -10,6 +10,7 @@ const friendSelector = selector({
 
             return friends.sort(
                 (f1,f2) => {
+                    if(f1.isTourTest) return -1 // Para que al agregar un usuario a partir del ejemplo del tour, aparezca de primero
                     
                     if(f1.friendShipStatus === 1 && f2.friendShipStatus === 1){
                         if(f1.socketId && !f2.socketId) return -1;
@@ -40,8 +41,16 @@ const friendSelector = selector({
             case 'add':
                 set(friendsAtom, oldFriends => {
                     const friends = [...oldFriends];
-                    friends.push(payload.friend);
-                    return friends;
+                    const fIndex = oldFriends.findIndex(f => f.contactId === payload.friend.contactId);
+                    if(fIndex < 0){
+                        friends.push(payload.friend);
+                        return friends;
+                    }else{
+                        const updatedFriend = {...oldFriends[fIndex], ...payload.friend};
+                        return oldFriends.slice(0, fIndex)
+                            .concat([updatedFriend])
+                            .concat(oldFriends.slice(fIndex+1));
+                    }
                 });
                 break;
             case 'update':
@@ -109,23 +118,31 @@ const friendSelector = selector({
                     const {userId, socketId} = payload.data;
                     let conectedFriendName = null;
                     let friendShipStatus = 0;
-                    
+                    let isUpdated = false;
                     set(friendsAtom, oldFriends => {
                         const fIndex = oldFriends.findIndex(f => f.contactId === userId);
                         if(fIndex >= 0){
                             conectedFriendName = oldFriends[fIndex].nickname;
                             friendShipStatus = oldFriends[fIndex].friendShipStatus;
-                            const updatedFriend = {...oldFriends[fIndex], socketId: socketId };
-                        
-                            const friends = oldFriends.slice(0, fIndex)
-                                                    .concat([updatedFriend])
-                                                    .concat(oldFriends.slice(fIndex+1));
-                            return friends;
+                            if(socketId !== oldFriends[fIndex].socketId){
+                                const updatedFriend = {...oldFriends[fIndex], socketId: socketId };
+                                const friends = oldFriends.slice(0, fIndex)
+                                                        .concat([updatedFriend])
+                                                        .concat(oldFriends.slice(fIndex+1));
+                                isUpdated = true;
+                                return friends;
+                            }
                         }
                         return oldFriends;
                     });
-                    if(conectedFriendName && friendShipStatus === 1)
-                        payload.notification(`${conectedFriendName} ${payload.msg[get(idiomaState)]}`, {variant: 'info'});
+                    if(conectedFriendName && friendShipStatus === 1 && isUpdated){
+                        if(payload.notification)
+                            payload.notification(`${conectedFriendName} ${payload.msg[get(idiomaState)]}`, {variant: 'info'});
+                        else if(payload.OSNotification){
+                            payload.OSNotification(conectedFriendName, payload.msg[get(idiomaState)]);
+                        }
+
+                    }
                 }                
                 break;
             case 'disconnect':
@@ -144,6 +161,7 @@ const friendSelector = selector({
                 });
                 if(disconectedFriendName && friendShipStatus === 1)
                     payload.notification(`${disconectedFriendName} ${payload.msg[get(idiomaState)]}`, {variant: 'warning'});
+                    
                 break;
             
                 default: break;

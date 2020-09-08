@@ -3,6 +3,7 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 import { grey, lightGreen, blue, pink } from '@material-ui/core/colors';
+import CachedIcon from '@material-ui/icons/Cached';
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import  formatRelative  from 'date-fns/formatRelative'
@@ -82,8 +83,9 @@ const Message = React.memo(
     const date = formatRelative(new Date(datetime), new Date(), options)
     
     let stateIcon = null;
-    if(state === 1) stateIcon = <DoneIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
-    if(state === 2) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
+    if(state === 1) stateIcon = <CachedIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
+    if(state === 2) stateIcon = <DoneIcon className={classes.doneIcon} style={{ color: lightGreen[500] }}/>
+    //if(state === 2) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
     if(state === 3) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: lightGreen[500] }}/>
     
     let avatarGender;

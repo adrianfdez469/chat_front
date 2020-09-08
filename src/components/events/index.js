@@ -15,16 +15,16 @@ import RecibedMessageSubscriber from './recibedMessageSubscriber';
 const Events = props => {
 
     return <>
-    <NewUserSubscriber />
-    <UserDisconnectSubscriber />
-    <IncomingMsgSubscriber />
-    <RequestFriendSubscriber />
-    <DeclinedFriendshipSubscriber />
-    <AcceptFriendshipSubscriber />
-    <DeletedContactSubscriber />
-    <BlokedContactSubscriber />
-    <RecibedMessageSubscriber />
-</>;
+        <NewUserSubscriber />
+        <UserDisconnectSubscriber />
+        <IncomingMsgSubscriber />
+        <RequestFriendSubscriber />
+        <DeclinedFriendshipSubscriber />
+        <AcceptFriendshipSubscriber />
+        <DeletedContactSubscriber />
+        <BlokedContactSubscriber />
+        <RecibedMessageSubscriber />
+    </>;
 
 }
 export default Events;

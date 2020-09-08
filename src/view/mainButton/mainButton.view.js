@@ -5,39 +5,48 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import ShareIcon from '@material-ui/icons/Share';
-import MessageIcon from '@material-ui/icons/Message';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
+//import ShareIcon from '@material-ui/icons/Share';
+//import MessageIcon from '@material-ui/icons/Message';
+//import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import CallSplitIcon from '@material-ui/icons/CallSplit';
-import text from './idioma.json'
+
 
 const useStyles = makeStyles((theme) => ({
     speedDial: {
       position: 'absolute',
+      bottom: theme.spacing(0),
+      right: theme.spacing(0),
+    },
+    speedDialDiv: {
+      position: 'absolute',
       bottom: theme.spacing(2),
       right: theme.spacing(2),
+      width: theme.spacing(7), 
+      height: theme.spacing(7)
     },
     icon: {
         color: theme.palette.text.secondary
     }
   }));
 
-const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactView}) => {
+const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactView, text}) => {
 
-  const classes = useStyles();
+    const classes = useStyles();
   
-
+    
     return (
-      <>
+      <div id="idMainButton" className={classes.speedDialDiv} >
         <SpeedDial
-            ariaLabel="SpeedDial tooltip example"
+            ariaLabel="Main speed dial button"
             className={classes.speedDial}            
             icon={<SpeedDialIcon />}
             onClose={handleClose}
             onOpen={handleOpen}
             open={open}
         >
+        
           <SpeedDialAction
+            //id="idBtnAddContact"
             key='add'
             icon={<PersonAddIcon className={classes.icon}/>}
             tooltipTitle={text.addContact[idioma]}
@@ -85,8 +94,8 @@ const MainButtonView = ({idioma, handleOpen, handleClose, open, openAddContactVi
             }}
           />*/}
         </SpeedDial>
-      </>
+      </div>
     );
 
 }
-export default MainButtonView;
+export default React.memo(MainButtonView);

@@ -20,8 +20,8 @@
         "en": "Feedback"
     },
     "feedbackDesc": {
-        "es":"Háganos saber que piensa de la aplicación y que podemos hacer para mejorar.",
-        "en":"Let us know what you think of the application and what we can do to improve."
+        "es":"Háganos saber que piensa de la aplicación y que podemos hacer para mejorar mediante su evaluación.",
+        "en":"Let us know what you think of the application and what we can do to improve by rating the app."
     },
     "edit":{
         "es": "Editar perfil",
@@ -46,5 +46,13 @@
     "darkMode": {
         "es": "Modo noche",
         "en": "Dark mode"
+    },
+    "shouldAllowNotInBrowser": {
+        "es": "Debe abilitar las notificaciones para esta página en la configuración de su navegador.",
+        "en": "You need to enable the notifications for this page from yuor configuration web browser."
+    },
+    "allowOSNotifications": {
+        "es": "Notificaciones",
+        "en": "Notifications"
     }
 }

@@ -28,6 +28,8 @@ const labels = {
     }
   }));
 
+
+
 const FeedbackView = React.memo(({text, idioma,
     globalState, onChange,
     comentState, onCommentChange, onSave

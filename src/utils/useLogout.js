@@ -1,8 +1,8 @@
 import {useSetRecoilState} from 'recoil';
-import axios from 'axios';
-import {loginData, userAvatarState, subscribeToEventsState, contactListState, friendsAtom} from '../components/recoil/atoms';
+import {loginData, userAvatarState, subscribeToEventsState, contactListState, friendsAtom, eraseConversationsWithContacts} from '../components/recoil/atoms';
 import { useCallback } from 'react';
 import socketClient from './socket';
+import firebase from './firebase';
 
 const useLogout = () => {
 
@@ -14,19 +14,16 @@ const useLogout = () => {
     const client = socketClient.getSocket();
 
     return useCallback(() => {
-        
+        eraseConversationsWithContacts();
         setUserAvatar(null);
         setContactList([]);
         setFriends([]);
         client.emit('logout', {});
-        localStorage.removeItem('token');
-        localStorage.removeItem('refresh_token');
-        localStorage.removeItem('refresh_token_expires');
-        localStorage.removeItem('token_expires');
+        
         setSubscribe(false);
         setLoginData(null);
+        firebase.auth().signOut();
         
-        
-    });
+    }, []);
 }
 export default useLogout;

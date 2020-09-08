@@ -5,11 +5,11 @@ import {friendSelector} from '../recoil/selectors';
 import {useSnackbar} from 'notistack';
 import text from './idioma.json';
 import {idiomaState} from '../recoil/atoms';
-import {DEFAULT_CONFIG} from '../../conf/configuration';
-import axios from 'axios';
 import useNotifications from '../uiComponents/notification/notification.hook';
-import authMiddleware from '../../authMiddleware';
-
+import useAxios from '../../utils/axiosHook';
+import useBrowserVisibility from '../../utils/browserVisibility';
+import OS_Notification from '../../utils/OS_NotificationPermission';
+import logo from '../../statics/logo192-removebg-preview.png';
 
 const DeletedContactSubscriber = props => {
 
@@ -18,20 +18,19 @@ const DeletedContactSubscriber = props => {
     const { enqueueSnackbar } = useSnackbar();
     const idioma = useRecoilValue(idiomaState);
     const {openErrorNotification} = useNotifications();
+    const {postRequest} = useAxios();
+    const isBrowserVisble = useBrowserVisibility();
 
     useEffect(() => {
         
         client.on('deleted contact', ({deleterId, socketIdDeleter}) => {
             
-            const optimisticAction = token => {
-                axios.post(`${DEFAULT_CONFIG.server}/users/getFriendById`,{
+            postRequest({
+                url: "/users/getFriendById",
+                bodyParams: {
                     friendId: deleterId
-                },{
-                    headers: {
-                        'Authorization': token
-                    }
-                })
-                .then(resp => {
+                },
+                doFnAfterSuccess: resp => {
                     if(resp.status === 200){
                         
                         friendDispatcher({
@@ -39,23 +38,22 @@ const DeletedContactSubscriber = props => {
                             payload: {
                                 friend: {...resp.data.friend, socketId: socketIdDeleter}
                             }});
-                        return resp.data.friend;
+                        const friend = resp.data.friend;
+                        if(OS_Notification.allowedNotifications() && !isBrowserVisble){
+                            new Notification(friend.nickname, { body: `${friend.nickname} ${text.delete[idioma]}`, icon: logo });
+                        }else{
+                            enqueueSnackbar(`${friend.nickname} ${text.delete[idioma]}`, {variant: "error"});
+                        }
                     }
-                })
-                .then(friend => {
-                    enqueueSnackbar(`${friend.nickname} ${text.delete[idioma]}`, {variant: "error"});
-                })
-                .catch(err => {
+                },
+                doFnAfterError: err => {
                     if(!err.response){
                         openErrorNotification(text.connError[idioma]);
                     }else{
                         openErrorNotification(text.errorLoadingFriends[idioma]);
                     }
-                });
-            }
-            authMiddleware(optimisticAction);
-                
-            
+                }
+            });
         });
 
         return () => client.off('deleted contact');

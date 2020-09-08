@@ -2,10 +2,15 @@ import React, {useEffect} from 'react';
 import {useSetRecoilState, useRecoilValue, useRecoilState} from 'recoil';
 import socketClient from '../../utils/socket';
 import {addMsgToConversationSelector, friendSelector, editMsgToStateSavedSelector, editAllMsgToReadedSelector} from '../recoil/selectors';
-import {loginData, activeChatWith, idiomaState} from '../recoil/atoms';
+import {loginData, activeChatWith, idiomaState, firebaseCurrentTokenState} from '../recoil/atoms';
 import {useSnackbar} from 'notistack';
 import text from './idioma.json';
 
+import useBrowserVisibility from '../../utils/browserVisibility';
+import OS_Notification from '../../utils/OS_NotificationPermission';
+import logo from '../../statics/logo192-removebg-preview.png';
+
+let stackFns = [];
 const RecibedMessageSubscriber = props => {
 
     const client = socketClient.getSocket();
@@ -17,15 +22,32 @@ const RecibedMessageSubscriber = props => {
     const {enqueueSnackbar} = useSnackbar();
     const [friends, friendDispatcher] = useRecoilState(friendSelector);
     const idioma = useRecoilValue(idiomaState);
+    const firebaseCurrentToken = useRecoilValue(firebaseCurrentTokenState);
+    const isBrowserVisble = useBrowserVisibility();
     
-    
+    const putInQueque = React.useCallback(fn => {
+        stackFns.push(fn);
+    },[]);
+
+    useEffect(() => {
+        if(isBrowserVisble){
+            stackFns
+                .reverse()
+                .forEach(fn => fn());
+            stackFns = [];
+        }
+    }, [isBrowserVisble]);
 
     useEffect(() => {
         client.on('recived message', ({content, userOriginId, socketIdSender, messageId, datetime, consecutive}) => {
             
             const contact = friends.find(f => f.contactId === userOriginId);
             if(activeChatContactId !== userOriginId){                
-                enqueueSnackbar(`${contact.nickname} ${text.writingYou[idioma]}`, {variant: 'info'});
+                if(OS_Notification.allowedNotifications() && !isBrowserVisble){
+                    new Notification(contact.nickname, { body: content, icon: logo });
+                }else{
+                    enqueueSnackbar(`${contact.nickname} ${text.writingYou[idioma]}`, {variant: 'info'});
+                }
 
                 const dataObj = {
                     [userOriginId]: {
@@ -43,6 +65,9 @@ const RecibedMessageSubscriber = props => {
                 });
 
             }else{
+                if(OS_Notification.allowedNotifications() && !isBrowserVisble){
+                    new Notification(contact.nickname, { body: content, icon: logo });
+                }
 
                 const dataObj = {
                     [userOriginId]: {
@@ -59,13 +84,18 @@ const RecibedMessageSubscriber = props => {
                     }
                 });
 
-                const client = socketClient.getSocket();
-                client.emit('read messages', {
-                    userId: userData.userId,
-                    contactId: contact.contactId,
-                    notifyTo: contact.socketId,
-                    token: localStorage.getItem('token')
-                });
+                const fn = () => {
+                    const client = socketClient.getSocket();
+                    client.emit('read messages', {
+                        userId: userData.userId,
+                        contactId: contact.contactId,
+                        notifyTo: contact.socketId,
+                        token: firebaseCurrentToken
+                    });
+                }
+                if(isBrowserVisble) fn();
+                else putInQueque(fn);
+                
             }
             addMsgToConversation({
                 contactId: userOriginId,

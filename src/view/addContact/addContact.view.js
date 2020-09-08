@@ -93,6 +93,7 @@ const AddContactView = ({idioma, closeAddContactWin, open,
     
     return (
         <Dialog
+            id="idWinAddContact"
             maxWidth="xs"
             onEntering={() => {}}
             aria-labelledby="confirmation-dialog-title"
@@ -138,7 +139,7 @@ const UserItem = ({user, sendFriendRequest}) => {
     const avatarGender = user.gender === "M" ? 'avatarMan' : "avatarWoman";
 
     return (
-        <ListItem key={user.email} >
+        <ListItem key={user.email} id={user.id && user.id}>
             <ListItemAvatar>
                 <Avatar 
                     className={user.gender && classes[avatarGender]} 
@@ -153,7 +154,7 @@ const UserItem = ({user, sendFriendRequest}) => {
             
                 <ListItemSecondaryAction>
                     <IconButton color={user.blockinguser ? grey[100] : blue[300]} onClick={disableItem} disabled={user.blockinguser}>
-                        <AddIcon color={user.blockinguser ? 'disabled' : "primary"}/>
+                        <AddIcon id="idAddUserIconButton" color={user.blockinguser ? 'disabled' : "primary"}/>
                     </IconButton>
                 </ListItemSecondaryAction>
             

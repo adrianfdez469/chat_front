@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import {makeStyles} from '@material-ui/core/styles';
 import Contact from './contact';
-
+import { Container } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     scroll: {
         position: 'relative',
@@ -28,19 +28,20 @@ const ContactsView = ({idioma, text, contacts}) => {
 
     return (
         <div className={classes.scroll}>
-            <List>
+            <List id='lista'>
                 {contacts.length > 0 
                     ? contacts.map((contact) => <Contact contact={contact} key={contact.contactId}/>)
                     : <div style={{margin: '2em'}}>
-                    <Divider/>
-                        <Typography variant="h5" align='justify'>{text.goMakeFriends[idioma]}</Typography>
-                        <Divider/>
-                        <Typography variant="subtitle1" align='justify' style={{marginTop: '1em'}}>{text.beta[idioma]}</Typography>
-                    </div>
+                            <Divider/>
+                            <Typography variant="h5" align='justify' color="textPrimary">{text.goMakeFriends[idioma]}</Typography>
+                            <Divider/>
+                            <Typography variant="subtitle1" align='justify' color="textPrimary" style={{marginTop: '1em'}}>{text.beta[idioma]}</Typography>
+                        </div>
                 }
             </List>
             <div className={classes.offsetDown}/>
             <div className={classes.offsetDown}/>
+            
         </div>
     );
 

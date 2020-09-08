@@ -1,90 +1,80 @@
 import React, {useEffect, useState} from 'react';
-import { useRecoilValue } from 'recoil';
-//import * as firebase from 'firebase/app';
-//import "firebase/auth";
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import FirebaseAuthView from './firebaseAuth.view';
-import { darkModeAtom } from '../../components/recoil/atoms';
-import axios from 'axios';
-
-//import firebaseConfig from '../../conf/firebaseConf';
-
-//firebase.initializeApp(firebaseConfig);
+import { loginData, firebaseCurrentUserState, firebaseCurrentTokenState } from '../../components/recoil/atoms';
 import firebase from '../../utils/firebase';
+import { Redirect } from 'react-router';
 
 
-const FirebaseAuthController = props => {
-    const uiConfig = {
-        // Popup signin flow rather than redirect flow.
-        //signInFlow: 'popup',
-        // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-        signInSuccessUrl: '/contacts',
-        // We will display Google and Facebook as auth providers.
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ],
-        callbacks: {
-            // Avoid redirects after sign-in.
-            //signInSuccessWithAuthResult: () => false,
-            signInSuccess: (currentUser, credential, redirectUrl) => {
+const uiConfig =  {
+    signInFlow: 'popup',
+    signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+        // Avoid redirects after sign-in.
+        signInSuccessWithAuthResult: () => false
+    }
+};
 
-                console.log('Antes de mandar la peticion');
-                console.log(firebase.auth().currentUser.getIdTokenResult());
-                console.log(currentUser.getIdToken());
+const FirebaseAuthController = () => {
 
-                firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-                    axios.post('http://localhost:3001/users/test', {
-                        name: 'Adrian',
-                    }, {
-                        headers: {
-                            'Authorization': idToken
-                        }
-                    })
-                    .then(resp => console.log(resp))
-                    .catch(err => console.log(err));
-                    
-                  }).catch(function(error) {
-                    // Handle error
-                  });
-                
-                console.log('Im sign in successfully');
-                console.log(currentUser);
-                console.log(credential);
-                console.log(redirectUrl);
-            }   
-        }
-    };
+    const  [userData, setLoginData] = useRecoilState(loginData)
+    const  setFirebaseCurrentUser = useSetRecoilState(firebaseCurrentUserState)
+    const  firebaseCurrentToken = useSetRecoilState(firebaseCurrentTokenState)
 
-    const[isSignedIn, setSignedIn]= useState(false);
-
-    const darkMode = useRecoilValue(darkModeAtom);
     
+    const[isSignedIn, setSignedIn]= useState(false);
+    const[netError, setNetError]= useState(false);
     
     useEffect(() => {
         firebase.auth().onAuthStateChanged(firebaseUser => {
+            console.log('onAuthStateChanged');
             setSignedIn(!!firebaseUser);
-        })
+            if(firebase.auth().currentUser){
+                const promise1 = firebase.auth().currentUser.getIdToken(true);
+                const promise2 = firebase.auth().currentUser.getIdTokenResult(true);
+
+                Promise.all([promise1, promise2])
+                    .then(([idToken, tokenResult]) => {
+                        firebaseCurrentToken(idToken);
+                        return tokenResult;
+                    })
+                    .then(result => {
+                        const data = result.claims;
+                        setFirebaseCurrentUser(data);
+                        const nameArray = (data.name) ? data.name.split(' ') : ['', ''];
+                        setLoginData({
+                            userId: data.user_id, 
+                            nickname: data.name,
+                            firstName: nameArray[0],
+                            lastName: nameArray.filter((it, idx) => idx > 0).join(' '),
+                            email: data.email,
+                            gender: null
+                        });
+                    })
+                    .catch(err => {
+                        setNetError(true);
+                    });
+            }
+        });
+        
     }, []);
 
-    
-    if(!isSignedIn){
-        return (
-            <>
-                <FirebaseAuthView uiConfig={uiConfig} auth={firebase.auth()} darkMode={darkMode}/>
-            </>
-        );
+    if(!isSignedIn || !userData){
+        return <FirebaseAuthView 
+            uiConfig={uiConfig} 
+            auth={firebase.auth()} 
+            isSignedIn={isSignedIn}
+            netError={netError}
+        />
+    }else{
+        return <Redirect to='/app' />
     }
-    return (
-        <div>
-        <h1>My App</h1>
-        <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-        <input type="button" onClick={() => firebase.auth().signOut()} value="Sign-out" />
-      </div>
-    );
-
-
+    
 
 }
 
-export default FirebaseAuthController;
+export default React.memo(FirebaseAuthController);

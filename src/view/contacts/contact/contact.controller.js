@@ -4,6 +4,7 @@ import {idiomaState, activeChatWith, loginData} from '../../../components/recoil
 import {friendSelector} from '../../../components/recoil/selectors';
 import ContactView from './contact.view';
 import socketClient from '../../../utils/socket';
+import firebase from '../../../utils/firebase';
 
 const ContactContrller = ({contact}) => {
 
@@ -33,12 +34,17 @@ const ContactContrller = ({contact}) => {
         });
         // Emit como leidos
         const client = socketClient.getSocket();
-        client.emit('read messages', {
-            userId: userData.userId,
-            contactId: contact.contactId,
-            notifyTo: contact.socketId,
-            token: localStorage.getItem('token')
-        });
+        firebase.auth().currentUser.getIdToken(true)
+            .then(token => {
+                client.emit('read messages', {
+                    userId: userData.userId,
+                    contactId: contact.contactId,
+                    notifyTo: contact.socketId,
+                    token: token
+                });
+            })
+            .catch(err => console.log(err));
+        
     }
 
     return <ContactView 

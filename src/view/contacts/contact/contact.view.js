@@ -258,7 +258,7 @@ const ContactView = React.memo(
                 {contact.friendShipStatus > 1 ?
                     <CustomTooltip title={text[`desc${contact.friendShipStatusCode}`][idioma]} color={contact.friendShipStatus > 3 ? 'red' : 'geen'}>
                         <div className={classes.infoIcon}>
-                            <InfoIcon fontSize="small" style={{color: contact.friendShipStatus > 3 ? red[500] : green[500]}}/>
+                            <InfoIcon id="idIconInfoFriendStatus" fontSize="small" style={{color: contact.friendShipStatus > 3 ? red[500] : green[500]}}/>
                         </div>
                     </CustomTooltip>
                 : null }
@@ -267,7 +267,7 @@ const ContactView = React.memo(
                 
                 
                 <IconButton edge="end" aria-label="delete" onClick={handleMenu}>
-                    <MoreVertIcon fontSize="default"/>
+                    <MoreVertIcon id="idIconFriendActions" fontSize="default"/>
                 </IconButton>
                 <StyledMenu
                     id="customized-menu"

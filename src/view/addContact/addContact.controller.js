@@ -3,6 +3,7 @@ import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
 import AddContactView from './addContact.view';
 import text from './idioma.json';
 import {addContactViewOpenState, loginData/*, friendSelector*/} from '../../components/recoil/atoms';
+import {tourAtom} from '../tour/tour.atoms';
 import {friendSelector} from '../../components/recoil/selectors';
 import useAxiosHook from '../../utils/axiosHook';
 
@@ -16,26 +17,35 @@ const AddContactController = props => {
     const inputSearchRef = useRef({value: ''});
     const userData = useRecoilValue(loginData);
     const {postRequest} = useAxiosHook();
+    const tourState = useRecoilValue(tourAtom);
 
     const friendDispatcher = useSetRecoilState(friendSelector);
     
 
     const buscarUsuarios = () => {
-        
-        postRequest({
-            url: '/users/searchContact',
-            bodyParams: {
-                stringPattern: inputSearchRef.current.value,
-                start: 0,
-                limit: 20
-            },
-            doFnAfterSuccess: resp => {
-                if(resp.status === 200){
-                    setUsers(resp.data.users);
-                }
-            },
-            messageOnError: text.lbErrorLoadingUsers[idioma]
-        });
+        if(tourState){
+            setUsers([{
+                email: 'user.email@mail.com',
+                gender: 'M',
+                nickname: 'Nickname',
+                id: 'idUsuarioEjemplo'
+            }]);
+        }else{
+            postRequest({
+                url: '/users/searchContact',
+                bodyParams: {
+                    stringPattern: inputSearchRef.current.value,
+                    start: 0,
+                    limit: 20
+                },
+                doFnAfterSuccess: resp => {
+                    if(resp.status === 200){
+                        setUsers(resp.data.users);
+                    }
+                },
+                messageOnError: text.lbErrorLoadingUsers[idioma]
+            });
+        }
     }
 
     useEffect(() => {
@@ -67,6 +77,7 @@ const AddContactController = props => {
             },
             messageOnError: text.lbErrorSendigFriendRequest[idioma]
         });
+        
     }
 
     const closeAddContactWin = () => {

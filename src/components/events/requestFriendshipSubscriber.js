@@ -5,10 +5,11 @@ import {friendSelector} from '../recoil/selectors';
 import {useSnackbar} from 'notistack';
 import text from './idioma.json';
 import {loginData, idiomaState} from '../recoil/atoms';
-import {DEFAULT_CONFIG} from '../../conf/configuration';
-import axios from 'axios';
 import useNotifications from '../uiComponents/notification/notification.hook';
-import authMiddleware from '../../authMiddleware';
+import useAxiosHook from '../../utils/axiosHook';
+import useBrowserVisibility from '../../utils/browserVisibility';
+import OS_Notification from '../../utils/OS_NotificationPermission';
+import logo from '../../statics/logo192-removebg-preview.png';
 
 
 const RequestFriendSubscriber = props => {
@@ -19,45 +20,43 @@ const RequestFriendSubscriber = props => {
     const userData = useRecoilValue(loginData);
     const idioma = useRecoilValue(idiomaState);
     const {openErrorNotification} = useNotifications();
+    const {postRequest} = useAxiosHook();
+    const isBrowserVisble = useBrowserVisibility();
 
     useEffect(() => {
         
         client.on('requested friendship', ({userIdRequester, userIdRequested, socketIdRequester}) => {
+            
             if(userIdRequested === userData.userId){
                 
-                
-                const optimisticAction = token => {
-                    axios.post(`${DEFAULT_CONFIG.server}/users/getFriendById`,{
+                postRequest({
+                    url: '/users/getFriendById',
+                    bodyParams: {
                         friendId: userIdRequester
-                    },{
-                        headers: {
-                            'Authorization': token
-                        }
-                    })
-                    .then(resp => {
-                        if(resp.status === 200){
-                            
+                    },
+                    doFnAfterSuccess: resp => {
+                        if(resp.status === 200){                            
                             friendDispatcher({
                                 action: 'add', 
                                 payload: {
                                     friend: {...resp.data.friend, socketId: socketIdRequester}
                                 }});
-                            return resp.data.friend;
+                            const friend = resp.data.friend;
+                            if(OS_Notification.allowedNotifications() && !isBrowserVisble){
+                                new Notification(friend.nickname, { body: `${friend.nickname} ${text.requestedInv[idioma]}`, icon: logo });
+                            }else{
+                                enqueueSnackbar(`${friend.nickname} ${text.requestedInv[idioma]}`, {variant: "success"});
+                            }
                         }
-                    })
-                    .then(friend => {
-                        enqueueSnackbar(`${friend.nickname} ${text.requestedInv[idioma]}`, {variant: "success"});
-                    })
-                    .catch(err => {
+                    },
+                    doFnAfterError: err => {
                         if(!err.response){
                             openErrorNotification(text.connError[idioma]);
                         }else{
                             openErrorNotification(text.errorLoadingFriends[idioma]);
                         }
-                    });
-                }
-                authMiddleware(optimisticAction);
-                
+                    }
+                });    
             }
         });
 

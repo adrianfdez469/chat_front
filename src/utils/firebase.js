@@ -5,4 +5,5 @@ import firebaseConfig from '../conf/firebaseConf';
 
 firebase.initializeApp(firebaseConfig);
 
+
 export default firebase;

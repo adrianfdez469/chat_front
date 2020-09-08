@@ -1,5 +1,4 @@
-
-import {atom, selector} from 'recoil';
+import {atom} from 'recoil';
 
 const getDefaultLanguage= () => {
     let idioma = 'en';
@@ -21,6 +20,10 @@ const loginData = atom({
 });
 const userAvatarState = atom({
     key: 'userAvatarState',
+    default: null
+});
+const newAvatarState = atom({
+    key: 'newAvatarState',
     default: null
 });
 
@@ -76,10 +79,24 @@ const activeChatWith = atom({
     default: null
 });
 
-const getConversationWithContact = contactId => atom({
-    key: `conversationWith_${contactId}`,
-    default: []
-});
+let conversations = {};
+const eraseConversationsWithContacts = () => {
+    conversations = {};
+}
+const getConversationWithContact = contactId => {
+    if(conversations[contactId]){
+        return conversations[contactId];
+    }
+    
+    const atomStore = atom({
+        key: `conversationWith_${contactId}`,
+        default: []
+    });
+    conversations[contactId] = atomStore;
+    return atomStore;
+}
+
+
 
 const messagesAtom = atom({
     key: 'messagesAtom',
@@ -98,8 +115,33 @@ const darkModeAtom = atom({
     default: localStorage.getItem('darkMode') === 'true' ? true : false
 });
 
+const firebaseCurrentUserState = atom({
+    key: 'firebaseCurrentUser',
+    'default': null
+});
+const firebaseCurrentTokenState = atom({
+    key: 'firebaseCurrentTokenState',
+    'default': null
+});
+/*
+const anchorElMenuBtn = atom({
+    key: 'anchorElMenuBtn',
+    'default': null
+});*/
+
+
+const speedDialStateAtom = atom({
+    key: 'speedDialStateAtom',
+    'default': false
+});
+
+
+
+
+
 export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
-    backdropState, userAvatarState, addContactViewOpenState,
+    backdropState, userAvatarState, newAvatarState,addContactViewOpenState,
     friendsAtom, 
-    activeChatWith, messagesAtom, getConversationWithContact, tokenTimeoutAtom, darkModeAtom
+    activeChatWith, messagesAtom, getConversationWithContact, tokenTimeoutAtom, darkModeAtom, firebaseCurrentUserState, firebaseCurrentTokenState, 
+    /*anchorElMenuBtn,*/ speedDialStateAtom, eraseConversationsWithContacts
 };

@@ -1,11 +1,12 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {loginData, activeChatWith, idiomaState} from '../../../components/recoil/atoms';
+import {loginData, activeChatWith, idiomaState, firebaseCurrentTokenState} from '../../../components/recoil/atoms';
 import {friendSelector, addMsgToConversationSelector} from '../../../components/recoil/selectors';
 import useNotification from '../../../components/uiComponents/notification/notification.hook';
 import ChatEditorView from './chatEditor.view';
 import socketClient from '../../../utils/socket';
 import text from './idioma.json';
+
 
 const ChatEditorController = props => {
 
@@ -14,6 +15,7 @@ const ChatEditorController = props => {
     const idioma = useRecoilValue(idiomaState);
     const addMsgToConversation = useSetRecoilState(addMsgToConversationSelector);
     const idContact = useRecoilValue(activeChatWith);
+    const firebaseCurrentToken = useRecoilValue(firebaseCurrentTokenState);
     const friends = useRecoilValue(friendSelector);
     const contact = friends.find(f => f.contactId === idContact);
     const refAreaTexto = useRef('');
@@ -40,7 +42,7 @@ const ChatEditorController = props => {
                 userOriginId: userData.userId,
                 userDestinyId: idContact,
                 toSocketId: contact.socketId,
-                token: localStorage.getItem('token'),
+                token: firebaseCurrentToken,
                 consecutive: consecutive
             });
 

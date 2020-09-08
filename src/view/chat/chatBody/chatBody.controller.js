@@ -36,13 +36,19 @@ const ChatBodyController = () => {
                         });
     
     
-                        const client = socketClient.getSocket();
+                        /*const client = socketClient.getSocket();
+                        console.log("---SE EMITE QUE SE RECIBIO EL MENSAJE---");
+                        console.log('userId:' + userData.userId);
+                        console.log('contactId: ' +contact.contactId);
+                        console.log('socketId: '+contact.socketId);
+                        console.log('token: '+token);
+                        
                         client.emit('read messages', {
-                            readerId: userData.userId,
-                            messengerId: contact.contactId,
-                            messengerSocketId: contact.socketId,
+                            userId: userData.userId,
+                            contactId: contact.contactId,
+                            notifyTo: contact.socketId,
                             token: token
-                        });
+                        });*/
                     }
                 },
                 //doFnAfterError: err => console.log(err)
@@ -54,7 +60,7 @@ const ChatBodyController = () => {
         loadConversation();
     }, []);
 
-    if(messages ){
+    if(messages){
         return <ChatBodyView 
                     contact={contact}
                     avatarSrc={avatarSrc}

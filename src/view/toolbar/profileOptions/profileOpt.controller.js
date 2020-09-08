@@ -5,6 +5,8 @@ import ProfileOptView from './profileOpt.view';
 import useLogout from '../../../utils/useLogout';
 import text from './idioma.json';
 import useAxiosHook from '../../../utils/axiosHook';
+import OS_Notifications from '../../../utils/OS_NotificationPermission';
+import useNotification from '../../../components/uiComponents/notification/notification.hook';
 
 const ProfileOptController = props => {
 
@@ -43,6 +45,23 @@ const ProfileOptController = props => {
     const changeTheme = () => {
         localStorage.setItem('darkMode', !darkMode);
         setDarkMode(oldMode => !oldMode);
+    }
+
+    const {openWarningNotification} = useNotification();
+    const [allowedOSNot, setAllowenOSNot] = useState(OS_Notifications.allowedNotifications());
+
+    const changeNotifSwith = () => {
+        if(OS_Notifications.allowedNotifications()){
+            OS_Notifications.denyPermission();
+            setAllowenOSNot(false);
+        }else if(OS_Notifications.permissionType() === 'denied'){
+            openWarningNotification(text.shouldAllowNotInBrowser[idioma]);
+        }else {
+            OS_Notifications.askNotificationPermission(permission => {
+                if(OS_Notifications.allowedNotifications())
+                    setAllowenOSNot(true);
+            });
+        }
     }
 
 
@@ -86,6 +105,9 @@ const ProfileOptController = props => {
                 bugreport={bugreport}
                 setBugreport={setBugreport}
                 {...props}
+
+                allowedOSNot={allowedOSNot}
+                changeNotifSwith={changeNotifSwith}
             />
         </>
         ;

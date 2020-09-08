@@ -9,16 +9,16 @@
     },
     
     "accept":{
-        "es": "te ha aceptado",
-        "en": "has accepted you"
+        "es": "es ahora tu contacto",
+        "en": "is now your friend"
     },
     "decline":{
         "es": "te ha rechazado",
         "en": "has declined you"
     },
     "delete":{
-        "es": "te ha eliminado",
-        "en": "has deleted you"
+        "es": "te ha eliminado de sus contactos",
+        "en": "has remove you from the list of contacts"
     },
     "block":{
         "es": "te he bloqueado",

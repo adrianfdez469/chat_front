@@ -29,6 +29,8 @@ import StarIcon from '@material-ui/icons/Star';
 import LanguageIcon from '@material-ui/icons/Language';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+
 import {blue, pink} from '@material-ui/core/colors'
 
 import ChangePass from './changepass';
@@ -76,11 +78,12 @@ const useStyles = makeStyles( theme => ({
 const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, darkMode, changeTheme, 
     changePass, setChangePass, changeAvatar, setChangeAvatar, editProfile, setChangeProfile, shareApp, setShareApp, feedback, setFeedback,
     bugreport, setBugreport,
-    open, anchorEl, handleClose
+    open, anchorEl, handleClose,
+    allowedOSNot, changeNotifSwith
 }) => {
     
     const classes = useStyles();
-
+    
     return (<Popover
         
                     open={open}
@@ -122,7 +125,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                 }
                 action={
                     <Tooltip title={text.logout[idioma]}>
-                        <IconButton onClick={logout}>
+                        <IconButton onClick={logout} id="idBtnLogout">
                             <ExitToAppIcon />
                         </IconButton>
                     </Tooltip>
@@ -133,107 +136,128 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
             
             <Divider />
             
-                <List>
-                    <ListItem 
-                        button
-                        onClick={setChangeProfile}
-                    >
-                        <ListItemIcon>
-                            <EditIcon />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={text.edit[idioma]}
-                            primaryTypographyProps={{style: {fontSize: '0.9em'}}}
-                        />
-                    </ListItem>
-                    <ListItem 
-                        button
-                        onClick={setChangePass}
-                    >
-                        <ListItemIcon>
-                            <VpnKeyIcon />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={text.editpass[idioma]}
-                            primaryTypographyProps={{style: {fontSize: '0.9em'}}}
-                        />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemIcon>
-                            <LanguageIcon />
-                        </ListItemIcon>
-                            <FormControl >
-                                <Select
-                                    value={idioma}
-                                    onChange={changeIdioma}
-                                    displayEmpty
-                                    className={classes.langSelect}
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                >
-                                    <MenuItem value={'en'}>English</MenuItem>
-                                    <MenuItem value={'es'}>Español</MenuItem>
-                                </Select>
-                                
-                            </FormControl>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemIcon>
-                            <ColorLensIcon />
-                        </ListItemIcon>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={darkMode}
-                                    onChange={changeTheme}
-                                    color="primary"
-                                />
-                            }
-                            label={text.darkMode[idioma]}
-                        />
-                    </ListItem>
+                <List >
+                    <div id="profileMenuOptions">
+                        <ListItem 
+                            button
+                            onClick={setChangeProfile}
+                        >
+                            <ListItemIcon>
+                                <EditIcon />
+                            </ListItemIcon>
+                            <ListItemText 
+                                primary={text.edit[idioma]}
+                                primaryTypographyProps={{style: {fontSize: '0.9em'}}}
+                            />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            onClick={setChangePass}
+                        >
+                            <ListItemIcon>
+                                <VpnKeyIcon />
+                            </ListItemIcon>
+                            <ListItemText 
+                                primary={text.editpass[idioma]}
+                                primaryTypographyProps={{style: {fontSize: '0.9em'}}}
+                            />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemIcon>
+                                <LanguageIcon />
+                            </ListItemIcon>
+                                <FormControl >
+                                    <Select
+                                        value={idioma}
+                                        onChange={changeIdioma}
+                                        displayEmpty
+                                        className={classes.langSelect}
+                                        inputProps={{ 'aria-label': 'Without label' }}
+                                    >
+                                        <MenuItem value={'en'}>English</MenuItem>
+                                        <MenuItem value={'es'}>Español</MenuItem>
+                                    </Select>
+                                    
+                                </FormControl>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemIcon>
+                                <ColorLensIcon />
+                            </ListItemIcon>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={darkMode}
+                                        onChange={changeTheme}
+                                        color="primary"
+                                    />
+                                }
+                                label={text.darkMode[idioma]}
+                            />
+                        </ListItem>
+
+                        
+                        <ListItem>
+                            <ListItemIcon>
+                                <NotificationsActiveIcon />
+                            </ListItemIcon>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={allowedOSNot}
+                                        onChange={changeNotifSwith}
+                                        color="primary"
+                                    />
+                                }
+                                label={text.allowOSNotifications[idioma]}
+                            />
+                        </ListItem>
+                    </div>
                     <Divider />
-                    <ListItem 
-                        button
-                        onClick={setShareApp}
-                    >
-                        <ListItemIcon>
-                            <ShareIcon />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={text.share[idioma]}
-                            primaryTypographyProps={{style: {fontSize: '0.9em'}}}
-                            secondary={text.shareDesc[idioma]}
-                            secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
-                        />
-                    </ListItem>
-                    <ListItem 
-                        button
-                        onClick={setFeedback}
-                    >
-                        <ListItemIcon>
-                            <StarIcon />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={text.feedback[idioma]}
-                            primaryTypographyProps={{style: {fontSize: '0.9em'}}}
-                            secondary={text.feedbackDesc[idioma]}
-                            secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
-                        />
-                    </ListItem>
-                    <ListItem 
-                        button
-                        onClick={setBugreport}
-                    >
-                        <ListItemIcon>
-                            <BugReportIcon />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={text.report[idioma]}
-                            primaryTypographyProps={{style: {fontSize: '0.9em'}}}
-                            secondary={text.reportDesc[idioma]}
-                            secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
-                        />
-                    </ListItem>
+                    <div id="profileOtherMenuOptions">
+                        <ListItem 
+                            button
+                            onClick={setShareApp}
+                        >
+                            <ListItemIcon>
+                                <ShareIcon />
+                            </ListItemIcon>
+                            <ListItemText 
+                                primary={text.share[idioma]}
+                                primaryTypographyProps={{style: {fontSize: '0.9em'}}}
+                                secondary={text.shareDesc[idioma]}
+                                secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
+                            />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            onClick={setFeedback}
+                        >
+                            <ListItemIcon>
+                                <StarIcon />
+                            </ListItemIcon>
+                            <ListItemText 
+                                primary={text.feedback[idioma]}
+                                primaryTypographyProps={{style: {fontSize: '0.9em'}}}
+                                secondary={text.feedbackDesc[idioma]}
+                                secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
+                            />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            onClick={setBugreport}
+                        >
+                            <ListItemIcon>
+                                <BugReportIcon />
+                            </ListItemIcon>
+                            <ListItemText 
+                                primary={text.report[idioma]}
+                                primaryTypographyProps={{style: {fontSize: '0.9em'}}}
+                                secondary={text.reportDesc[idioma]}
+                                secondaryTypographyProps={{style: {fontSize: '0.8em'}}}
+                            />
+                        </ListItem>
+                    </div>
                 </List>
         </Card>
         
@@ -282,7 +306,9 @@ const useSmallPhotoCameraButtonStyle = makeStyles(theme => {
 const SmallPhotoCameraButton = ({onClick}) => {
     const classes = useSmallPhotoCameraButtonStyle();
     return (
-        <IconButton size="small" 
+        <IconButton 
+            id='cameraIconButton'
+            size="small" 
             className={classes.iconButton}
             onClick={onClick}
         >

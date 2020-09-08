@@ -1,4 +1,6 @@
-import React, {Suspense} from 'react';
+import React, {Suspense/*, useRef*/} from 'react';
+//import {useRecoilState} from 'recoil';
+//import { anchorElMenuBtn } from '../../components/recoil/atoms'; 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 //import MenuIcon from '@material-ui/icons/Menu';
-import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
 import {blue, pink} from '@material-ui/core/colors';
 
@@ -35,77 +36,81 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ToolbarView = ({avatarSrc, userData}) => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+    const classes = useStyles();
+    
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
 
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-  const avatarGender = userData.gender === "M" ? 'avatarMan' : 'avatarWoman';
+    const avatarGender = userData ? userData.gender === "M" ? 'avatarMan' : 'avatarWoman' : null;
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        
-        <Toolbar>
-          
-            {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-            </IconButton>*/}
-          
-            <Typography variant="h6" className={classes.title}>
-                Shutapp
-            </Typography>          
-            <div>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                >
-                    <Avatar
-                        src={avatarSrc}
-                        className={userData.gender && classes[avatarGender]}
-                    />
-                    
-                </IconButton>
-                <Suspense fallback={
-                        <Backdrop className={classes.backdrop} open={true} >
-                            <CircularProgress color="inherit" />
-                        </Backdrop>}
+    return (
+        <div className={classes.root}>
+        <AppBar position="static">
+            
+            <Toolbar>
+            
+                {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <MenuIcon />
+                </IconButton>*/}
+            
+                <Typography variant="h6" className={classes.title}>
+                    Shutapp
+                </Typography>          
+                <div>
+                    <IconButton
+                        id="userAvatarButton"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
                     >
-                    <AsyncProfileOpt open={open} anchorEl={anchorEl} handleClose={handleClose}/>
-                </Suspense>
-                {/*<Popover 
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                >
-                    
-                </Popover>*/}
+                        <Avatar
+                            id="userAvatar"
+                            src={avatarSrc}
+                            className={userData && userData.gender && classes[avatarGender]}
+                        />
+                        
+                    </IconButton>
+                    {userData !== null && 
+                    <Suspense fallback={
+                            <Backdrop className={classes.backdrop} open={true} >
+                                <CircularProgress color="inherit" />
+                            </Backdrop>}
+                        >
+                        <AsyncProfileOpt open={open} anchorEl={anchorEl} handleClose={handleClose}/>
+                    </Suspense>}
+                    {/*<Popover 
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                    >
+                        
+                    </Popover>*/}
 
-              
-            </div>          
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+                
+                </div>          
+            </Toolbar>
+        </AppBar>
+        </div>
+    );
 }
 
 export default ToolbarView;

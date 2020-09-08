@@ -15,6 +15,7 @@ const ChangeavatarController = ({close}) => {
     const avatarRef = useRef(null);
 
     const onAvatarChange = () => {
+        
         postRequest({
             url: '/users/changeAvatar',
             bodyParams: {

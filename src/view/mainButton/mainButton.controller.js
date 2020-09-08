@@ -1,16 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo, useCallback} from 'react';
+
 import {useRecoilState, useRecoilValue} from 'recoil';
+//import JoyRide from 'react-joyride';
 import MainButtonView from './mainButton.view';
 import AddContact from '../addContact';
+import {idiomaState, addContactViewOpenState, speedDialStateAtom} from '../../components/recoil/atoms';
+import text from './idioma.json'
 
-
-import {idiomaState, addContactViewOpenState} from '../../components/recoil/atoms';
 
 const MainButtonController = props => {
 
-    const [open, setOpen] = useState(false);
-    const [addContactViewState,setAddContactViewState] = useRecoilState(addContactViewOpenState);
+    //const [open, setOpen] = useState(false);
+    const [open, setOpen] = useRecoilState(speedDialStateAtom);
 
+    const [addContactViewState,setAddContactViewState] = useRecoilState(addContactViewOpenState);
+    
+    
     const idioma = useRecoilValue(idiomaState);
 
     const handleOpen = () => {
@@ -31,11 +36,14 @@ const MainButtonController = props => {
             handleOpen={handleOpen}
             handleClose={handleClose}
             idioma={idioma}
+            text={text}
             openAddContactView={openAddContactView}
         />
+
+        
         {addContactViewState ? <AddContact /> : null}
         
     </>;
 
 }
-export default MainButtonController;
+export default React.memo(MainButtonController);

@@ -1,0 +1,58 @@
+{
+    "share":{
+        "es": "Compartir",
+        "en": "Share"
+    },
+    "shareDesc": {
+        "es":"Envia un correo electónico a tus amigos para compartir la aplicación",
+        "en":"Send a email to your friends to share."
+    },
+    "report":{
+        "es": "Reportar un error",
+        "en": "Report a bug"
+    },
+    "reportDesc": {
+        "es":"Reporta un error y lo corregiremos lo mas pronto posible.",
+        "en":"Report a bug and we will correct it as soon as possible."
+    },
+    "feedback":{
+        "es": "Retroalimenzación",
+        "en": "Feedback"
+    },
+    "feedbackDesc": {
+        "es":"Háganos saber que piensa de la aplicación y que podemos hacer para mejorar mediante su evaluación.",
+        "en":"Let us know what you think of the application and what we can do to improve by rating the app."
+    },
+    "edit":{
+        "es": "Editar perfil",
+        "en": "Edit profile"
+    },
+    "editDesc": {
+        "es":"Edita los datos de tu perfil.",
+        "en":"Edit your profile data."
+    },
+    "logout": {
+        "es": "Salir",
+        "en": "Logout"
+    },
+    "editpass": {
+        "es": "Cambiar contraseña",
+        "en": "Edit password"
+    },
+    "editpassDesc": {
+        "es":"Permite cambiar su contraseña.",
+        "en":"Allow edit your password."
+    },
+    "darkMode": {
+        "es": "Modo noche",
+        "en": "Dark mode"
+    },
+    "shouldAllowNotInBrowser": {
+        "es": "Debe abilitar las notificaciones para esta página en la configuración de su navegador.",
+        "en": "You need to enable the notifications for this page from yuor configuration web browser."
+    },
+    "allowOSNotifications": {
+        "es": "Notificaciones",
+        "en": "Notifications"
+    }
+}

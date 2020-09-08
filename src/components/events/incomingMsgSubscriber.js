@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import {useRecoilState} from 'recoil';
 import {chatConversation} from '../recoil/atoms';
-import socket from '../socket'
+import socket from '../../utils/socket'
+
 const IncomingMsgSubscriber = props => {
 
     const [conversation, setConvertation] = useRecoilState(chatConversation);
@@ -15,9 +16,6 @@ const IncomingMsgSubscriber = props => {
                 newStateObj[data.socketId] = {...conversation[data.socketId]};
                 if(conversation[data.socketId].text){
                     newStateObj[data.socketId].text = [...conversation[data.socketId].text, {myMsg: false, msg: data.msg}];
-                    
-                    
-
                     if(data.socketId !== newStateObj.active){
                         newStateObj[data.socketId].novistos = newStateObj[data.socketId].novistos + 1; 
                     }

@@ -1,0 +1,62 @@
+{
+    "signup": {
+        "es": "Crear cuenta",
+        "en": "Sign up"
+    },
+    "firstName":{
+        "es": "Nombre",
+        "en": "First Name"
+    },
+    "lastName": {
+        "es": "Apellidos",
+        "en": "Last Name"
+    },
+    "email": {
+        "es": "Correo Electrónico",
+        "en": "Email Address"
+    },
+    "password": {
+        "es": "Contraseña",
+        "en": "Password"
+    },
+    "signin": {
+        "es": "Ya tienes una cuenta? Regístrate!",
+        "en": "Already have an account? Sign in!"
+    },
+    "invalidEmail": {
+        "es": "Correo inválido",
+        "en": "Invalid email"
+    },
+    "passShort": {
+        "es": "Debe tener al menos 8 caracteres",
+        "en": "Must have at least 8 characters"
+    },
+    "nameInvalid": {
+        "es": "Sin espacios. Sin números.",
+        "en": "No spaces. No numbers."
+    },
+    "nameShort": {
+        "es": "Muy corto (min 2)",
+        "en": "Too Short (2 min)"
+    },
+    "nameLong": {
+        "es": "Muy largo (max 20)",
+        "en": "Too long (max 20)"
+    },
+    "duplicated": {
+        "es": "El correo ya se encuentra registrado.",
+        "en": "The email is already registered."
+    },
+    "error": {
+        "es": "Error interno",
+        "en": "Internal error"
+    },
+    "userCreated": {
+        "es": "Usuario creado. Revise su correo para activarlo.",
+        "en": "User created. Check your email to activate it."
+    },
+    "connError": {
+        "es": "Error de conexión",
+        "en": "Network error"
+    }
+}

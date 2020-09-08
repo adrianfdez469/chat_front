@@ -1,0 +1,162 @@
+import React from 'react';
+
+import {makeStyles} from '@material-ui/core/styles';
+import { Avatar } from '@material-ui/core';
+import { grey, lightGreen, blue, pink } from '@material-ui/core/colors';
+import CachedIcon from '@material-ui/icons/Cached';
+import DoneIcon from '@material-ui/icons/Done';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import  formatRelative  from 'date-fns/formatRelative'
+import es from 'date-fns/locale/es';
+
+const useMessageStyle = makeStyles(theme => ({
+    message: {
+        padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+        maxWidth: '60%',
+        //margin: `${theme.spacing(2)}px ${theme.spacing(2)}px`,
+        marginTop: theme.spacing(2),
+        marginBottom: 0,
+        marginLeft: `${theme.spacing(2)}px`,
+        marginRight: `${theme.spacing(2)}px`,        
+        borderRadius: '10px',
+        backgroundColor: theme.palette.info.dark,
+        color: theme.palette.info.contrastText,
+        position: "relative"
+    },
+    timeMessage: {
+        paddingLeft: theme.spacing(2),
+        //paddingRight: theme.spacing(2),
+        maxWidth: '60%',
+        marginBottom: theme.spacing(1),
+        marginLeft: `${theme.spacing(2)}px`,
+        marginRight: `${theme.spacing(1)}px`,
+        color: theme.palette.text.disabled,
+        ...theme.typography.subtitle2
+    },
+    mymsg: {
+        textAlign: 'right',
+        alignSelf: 'flex-end',
+        borderRadius: '10px 0 10px 10px'
+    },
+    notmymsg: { 
+        alignSelf: 'flex-start',
+        borderRadius: '0 10px 10px 10px'
+    },
+    msgAvatar: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+        position: "absolute",
+        top: `-${theme.spacing(1.5)}px`,
+    },
+    myMsgAvatar : {
+        right: `-${theme.spacing(1.5)}px`,
+        
+    },
+    notMyMsgAvatar: {
+        left: `-${theme.spacing(1.5)}px`
+    },
+    doneIcon: {
+        marginRight: theme.spacing(1),
+        fontSize: theme.spacing(2.2)
+    },
+    avatarMan: {
+        color: theme.palette.getContrastText(blue[400]),
+        backgroundColor: blue[400],
+    },
+    avatarWoman: {
+        color: theme.palette.getContrastText(pink[300]),
+        backgroundColor: pink[300],
+    }
+}));
+
+const Message = React.memo(
+    ({state, content, datetime ,contact, avatarSrc, userGender, idioma}) => {
+
+    const classes = useMessageStyle();
+
+    const msgStyle = state > 0 ? classes.mymsg : classes.notmymsg;
+    const avatarStyle = state > 0 ? classes.myMsgAvatar : classes.notMyMsgAvatar;
+    //const avatarUrl = state > 0 ? avatarSrc : DEFAULT_CONFIG.server + contact.avatarUrl;
+    const avatarUrl = state > 0 ? avatarSrc : contact.avatarUrl;
+
+    const options = idioma === 'es' ? { locale: es } : {};
+    const date = formatRelative(new Date(datetime), new Date(), options)
+    
+    let stateIcon = null;
+    if(state === 1) stateIcon = <CachedIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
+    if(state === 2) stateIcon = <DoneIcon className={classes.doneIcon} style={{ color: lightGreen[500] }}/>
+    //if(state === 2) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: grey[500] }}/>
+    if(state === 3) stateIcon = <DoneAllIcon className={classes.doneIcon} style={{ color: lightGreen[500] }}/>
+    
+    let avatarGender;
+    if( state === 0 ){
+        avatarGender = contact.gender === "M" ? 'avatarMan' : contact.gender === "F" ? "avatarWoman" : "";
+    }else{
+        avatarGender = userGender === "M" ? 'avatarMan' : userGender === "F" ? "avatarWoman" : "";
+    }  
+    
+
+    return (<>
+        <div className={`${classes.message} ${msgStyle}`}>
+            <Avatar
+                alt={contact.nickname}
+                src={avatarUrl}
+                variant="circle"
+                className={`${classes.msgAvatar} ${avatarStyle} ${classes[avatarGender]}`}                
+            />
+            {content}
+        </div>
+        <span className={` ${msgStyle}`}>
+            <span className={`${classes.timeMessage}`}>
+                {date}
+            </span>
+            {stateIcon}
+        </span>
+        
+    </>
+    );
+});
+
+const useChatStyle = makeStyles(theme => ({
+    chatConversation: {
+        position: 'relative',
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        overflowY: 'auto',
+        height: '100%'
+        
+    },
+    offset: theme.mixins.toolbar,
+    offsetDown: {
+        ...theme.mixins.toolbar, 
+        bottom: 0,
+        position: 'relative'
+    }
+}));
+
+const ChatBodyView = ({contact, avatarSrc, messages, idioma, userGender}) => {
+
+    React.useEffect(() => {
+        var element = document.getElementById('chatConversation');
+        if(element)
+            element.scrollTop = element.scrollHeight;
+    });
+
+    const classes = useChatStyle();
+    return (
+        
+                <div id="chatConversation" className={classes.chatConversation}>
+                    <div className={classes.offset} />
+                    {
+                        messages.map((elem, idx, arr) => {
+                            return <Message {...elem} key={idx} contact={contact} avatarSrc={avatarSrc} userGender={userGender} idioma={idioma}/>
+                        })
+                    }
+                    <div className={classes.offsetDown} />
+                </div>
+
+    );
+
+}
+export default ChatBodyView;

@@ -1,0 +1,72 @@
+{
+    "of": {
+        "es": "de",
+        "en": "of"   
+    },
+    "tourWelcome": {
+        "es": "Bienvenido a Shut-app. Te mostraré lo que puedes hacer!",
+        "en": "Welcome to Shut-app. I will show you wath you can do!"   
+    },
+    
+    "tourSpeedDial": {
+        "es": "Pulsa el botón azul y verás las principales funciones del sistema.",
+        "en": "Press the blue button and you will see the main functions of the system."
+    },
+    "tourStepProfile": {
+        "es": "Si deseas salir o editar tu perfil lo puedes hacer desde aquí.",
+        "en": "If you want to logout or edit your profile, you can do it from here."
+    },
+    "tourStepProfileCamera": {
+        "es": "Aquí podrá cambiar su foto de perfil.",
+        "en": "Here you can edit your profile picture."
+    },
+    "tourStepProfileLogout": {
+        "es": "Si otras personas tienen acceso a su dispositivo, cierra la sesion antes de salir.",
+        "en": "If other people have access to your device, close the session before exit."
+    },
+    "tourStepProfileMenuOptions": {
+        "es": "Aquí podras editar los datos de tu perfil, además del lenguaje y tema de la aplicación.",
+        "en": "Here you can edit your profile data, as well as the language and theme of the application."
+    },
+    "tourStepOtherMenuOptions": {
+        "es": "Estas son otras opciones que podrás utilizar para reportar errores, entre otras funciones secundarias.",
+        "en": "These are other options that you can use to report errors, among other secondary functions."
+    },
+    "tourStepMenuOptionsClose": {
+        "es": "Puedes cerrar el menú presionando en el la imagen de avatar.",
+        "en": "You can close the menu pressing in the avatar image"
+    },
+    "tourSpeedDialAdd": {
+        "es": "La más usada de todas es Adicionar usuarios.",
+        "en": "The most used of all is Add users"
+    },
+    "tourAddWinUser": {
+        "es": "Aquí aparecerán todos los usuarios a los que puedes solicitar amistad.",
+        "en": "Here will appear all the users to whom you can request friendship."
+    },
+    "tourRequestFriendshipButton": {
+        "es": "Solicita amistad pulsando el botón +.",
+        "en": "Request friendship by pressing the + button."
+    },
+    "tourFriend": {
+        "es": "Todos tus contactos aparecerán en esta lista, incluso aquellos que te pidan amistad.",
+        "en": "All your contacts will appear in this list, even those who ask you for friendship."
+    },
+    "tourFriendDetailStatus": {
+        "es": "Este icono contiene información sobre el estado de su contacto.",
+        "en": "This icon contains information about the status of your contact."
+    },
+    "tourFriendActions": {
+        "es": "Este botón muestra diferentes acciones que puede realizar con el contacto, como aceptar o rechazar una solicitud.",
+        "en": "This button displays different actions that you can perform with the contact, such as accepting or rejecting a request."
+    },
+    "finalStep": {
+        "es": "Eso es todo por ahora, que te diviertas!",
+        "en": "That's all for now, have fun!"
+    },
+    "close": {
+        "es": "Cerrar",
+        "en": "Close"
+    }
+    
+}

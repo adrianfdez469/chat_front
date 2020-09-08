@@ -1,0 +1,10 @@
+{
+    "decline":{
+        "es": "Cancelar peticion",
+        "en": "Decline request"
+    },
+    "errorDeclining":{
+        "es": "Error al cancelar solicitud de amistad",
+        "en": "Error declining friend request"
+    }
+}

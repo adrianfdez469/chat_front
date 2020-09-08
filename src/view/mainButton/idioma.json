@@ -1,0 +1,22 @@
+{
+    "addContact": {
+        "es": "Adicionar",
+        "en": "Add"
+    },
+    "addGroup": {
+        "es": "Grupo",
+        "en": "Group"
+    },
+    "sendMsg": {
+        "es": "Enviar",
+        "en": "Send"
+    },
+    "shareMsg": {
+        "es": "Compartir",
+        "en": "Share"
+    },
+    "sendAll": {
+        "es": "Difusión",
+        "en": "Diffusion"
+    }
+}

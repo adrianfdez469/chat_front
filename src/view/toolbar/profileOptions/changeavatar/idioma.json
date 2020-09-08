@@ -1,0 +1,14 @@
+{
+    "choosefile": {
+        "es": "Seleccione",
+        "en": "Choose"
+    },
+    "btnCambiar": {
+        "es": "Guardar",
+        "en": "Save"
+    },
+    "onError": {
+        "es": "El avatar no se pudo guardar",
+        "en": "Avatar can't save"
+    }
+}

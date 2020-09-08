@@ -1,0 +1,42 @@
+{
+    "title": {
+        "en": "Reset password",
+        "es": "Cambiar contraseña"
+    },
+    "email": {
+        "en": "Email Address",
+        "es": "Correo Electrónico"
+    },
+    "forgotText": {
+        "es": "Escriba su correo electrónico y le enviaremos un enlace para que pueda cambiar su contraseña.",
+        "en": "Write your email, and we send you a link in wish you can change your password."
+    },
+    "forgotBtnOk": {
+        "es": "Continuar",
+        "en": "Continue"
+    },
+    "forgotBtnCancel": {
+        "es": "Cancelar",
+        "en": "Cancel"
+    },
+    "invalidEmail": {
+        "es": "Correo inválido",
+        "en": "Invalid email"
+    },
+    "emailSended": {
+        "es": "Revise su bandeja de entrada de correos",
+        "en": "Check your email inbox"
+    },
+    "emailNotFound": {
+        "es": "Correo no encontrado",
+        "en": "Email not found"
+    },
+    "error": {
+        "es": "Error interno",
+        "en": "Internal error"
+    },
+    "connError": {
+        "es": "Error de conexión",
+        "en": "Network error"
+    }
+}

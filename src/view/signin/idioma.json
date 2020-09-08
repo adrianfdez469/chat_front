@@ -1,0 +1,38 @@
+{
+    "signin": {
+        "es": "Entrar",
+        "en": "Sign in"
+    },
+    "email": {
+        "en": "Email Address",
+        "es": "Correo Electrónico"
+    },
+    "password": {
+        "en": "Password",
+        "es": "Contraseña"
+    },
+    "rememberme": {
+        "en": "Remember me",
+        "es": "Recuérdame"
+    },
+    "forgotpassword": {
+        "en": "Forgot password?",
+        "es": "Olvidó su contraseña?"
+    },
+    "gosignup": {
+        "en": "Dont have an account? Sign Up!",
+        "es": "No tienes una cuenta? Creátela!"
+    },
+    "notAuthorized": {
+        "en": "Not authorized",
+        "es": "No autorizado"
+    },
+    "internalError": {
+        "en": "Internal error",
+        "es": "Error interno"
+    },
+    "connErr": {
+        "en": "Error de conexión",
+        "es": "Network error"
+    }
+}

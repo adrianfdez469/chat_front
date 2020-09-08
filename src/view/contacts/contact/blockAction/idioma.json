@@ -1,0 +1,10 @@
+{
+    "block":{
+        "es": "Bloquear contacto",
+        "en": "Block contact"
+    },
+    "onBlockError":{
+        "es": "El contacto no se pudo bloquear",
+        "en": "Contact could not be block"
+    }
+}

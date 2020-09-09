@@ -7,6 +7,7 @@ import { Redirect } from 'react-router';
 
 
 const uiConfig =  {
+    //signInSuccessUrl: '/chat_front',
     //signInFlow: 'popup',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -15,7 +16,7 @@ const uiConfig =  {
     ],
     callbacks: {
         // Avoid redirects after sign-in.
-        signInSuccessWithAuthResult: () => false
+        //signInSuccessWithAuthResult: () => false
     }
 };
 

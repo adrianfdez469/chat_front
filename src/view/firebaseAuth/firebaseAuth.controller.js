@@ -8,8 +8,8 @@ import { Redirect } from 'react-router';
 
 const uiConfig =  {
     // eslint-disable-next-line no-restricted-globals
-    signInSuccessUrl: `${location.origin}/chat_front`,
-    //signInFlow: 'popup',
+    //signInSuccessUrl: `${location.origin}/chat_front`,
+    signInFlow: 'popup',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -17,7 +17,7 @@ const uiConfig =  {
     ],
     callbacks: {
         // Avoid redirects after sign-in.
-        //signInSuccessWithAuthResult: () => false
+        signInSuccessWithAuthResult: () => false
     }
 };
 

@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 
 
 const uiConfig =  {
-    signInFlow: 'popup',
+    //signInFlow: 'popup',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,

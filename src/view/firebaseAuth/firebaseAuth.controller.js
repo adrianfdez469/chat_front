@@ -7,7 +7,8 @@ import { Redirect } from 'react-router';
 
 
 const uiConfig =  {
-    //signInSuccessUrl: '/chat_front',
+    // eslint-disable-next-line no-restricted-globals
+    signInSuccessUrl: `${location.origin}/chat_front`,
     //signInFlow: 'popup',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,

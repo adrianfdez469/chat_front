@@ -31,6 +31,15 @@ export function register(config) {
       return;
     }
 
+    window.addEventListener('push', event => {
+        const title = "Yay a message";
+        const body = "We have received a push message";
+        const tag = 'simple-push-example-tag';
+        event.waitUntil(
+            new Notification(title, {body: body, tag: tag})
+        )
+    });
+
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 

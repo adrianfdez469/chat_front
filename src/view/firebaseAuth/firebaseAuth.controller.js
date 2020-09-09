@@ -70,7 +70,7 @@ const FirebaseAuthController = () => {
             netError={netError}
         />
     }else{
-        return <Redirect to='/app' />
+        return <Redirect to='/chat_front/app' />
     }
     
 

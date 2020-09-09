@@ -125,7 +125,7 @@ const ContactsController = props => {
                     isDark={dark}
                 /> 
             </>
-            : <Redirect to='/' />;
+            : <Redirect to='/chat_front' />;
 
 }
 

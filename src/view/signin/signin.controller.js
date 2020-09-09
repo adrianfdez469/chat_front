@@ -154,7 +154,7 @@ const SigninController = props => {
     }
 
     if(redirectState){
-        return <Redirect to="/contacts" />
+        return <Redirect to="/chat_front/contacts" />
     }
     
     return <Signin idioma={idioma} 

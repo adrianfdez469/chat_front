@@ -104,7 +104,7 @@ export default function SignIn({idioma, emailRef, passRef, onSignIn, rememberChe
             </Grid>
             <Grid item>
                 {
-                <RouterLink to="/signup" /*style={{textDecoration: 'none'}}*/ className={classes.link}>
+                <RouterLink to="/chat_front/signup" /*style={{textDecoration: 'none'}}*/ className={classes.link}>
                     
                     {text.gosignup[idioma]}
                     

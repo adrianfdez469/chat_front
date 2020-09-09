@@ -60,8 +60,8 @@ const BodyApp = React.memo(() => {
 const EntryPointView = React.memo(() => {
 
     const view =  <Switch>
-            <Route path="/app" exact component={BodyApp} />
-            <Route path="/" exact component={FirebaseAuth} />
+            <Route path="/chat_front/app" exact component={BodyApp} />
+            <Route path="/chat_front" exact component={FirebaseAuth} />
         </Switch>
 
     return view;

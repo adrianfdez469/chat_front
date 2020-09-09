@@ -126,7 +126,7 @@ export default function SignUp({idioma, onSignUp,emailState, onEmailChange, pass
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <RouterLink to="/" className={classes.link}>
+              <RouterLink to="/chat_front" className={classes.link}>
               {text.signin[idioma]}
               </RouterLink>
             </Grid>

@@ -57,7 +57,7 @@ const ChangePassController = props => {
     }
 
     if(redirect){
-        return <Redirect to="/" />;
+        return <Redirect to="/chat_front" />;
     }
     return <ChangePassView idioma={idioma} 
             passState={passState}

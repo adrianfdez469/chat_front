@@ -83,7 +83,7 @@ const ActivateUserController = props => {
     }
 
     if(redirectState){
-        return <Redirect to='/' />
+        return <Redirect to='/chat_front' />
     }
 
     return <ActivateUserView 

@@ -87,7 +87,7 @@ export default function ChangePassView({idioma, passState, pass2State, onPassCha
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <RouterLink to="/">
+              <RouterLink to="/chat_front">
               {text.signin[idioma]}
               </RouterLink>
             </Grid>

@@ -4,7 +4,8 @@ const firebaseConfig = () => {
         return require('./secrets').firebaseConfig;
     }else if(process.env.NODE_ENV === 'production'){
        return {
-        apiKey: process.env.FIREBSAE_API_KEY,
+        //apiKey: process.env.FIREBSAE_API_KEY,
+        apiKey: "AIzaSyDJqy5depKRPIpHmmNxsu3VwFTPJ-dvCzY",
         authDomain: "shut-up-pro.firebaseapp.com",
         databaseURL: "https://shut-up-pro.firebaseio.com",
         projectId: "shut-up-pro",

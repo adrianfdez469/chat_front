@@ -31,7 +31,6 @@ const FirebaseAuthController = () => {
     
     useEffect(() => {
         firebase.auth().onAuthStateChanged(firebaseUser => {
-            console.log('onAuthStateChanged');
             setSignedIn(!!firebaseUser);
             if(firebase.auth().currentUser){
                 const promise1 = firebase.auth().currentUser.getIdToken(true);

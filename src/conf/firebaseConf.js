@@ -1,8 +1,7 @@
 
 const firebaseConfig = () => {
     if(process.env.NODE_ENV === 'development'){
-        const secrets = require('./secrets');
-        return secrets.firebaseConfig;
+        return require('./secrets').firebaseConfig;
     }else if(process.env.NODE_ENV === 'production'){
        return {
         apiKey: process.env.FIREBSAE_API_KEY,

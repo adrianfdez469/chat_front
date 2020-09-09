@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d385630ae6090b97f6eb7b3607a8bb66",
+    "revision": "53ae29d4ea129d1af35f37f423fa0b06",
     "url": "/chat_front/index.html"
   },
   {
@@ -24,20 +24,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/chat_front/static/js/1.56458180.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c67fba9c9d17997e3d6e",
-    "url": "/chat_front/static/js/10.b0552e0e.chunk.js"
+    "revision": "8ab7f50d8e78421274ee",
+    "url": "/chat_front/static/js/10.8743a6af.chunk.js"
   },
   {
     "revision": "bfc5c05ccff3d0e3491f",
     "url": "/chat_front/static/js/11.a549f439.chunk.js"
   },
   {
-    "revision": "53bdfd535ff357ec8f83",
-    "url": "/chat_front/static/js/12.8cb38d67.chunk.js"
+    "revision": "d63e6a10fb025fc5950b",
+    "url": "/chat_front/static/js/12.1dd77956.chunk.js"
   },
   {
-    "revision": "740d2f23278b503ad5df",
-    "url": "/chat_front/static/js/13.c295f43b.chunk.js"
+    "revision": "f2861513bd573b682d6e",
+    "url": "/chat_front/static/js/13.0ee2f6ac.chunk.js"
   },
   {
     "revision": "d0d23d1d82bab4c9852f",
@@ -64,24 +64,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/chat_front/static/js/7.486c68a0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cb39dbd8c6e90ddbaea4",
-    "url": "/chat_front/static/js/8.81cf5fc3.chunk.js"
+    "revision": "dd58c8fc910051afb85f",
+    "url": "/chat_front/static/js/8.7bb8e625.chunk.js"
   },
   {
     "revision": "594a9b7481a02e531dd949729c997d26",
-    "url": "/chat_front/static/js/8.81cf5fc3.chunk.js.LICENSE.txt"
+    "url": "/chat_front/static/js/8.7bb8e625.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "74367c3e22afaeedeab9",
-    "url": "/chat_front/static/js/9.7fef4949.chunk.js"
+    "revision": "ba33489152dcdec0ab7e",
+    "url": "/chat_front/static/js/9.e5acc2d0.chunk.js"
   },
   {
     "revision": "351c4e1b573f684306f9",
     "url": "/chat_front/static/js/main.6c40dbfd.chunk.js"
   },
   {
-    "revision": "3ea308e112eaf51cc92f",
-    "url": "/chat_front/static/js/runtime-main.d5f928b4.js"
+    "revision": "8dcefc3e141f5a39e580",
+    "url": "/chat_front/static/js/runtime-main.a9b6ce56.js"
   },
   {
     "revision": "551636c39d4b8086cfb0bd5ea02830d3",

@@ -12,7 +12,6 @@ import {blue, pink} from '@material-ui/core/colors';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {DEFAULT_CONFIG} from '../../../conf/configuration'
 
 
 const useStyles = makeStyles((theme) => ({

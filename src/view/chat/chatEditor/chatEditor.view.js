@@ -1,8 +1,7 @@
 import React from 'react';
 
-import {AppBar, Toolbar, IconButton, makeStyles, createStyles} from '@material-ui/core';
+import {AppBar, Toolbar, IconButton, makeStyles} from '@material-ui/core';
 
-import SendIcon from '@material-ui/icons/Send';
 import TelegramIcon from '@material-ui/icons/Telegram';
 
 const useStyles = makeStyles(theme => ({

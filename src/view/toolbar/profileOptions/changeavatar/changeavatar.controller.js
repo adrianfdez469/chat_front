@@ -2,7 +2,6 @@ import React, {useState, useRef} from 'react';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {idiomaState, userAvatarState} from '../../../../components/recoil/atoms';
 import useAxiosHook from '../../../../utils/axiosHook';
-import {DEFAULT_CONFIG} from '../../../../conf/configuration'
 import ChangeavatarView from './changeavatar.view';
 import text from './idioma.json';
 

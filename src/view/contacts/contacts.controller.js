@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback} from 'react';
+import React, { useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 import {idiomaState, subscribeToEventsState, loginData, userAvatarState, /*newAvatarState,*/ darkModeAtom/*firebaseCurrentUserState, friendSelector, friendsAtom*/} from '../../components/recoil/atoms';

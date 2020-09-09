@@ -2,7 +2,7 @@ import React from 'react';
 
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
-import {Container, DialogTitle, DialogContent, DialogContentText, Grid, TextField, DialogActions, Button, Box, Typography} from '@material-ui/core';
+import {Container, DialogTitle, DialogContent, Grid, TextField, DialogActions, Button, Box, Typography} from '@material-ui/core';
 
 
 const labels = {

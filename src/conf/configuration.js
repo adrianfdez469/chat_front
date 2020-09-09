@@ -3,7 +3,7 @@ const DEV = {
 }
 const PROD = {
     // eslint-disable-next-line no-restricted-globals
-    //server: location.origin //"https://shut-app-back.herokuapp.com"
+    //server: location.origin
     server: "https://shut-app-pro.herokuapp.com"
 }
 

@@ -5,7 +5,6 @@ import {userAvatarState, activeChatWith, idiomaState, loginData, getConversation
 import ChatBodyView from './chatBody.view';
 import useAxiosHook from '../../../utils/axiosHook';
 import text from './idioma.json';
-import socketClient from '../../../utils/socket';
 
 const ChatBodyController = () => {
     
@@ -34,24 +33,8 @@ const ChatBodyController = () => {
                             contactId: contact.contactId,
                             conversation: resp.data.conversation
                         });
-    
-    
-                        /*const client = socketClient.getSocket();
-                        console.log("---SE EMITE QUE SE RECIBIO EL MENSAJE---");
-                        console.log('userId:' + userData.userId);
-                        console.log('contactId: ' +contact.contactId);
-                        console.log('socketId: '+contact.socketId);
-                        console.log('token: '+token);
-                        
-                        client.emit('read messages', {
-                            userId: userData.userId,
-                            contactId: contact.contactId,
-                            notifyTo: contact.socketId,
-                            token: token
-                        });*/
                     }
-                },
-                //doFnAfterError: err => console.log(err)
+                }
             });
         }
     }

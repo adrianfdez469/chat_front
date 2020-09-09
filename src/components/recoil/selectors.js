@@ -170,14 +170,14 @@ const friendSelector = selector({
 });
 
 
-
+/*
 const messageStates = {
     'NINGUNO': 0, // Cuando no es enviado por el propio usuario, sino que se lo enviaron a el, por lo que los estados no tienen sentido para este tipo de mensajes
     'ENVIADO': 1,
     'GUARDADO': 2,
     'LEIDO': 3
 };
-
+*/
 const initConversationSelector = selector({
     key:'conversationSelector',
     set: ({set}, {contactId, conversation}) => {

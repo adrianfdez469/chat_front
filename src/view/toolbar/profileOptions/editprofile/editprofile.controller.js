@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useCallback} from 'react';
+import React, {useState} from 'react';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {loginData, idiomaState, userAvatarState} from '../../../../components/recoil/atoms';
 import useAxiosHook from '../../../../utils/axiosHook';

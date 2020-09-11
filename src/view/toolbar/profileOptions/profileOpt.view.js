@@ -24,7 +24,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import BugReportIcon from '@material-ui/icons/BugReport';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+//import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import StarIcon from '@material-ui/icons/Star';
 import LanguageIcon from '@material-ui/icons/Language';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
@@ -150,7 +150,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                                 primaryTypographyProps={{style: {fontSize: '0.9em'}}}
                             />
                         </ListItem>
-                        <ListItem 
+                        {/*<ListItem 
                             button
                             onClick={setChangePass}
                         >
@@ -161,7 +161,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                                 primary={text.editpass[idioma]}
                                 primaryTypographyProps={{style: {fontSize: '0.9em'}}}
                             />
-                        </ListItem>
+                        </ListItem>*/}
                         <ListItem>
                             <ListItemIcon>
                                 <LanguageIcon />

@@ -37,8 +37,8 @@ const ChangepassView = ({text, idioma, oldPassState, passState, pass2State, onOl
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
+                            size="small"
                             variant="outlined"
-                            margin="normal"
                             required
                             fullWidth
                             name="password"
@@ -52,8 +52,8 @@ const ChangepassView = ({text, idioma, oldPassState, passState, pass2State, onOl
                             error={!oldPassState.valid}
                         />
                         <TextField
+                            size="small"
                             variant="outlined"
-                            margin="normal"
                             required
                             fullWidth
                             name="password"
@@ -67,8 +67,8 @@ const ChangepassView = ({text, idioma, oldPassState, passState, pass2State, onOl
                             error={!passState.valid}
                         />
                         <TextField
+                            size="small"
                             variant="outlined"
-                            margin="normal"
                             required
                             fullWidth
                             name="password"

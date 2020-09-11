@@ -76,6 +76,7 @@ const EditProfileView = ({text, idioma, isOpen, setClose, userData,
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                size="small"
                                 autoComplete="fname"
                                 name="firstName"
                                 variant="outlined"
@@ -92,6 +93,7 @@ const EditProfileView = ({text, idioma, isOpen, setClose, userData,
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                size="small"
                                 variant="outlined"
                                 fullWidth
                                 id="lastName"
@@ -104,6 +106,7 @@ const EditProfileView = ({text, idioma, isOpen, setClose, userData,
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                size="small"
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -119,6 +122,7 @@ const EditProfileView = ({text, idioma, isOpen, setClose, userData,
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                size="small"
                                 variant="outlined"
                                 required
                                 fullWidth

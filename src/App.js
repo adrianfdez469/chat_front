@@ -24,11 +24,13 @@ import UiComponents from './components/uiComponents';
 import FirebaseAuth from './view/firebaseAuth';
 import AppTour from './view/tour/tour.view';
 
+
 const AsyncToolbar = React.lazy(() => import('./view/toolbar'));
 const AsyncMainButton = React.lazy(() => import('./view/mainButton'));
 const AsyncContactList = React.lazy(() => import('./view/contacts'));
 const AsyncChatCmp = React.lazy(() => import('./view/chat'));
 const AsyncEvents = React.lazy(() => import('./components/events'));
+const AsyncPrivacyPolicy = React.lazy(() => import('./view/privacyPolitic'));
 
 const themeDark = createMuiTheme({palette: {type: 'dark',}});
 const themeDefault = createMuiTheme({});
@@ -60,6 +62,7 @@ const BodyApp = React.memo(() => {
 const EntryPointView = React.memo(() => {
 
     const view =  <Switch>
+            <Route path="/privacy_policy" exact component={AsyncPrivacyPolicy} />
             <Route path="/chat_front/app" exact component={BodyApp} />
             <Route path="/chat_front" exact component={FirebaseAuth} />
         </Switch>

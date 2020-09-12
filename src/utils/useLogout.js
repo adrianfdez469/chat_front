@@ -19,7 +19,7 @@ const useLogout = () => {
         setContactList([]);
         setFriends([]);
         client.emit('logout', {});
-        
+        socketClient.close();
         setSubscribe(false);
         setLoginData(null);
         firebase.auth().signOut();

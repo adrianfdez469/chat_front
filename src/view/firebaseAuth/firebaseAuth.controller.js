@@ -35,15 +35,21 @@ const FirebaseAuthController = () => {
         firebase.auth().onAuthStateChanged(firebaseUser => {
             setSignedIn(!!firebaseUser);
             if(firebase.auth().currentUser){
-                const promise1 = firebase.auth().currentUser.getIdToken(true);
+                const promise1 = firebase.auth().currentUser.getIdToken(true)
+                    .then(idToken => {
+                        firebaseCurrentToken(idToken);
+                        return idToken;
+                    });
                 const promise2 = firebase.auth().currentUser.getIdTokenResult(true);
 
                 Promise.all([promise1, promise2])
                     .then(([idToken, tokenResult]) => {
-                        firebaseCurrentToken(idToken);
+                        //firebaseCurrentToken(idToken);
                         return tokenResult;
                     })
                     .then(result => {
+                        console.log(result);
+                        
                         const data = result.claims;
                         setFirebaseCurrentUser(data);
                         const nameArray = (data.name) ? data.name.split(' ') : ['', ''];

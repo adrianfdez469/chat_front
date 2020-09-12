@@ -17,7 +17,6 @@ const FirebaseAuthView = React.memo(({uiConfig, auth, isSignedIn, netError}) => 
 
   
     return (
-        <Profiler id="--Profiler--" onRender={() => console.log('Se renderizo un componente interno')}>
         <div style={{...darModeStyle, justifyContent: 'center', alignItems: 'center', height: '100%', display: 'flex', flexDirection: 'column'}}>
             
             <Avatar src={logo} style={{width: 60, height: 60, marginTop: 24, boxShadow: '0 0px 5px rgb(154,48,154'}}/>
@@ -29,7 +28,6 @@ const FirebaseAuthView = React.memo(({uiConfig, auth, isSignedIn, netError}) => 
                 : <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth}/>}
 
         </div>
-        </Profiler>
     );
 })
 export default FirebaseAuthView;

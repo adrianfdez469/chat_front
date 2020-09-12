@@ -1,0 +1,19 @@
+{
+    "title":{
+        "es": "Actualizar Avatar",
+        "en": "Update Avatar"
+    },
+    "text":{
+        "es": "Le gustaría usar la imagen de avatar de su proveedor de identidad?",
+        "en": "Would you like to use the new avatar image from your identity provider? "
+    },
+    
+    "disagree":{
+        "es": "No",
+        "en": "No"
+    },
+    "agree":{
+        "es": "Si",
+        "en": "Yes"
+    }
+}

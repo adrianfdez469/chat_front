@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import FirebaseAuthView from './firebaseAuth.view';
-import { loginData, firebaseCurrentUserState, firebaseCurrentTokenState } from '../../components/recoil/atoms';
+import { loginData, firebaseCurrentUserState, firebaseCurrentTokenState, view } from '../../components/recoil/atoms';
 import firebase from '../../utils/firebase';
-import { Redirect } from 'react-router';
 
 
 const uiConfig =  {
@@ -26,6 +25,7 @@ const FirebaseAuthController = () => {
     const  [userData, setLoginData] = useRecoilState(loginData)
     const  setFirebaseCurrentUser = useSetRecoilState(firebaseCurrentUserState)
     const  firebaseCurrentToken = useSetRecoilState(firebaseCurrentTokenState)
+    const  setView = useSetRecoilState(view.getAtom);
 
     
     const[isSignedIn, setSignedIn]= useState(false);
@@ -44,11 +44,9 @@ const FirebaseAuthController = () => {
 
                 Promise.all([promise1, promise2])
                     .then(([idToken, tokenResult]) => {
-                        //firebaseCurrentToken(idToken);
                         return tokenResult;
                     })
                     .then(result => {
-                        
                         const data = result.claims;
                         setFirebaseCurrentUser(data);
                         const nameArray = (data.name) ? data.name.split(' ') : ['', ''];
@@ -77,7 +75,8 @@ const FirebaseAuthController = () => {
             netError={netError}
         />
     }else{
-        return <Redirect to='/chat_front/app' />
+        setView(view.posibleViews.CONTACTS);
+        return <></>;
     }
     
 

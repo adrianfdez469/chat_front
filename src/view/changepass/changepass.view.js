@@ -5,9 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import {Link as RouterLink} from 'react-router-dom';
 import text from './idioma.json'
 
 
@@ -87,9 +87,9 @@ export default function ChangePassView({idioma, passState, pass2State, onPassCha
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <RouterLink to="/chat_front">
+              <Link to="/chat_front">
               {text.signin[idioma]}
-              </RouterLink>
+              </Link>
             </Grid>
           </Grid>
          </form>

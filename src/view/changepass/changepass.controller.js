@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import NotificationHook from '../../components/uiComponents/notification/notification.hook';
 import axios from 'axios';
-import {withRouter, Redirect} from 'react-router-dom';
 
 import ChangePassView from './changepass.view';
 import {idiomaState} from './../../components/recoil/atoms';
@@ -16,7 +15,6 @@ const ChangePassController = props => {
     const {openErrorNotification, openSuccessNotification} = NotificationHook();
     const [passState, setPassState] = useState({value: "", valid: true});
     const [pass2State, setPass2State] = useState({value: "", valid: true});
-    const [redirect, setRedirect] = useState(false);
 
 
     const onPassChange = ({target: {value}}) => {
@@ -34,16 +32,18 @@ const ChangePassController = props => {
         }else if(pass2State.value !== passState.value){
             setPass2State({...pass2State, valid: false});
         }else {
-            const token = props.match.params.token;
+            // VER COMO QUEDA ESTA IMPLEMENTACION CON LO DE FIREBASE
+
+            //const token = props.match.params.token;
             
             axios.post(`${DEFAULT_CONFIG.server}/users/resetpassword`,{
-                token: token,
+                //token: token,
                 password: passState.value
             })
             .then(resp => {
                 if(resp.status === 200){
                     openSuccessNotification(text.passChangeOk[idioma]);
-                    setRedirect(true);
+                    //Poner aqui el cambio de vista hacia el login con el atom view
                 }
             })
             .catch(err => {
@@ -56,9 +56,7 @@ const ChangePassController = props => {
         }
     }
 
-    if(redirect){
-        return <Redirect to="/chat_front" />;
-    }
+    
     return <ChangePassView idioma={idioma} 
             passState={passState}
             pass2State={pass2State}
@@ -70,4 +68,4 @@ const ChangePassController = props => {
 
 }
 
-export default withRouter(ChangePassController);
+export default ChangePassController;

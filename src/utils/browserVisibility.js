@@ -20,10 +20,8 @@ const usePageVisibility = () => {
 
     const handleVisibilityChange = () => {
         if (document[hidden]) {
-            //console.log('No hay visibilidad del navegador');
             setIsVisible(false);
         } else {
-            //console.log('Hay visibilidad del navegador');    
             setIsVisible(true);
         }
     }

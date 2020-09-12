@@ -62,7 +62,7 @@ const DeclinedFriendshipSubscriber = props => {
         });
 
         return () => client.off('declined friendship');
-    }, [])
+    }, [isBrowserVisble, idioma])
 
 
 

@@ -57,7 +57,7 @@ const DeletedContactSubscriber = props => {
         });
 
         return () => client.off('deleted contact');
-    }, [])
+    }, [isBrowserVisble, idioma])
 
 
 

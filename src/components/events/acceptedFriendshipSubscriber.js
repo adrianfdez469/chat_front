@@ -58,7 +58,7 @@ const AcceptedFriendshipSubscriber = props => {
         });
 
         return () => client.off('accepted friendship');
-    }, [])
+    }, [idioma, isBrowserVisble])
 
 
 

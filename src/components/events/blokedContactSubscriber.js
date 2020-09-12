@@ -58,7 +58,7 @@ const BlokedContactSubscriber = props => {
         });
 
         return () => client.off('bloked contact');
-    }, [])
+    }, [isBrowserVisble, idioma])
 
 
 

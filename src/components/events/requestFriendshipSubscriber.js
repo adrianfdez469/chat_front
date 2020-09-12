@@ -42,6 +42,7 @@ const RequestFriendSubscriber = props => {
                                     friend: {...resp.data.friend, socketId: socketIdRequester}
                                 }});
                             const friend = resp.data.friend;
+
                             if(OS_Notification.allowedNotifications() && !isBrowserVisble){
                                 new Notification(friend.nickname, { body: `${friend.nickname} ${text.requestedInv[idioma]}`, icon: logo });
                             }else{
@@ -61,7 +62,7 @@ const RequestFriendSubscriber = props => {
         });
 
         return () => client.off('requested friendship');
-    }, [])
+    }, [isBrowserVisble, idioma])
 
 
 

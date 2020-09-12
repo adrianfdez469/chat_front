@@ -11,8 +11,8 @@
     "static/js/4.5fbfeeab.chunk.js": "/chat_front/static/js/4.5fbfeeab.chunk.js",
     "static/js/4.5fbfeeab.chunk.js.map": "/chat_front/static/js/4.5fbfeeab.chunk.js.map",
     "main.css": "/chat_front/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/chat_front/static/js/main.8f3865a7.chunk.js",
-    "main.js.map": "/chat_front/static/js/main.8f3865a7.chunk.js.map",
+    "main.js": "/chat_front/static/js/main.96926cfe.chunk.js",
+    "main.js.map": "/chat_front/static/js/main.96926cfe.chunk.js.map",
     "runtime-main.js": "/chat_front/static/js/runtime-main.ba171131.js",
     "runtime-main.js.map": "/chat_front/static/js/runtime-main.ba171131.js.map",
     "static/js/7.486c68a0.chunk.js": "/chat_front/static/js/7.486c68a0.chunk.js",
@@ -34,7 +34,7 @@
     "static/js/15.8857eb7d.chunk.js": "/chat_front/static/js/15.8857eb7d.chunk.js",
     "static/js/15.8857eb7d.chunk.js.map": "/chat_front/static/js/15.8857eb7d.chunk.js.map",
     "index.html": "/chat_front/index.html",
-    "precache-manifest.5ffa8baddded4f61651b0f0c117491bd.js": "/chat_front/precache-manifest.5ffa8baddded4f61651b0f0c117491bd.js",
+    "precache-manifest.76b15e6182ea88044100c3dfad34f9de.js": "/chat_front/precache-manifest.76b15e6182ea88044100c3dfad34f9de.js",
     "service-worker.js": "/chat_front/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/chat_front/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/0.7c0d478b.chunk.js.LICENSE.txt": "/chat_front/static/js/0.7c0d478b.chunk.js.LICENSE.txt",
@@ -47,6 +47,6 @@
     "static/js/runtime-main.ba171131.js",
     "static/js/7.486c68a0.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.8f3865a7.chunk.js"
+    "static/js/main.96926cfe.chunk.js"
   ]
 }

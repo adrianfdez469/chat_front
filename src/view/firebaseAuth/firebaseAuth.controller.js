@@ -48,7 +48,6 @@ const FirebaseAuthController = () => {
                         return tokenResult;
                     })
                     .then(result => {
-                        console.log(result);
                         
                         const data = result.claims;
                         setFirebaseCurrentUser(data);

@@ -57,15 +57,7 @@ const useStyle = makeStyles((theme) => ({
     },
     secondaryText: {
         color: theme.palette.text.secondary
-    },
-    avatarMan: {
-        color: theme.palette.getContrastText(blue[400]),
-        backgroundColor: blue[400],
-    },
-    avatarWoman: {
-        color: theme.palette.getContrastText(pink[300]),
-        backgroundColor: pink[300],
-    },
+    }
 }));
 
 const OnlineStyledBadge = withStyles((theme) => ({
@@ -215,7 +207,7 @@ const ContactView = React.memo(
     //const avatarUrl = contact.avatarUrl ? `${DEFAULT_CONFIG.server}${contact.avatarUrl}` : null;
     const avatarUrl = contact.avatarUrl ? contact.avatarUrl : null;
 
-    const avatarGender = contact.gender === "M" ? 'avatarMan' : "avatarWoman";
+    
 
     return (<>
         <ListItem button onClick={openChat}>
@@ -225,12 +217,10 @@ const ContactView = React.memo(
                     ? <Badge color="secondary" badgeContent={contact.unread}>
                         <Avatar
                             src={avatarUrl}
-                            className={contact.gender && classes[avatarGender]}
                         />
                     </Badge>
                     : <Avatar
                             src={avatarUrl}
-                            className={contact.gender && classes[avatarGender]}
                         />
                     }
                 </OnlineBadge>

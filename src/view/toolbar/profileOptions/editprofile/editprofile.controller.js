@@ -9,7 +9,6 @@ import text from './idioma.json';
 const EditProfileController = ({close}) => {
 
     const idioma = useRecoilValue(idiomaState);
-    const avatarSrc = useRecoilValue(userAvatarState);
     const [userData, setUserData] = useRecoilState(loginData);
     const {postRequest} = useAxiosHook();
     const {openErrorNotification} = useNotification();
@@ -18,7 +17,7 @@ const EditProfileController = ({close}) => {
     const [nicknameState, setNickNameState] = useState({value: userData.nickname, valid: true});    
     const [nameState, setNameState] = useState({value: userData.firstName, valid: true});  
     const [lastName, setLastName] = useState({value: userData.lastName, valid: true});
-    const [gender, setGender] = useState(userData.gender === "F" ? true : false);  
+    
     
     
     const onNameChange = ({target: {value}}) => {
@@ -33,9 +32,7 @@ const EditProfileController = ({close}) => {
     const onNickNameChange = ({target: {value}}) => {
         setNickNameState(oldState => ({...oldState, value: value, valid: true}));
     }
-    const onSwitchGender = ({target: {checked}}) => {
-        setGender(oldState => !oldState);
-    }
+    
 
     const onSave =(event) => {
         event.preventDefault();
@@ -59,8 +56,7 @@ const EditProfileController = ({close}) => {
                 firstName: nameState.value,
                 lastName: lastName.value,
                 nickname: nicknameState.value,
-                email: emailState.value,
-                gender: gender ? 'F' : 'M'
+                email: emailState.value
             }; 
 
             postRequest({
@@ -87,7 +83,6 @@ const EditProfileController = ({close}) => {
 
 
     return <EditProfileView 
-        userData={userData}
         text={text}
         idioma={idioma}
 
@@ -95,15 +90,13 @@ const EditProfileController = ({close}) => {
         nameState={nameState}
         nicknameState={nicknameState}
         emailState={emailState}
-        gender={gender}
+       
         
         onNameChange={onNameChange}
         onEmailChange={onEmailChange}
         onNickNameChange={onNickNameChange}
         onLastNameChange={onLastNameChange}
-        onSwitchGender={onSwitchGender}
-
-        avatarSrc={avatarSrc}
+        
 
         onSave={onSave}
 

@@ -1,7 +1,6 @@
 import React, { useEffect} from 'react';
-import {Redirect} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
-import {idiomaState, subscribeToEventsState, loginData, userAvatarState, /*newAvatarState,*/ darkModeAtom/*firebaseCurrentUserState, friendSelector, friendsAtom*/} from '../../components/recoil/atoms';
+import {idiomaState, subscribeToEventsState, loginData, userAvatarState, /*newAvatarState,*/ darkModeAtom/*firebaseCurrentUserState, friendSelector, friendsAtom*/, view} from '../../components/recoil/atoms';
 import {tourAtom} from '../tour/tour.atoms';
 import {friendSelector} from '../../components/recoil/selectors';
 import useAxiosHook from '../../utils/axiosHook';
@@ -20,6 +19,7 @@ const ContactsController = props => {
     const setSubscribeToEvents = useSetRecoilState(subscribeToEventsState);
     const [userData, setLoginData] = useRecoilState(loginData);
     const setUserAvatarState = useSetRecoilState(userAvatarState);
+    const setView = useSetRecoilState(view.getAtom);
     //const setNewUserAvatarState = useSetRecoilState(newAvatarState);
     //const chatWith = useRecoilValue(activeChatWith);
     const setTourState = useSetRecoilState(tourAtom);
@@ -38,50 +38,16 @@ const ContactsController = props => {
 
     const loadData = () => {
         
-        const userDataPromise = postRequest({
+        postRequest({
             url: '/users/getUserData',
             bodyParams: {
                 language: idioma
-            }
-        });
-        const friendsPromise = postRequest({
-            url: '/users/searchFirends',
-            //messageOnError: text.errorLoadingFriends[idioma]
-        });
-        const friendsDataPromise = postRequest({
-            url: '/users/getContactData',
-            //messageOnError: text.errorLoadingFriendsData[idioma]
-        });
-
-        Promise.all([userDataPromise, friendsPromise, friendsDataPromise])
-            .then(([userResp, friendsResp, friendsDataResp]) => {
-
-                if(friendsResp.status === 200){
-                        
-                    friendDispatcher({
-                        action: 'initialize', 
-                        payload: {
-                            friends: friendsResp.data.friends
-                        }});
-                    setSubscribeToEvents(true);
-                    
-                }
-
-                if(friendsDataResp.status === 200){
-                    friendDispatcher({
-                        action: 'set_message_info',
-                        payload: {
-                            dataObj: friendsDataResp.data.contactsData
-                        }
-                    });
-                }
-
-                
-
+            },
+            doFnAfterSuccess: userResp => {
                 if(userResp.status === 200 || userResp.status === 201){
                     const {
                         _id, nickname, firstName,
-                        lastName, email, gender, language, avatarUrl/*,avatarChanged, oauthAvatarUrl*/
+                        lastName, email, language, avatarUrl/*,avatarChanged, oauthAvatarUrl*/
                     } = userResp.data.user;
                     
                     /*if(avatarChanged){
@@ -94,8 +60,7 @@ const ContactsController = props => {
                         nickname: nickname,
                         firstName: firstName,
                         lastName: lastName,
-                        email: email,
-                        gender: gender
+                        email: email
                     });
                     setIdiomaState(language);
                     setUserAvatarState(avatarUrl);
@@ -103,6 +68,39 @@ const ContactsController = props => {
                 if(userResp.status === 201){
                     // Si es un usuario nuevo le doy un tour por la app
                     OS_Notification.askNotificationPermission(() => setTourState(true));
+                }
+            }
+        });
+
+
+        const friendsPromise = postRequest({
+            url: '/users/searchFirends'
+        })
+        .then(friendsResp => {
+            if(friendsResp.status === 200){
+                friendDispatcher({
+                    action: 'initialize', 
+                    payload: {
+                        friends: friendsResp.data.friends
+                    }});
+                setSubscribeToEvents(true);
+            }
+        });
+
+        const friendsDataPromise = postRequest({
+            url: '/users/getContactData'
+        });
+
+        Promise.all([friendsPromise, friendsDataPromise])
+            .then(([friendsResp, friendsDataResp]) => {
+
+                if(friendsDataResp.status === 200){
+                    friendDispatcher({
+                        action: 'set_message_info',
+                        payload: {
+                            dataObj: friendsDataResp.data.contactsData
+                        }
+                    });
                 }
             })
             .catch(err => {
@@ -116,8 +114,14 @@ const ContactsController = props => {
             loadData();        
     }, []);
 
+    useEffect(() => {
+        if(userData === null){
+            setView(view.posibleViews.LOGIN);
+        }
+    }, [userData]);
+
     return userData !== null 
-            ?  <>
+            &&  <>
                 <ContactsView 
                     idioma={idioma}
                     contacts={contacts}
@@ -125,8 +129,6 @@ const ContactsController = props => {
                     isDark={dark}
                 /> 
             </>
-            : <Redirect to='/chat_front' />;
-
 }
 
 export default ContactsController;

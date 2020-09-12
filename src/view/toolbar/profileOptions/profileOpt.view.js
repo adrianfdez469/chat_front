@@ -62,15 +62,7 @@ const useStyles = makeStyles( theme => ({
         fontWeight: 400,
         lineHeight: 1.5,
         letterSpacing:'0.00938em'
-    },
-    avatarMan: {
-        color: theme.palette.getContrastText(blue[400]),
-        backgroundColor: blue[400],
-    },
-    avatarWoman: {
-        color: theme.palette.getContrastText(pink[300]),
-        backgroundColor: pink[300],
-    },
+    }
 }));
 
 
@@ -118,7 +110,7 @@ const ProfileView = ({text, idioma, avatarUrl, userData, logout, changeIdioma, d
                     >   
                             <Avatar 
                                 aria-label="recipe" 
-                                className={`${classes.avatar} ${userData.gender === "M" ? classes.avatarMan : classes.avatarWoman}`} 
+                                className={`${classes.avatar}`} 
                                 src={avatarUrl}                            
                             />                        
                     </Badge>

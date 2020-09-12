@@ -37,14 +37,6 @@ const useStyles = makeStyles((theme) => ({
             width: theme.breakpoints.values.sm,
         },
         right: 'auto'
-    },
-    avatarMan: {
-      color: theme.palette.getContrastText(blue[400]),
-      backgroundColor: blue[400],
-    },
-    avatarWoman: {
-      color: theme.palette.getContrastText(pink[300]),
-      backgroundColor: pink[300],
     }
 }));
 
@@ -143,7 +135,6 @@ const ChatHeaderView = ({closeChat, contact}) => {
 
     //const avatarUrl = contact.avatarUrl ? DEFAULT_CONFIG.server + contact.avatarUrl : null;
     const avatarUrl = contact.avatarUrl ? contact.avatarUrl : null;
-    const avatarGender = contact.gender === "M" ? 'avatarMan' : "avatarWoman";
     
 
     return (
@@ -161,7 +152,6 @@ const ChatHeaderView = ({closeChat, contact}) => {
                     <OnlineBadge contact={contact}>
                         <Avatar
                             src={avatarUrl}
-                            className={contact.gender && classes[avatarGender]}
                         />
                     </OnlineBadge>
                 <Typography className={classes.title} variant="h5" noWrap>

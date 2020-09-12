@@ -72,14 +72,6 @@ const useStyles = makeStyles(theme => ({
             width: '20ch',
             },
         },*/
-    },
-    avatarMan: {
-        color: theme.palette.getContrastText(blue[400]),
-        backgroundColor: blue[400],
-    },
-    avatarWoman: {
-        color: theme.palette.getContrastText(pink[300]),
-        backgroundColor: pink[300],
     }
   }));
 
@@ -126,24 +118,16 @@ const AddContactView = ({idioma, closeAddContactWin, open,
 
 const UserItem = ({user, sendFriendRequest}) => {
 
-    const classes = useStyles();
-    //const [iconButtonDisabledState, setIconButtonDisabledState] = React.useState(false)
-
+    
     const disableItem = () => {
-        //setIconButtonDisabledState(true);
         sendFriendRequest(user.userId);
 
     }
-
-
-    const avatarGender = user.gender === "M" ? 'avatarMan' : "avatarWoman";
 
     return (
         <ListItem key={user.email} id={user.id && user.id}>
             <ListItemAvatar>
                 <Avatar 
-                    className={user.gender && classes[avatarGender]} 
-                    //src={DEFAULT_CONFIG.server + user.avatarUrl}
                     src={user.avatarUrl}
                 />
             </ListItemAvatar>

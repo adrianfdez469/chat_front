@@ -10,7 +10,6 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 //import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
-import {blue, pink} from '@material-ui/core/colors';
 
 //import ProfileOpt from './profileOptions';
 const AsyncProfileOpt = React.lazy(() => import('./profileOptions'));
@@ -24,15 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  },
-  avatarMan: {
-    color: theme.palette.getContrastText(blue[400]),
-    backgroundColor: blue[400],
-  },
-  avatarWoman: {
-    color: theme.palette.getContrastText(pink[300]),
-    backgroundColor: pink[300],
-  },
+  }
 }));
 
 const ToolbarView = ({avatarSrc, userData}) => {
@@ -50,7 +41,7 @@ const ToolbarView = ({avatarSrc, userData}) => {
         setAnchorEl(null);
     };
 
-    const avatarGender = userData ? userData.gender === "M" ? 'avatarMan' : 'avatarWoman' : null;
+    
 
     return (
         <div className={classes.root}>
@@ -77,7 +68,6 @@ const ToolbarView = ({avatarSrc, userData}) => {
                         <Avatar
                             id="userAvatar"
                             src={avatarSrc}
-                            className={userData && userData.gender && classes[avatarGender]}
                         />
                         
                     </IconButton>

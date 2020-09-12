@@ -55,8 +55,7 @@ const FirebaseAuthController = () => {
                             nickname: data.name,
                             firstName: nameArray[0],
                             lastName: nameArray.filter((it, idx) => idx > 0).join(' '),
-                            email: data.email,
-                            gender: null
+                            email: data.email
                         });
                     })
                     .catch(err => {

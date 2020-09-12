@@ -35,28 +35,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CustomSwitch = withStyles((theme) => ({
-    switchBase: {
-        color: blue[800],  
-        '&$checked': {
-            color: pink[500],
-            '& + $track': {
-                opacity: 1,
-                backgroundColor: theme.palette.common.white,
-                borderColor: theme.palette.common.white,
-            },
-        }
-    },
-    track: {
-        opacity: 1,
-        backgroundColor: theme.palette.common.white,
-    },
-    checked: {},
-  }))(Switch);
-
-const EditProfileView = ({text, idioma, isOpen, setClose, userData, 
-    lastName, nameState, nicknameState, emailState, gender,
-    onNameChange, onEmailChange, onNickNameChange, onLastNameChange, onSwitchGender,
+const EditProfileView = ({text, idioma, 
+    lastName, nameState, nicknameState, emailState,
+    onNameChange, onEmailChange, onNickNameChange, onLastNameChange,
     onSave, avatarSrc
 }) => {
     
@@ -136,18 +117,7 @@ const EditProfileView = ({text, idioma, isOpen, setClose, userData,
                                 error={!nicknameState.valid}
                                 onChange={onNickNameChange}
                             />
-                        </Grid>
-                        
-                            <Typography component="div" style={{width: '100%'}}>
-                                <Grid component="label" container alignItems="center" spacing={1} style={{width: '100%', margin: 0, justifyContent: 'center'}}>
-                                    <Grid item>{text.male[idioma]}</Grid>
-                                        <Grid item>
-                                            <CustomSwitch checked={gender} onChange={onSwitchGender} name="checkedC" className={classes.customSwitch}/>
-                                        </Grid>
-                                    <Grid item>{text.female[idioma]}</Grid>
-                                </Grid>
-                            </Typography>
-                                 
+                        </Grid>  
                     </Grid>
                     <Button
                         type="submit"

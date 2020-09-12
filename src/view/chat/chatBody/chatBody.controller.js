@@ -47,7 +47,6 @@ const ChatBodyController = () => {
         return <ChatBodyView 
                     contact={contact}
                     avatarSrc={avatarSrc}
-                    userGender={userData.gender}
                     messages={messages}
                     idioma={idioma}
                 /> ;

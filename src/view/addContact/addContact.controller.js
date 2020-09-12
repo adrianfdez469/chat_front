@@ -26,7 +26,6 @@ const AddContactController = props => {
         if(tourState){
             setUsers([{
                 email: 'user.email@mail.com',
-                gender: 'M',
                 nickname: 'Nickname',
                 id: 'idUsuarioEjemplo'
             }]);

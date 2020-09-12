@@ -112,7 +112,6 @@ const AppReactTour = ({idioma}) => {
                 friendDispatcher({action: 'add', payload: {friend: {
                     email: 'user.email@mail.com',
                     nickname: 'Nickname',
-                    gender: 'M',
                     friendShipStatus: 2,
                     friendShipStatusCode: 'REQUESTED',
                     isTourTest: true,

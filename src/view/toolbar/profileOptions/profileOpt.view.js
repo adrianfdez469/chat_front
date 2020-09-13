@@ -31,8 +31,6 @@ import ColorLensIcon from '@material-ui/icons/ColorLens';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
-import {blue, pink} from '@material-ui/core/colors'
-
 import ChangePass from './changepass';
 import ChangeAvatar from './changeavatar';
 import EditProfile from './editprofile';

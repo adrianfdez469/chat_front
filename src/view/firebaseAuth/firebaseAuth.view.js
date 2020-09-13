@@ -1,4 +1,4 @@
-import React, { Profiler } from 'react';
+import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { darkModeAtom } from '../../components/recoil/atoms';
 import StyledFirebaseAuth  from 'react-firebaseui/StyledFirebaseAuth';

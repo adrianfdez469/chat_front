@@ -1,8 +1,8 @@
 import React from 'react';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
-import {Container, TextField, Grid, Button, Avatar, CssBaseline, Typography, Switch} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {Container, TextField, Grid, Button, Avatar, CssBaseline, Typography} from '@material-ui/core';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
-import {pink, blue} from '@material-ui/core/colors';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import { friendSelector, initConversationSelector } from '../../../components/recoil/selectors'; 
-import {userAvatarState, activeChatWith, idiomaState, loginData, getConversationWithContact} from '../../../components/recoil/atoms';
+import {userAvatarState, activeChatWith, idiomaState, getConversationWithContact} from '../../../components/recoil/atoms';
 import ChatBodyView from './chatBody.view';
 import useAxiosHook from '../../../utils/axiosHook';
 import text from './idioma.json';
@@ -13,9 +13,9 @@ const ChatBodyController = () => {
     const initConversation = useSetRecoilState(initConversationSelector);
     const messages = useRecoilValue(getConversationWithContact(idContact));
     const avatarSrc = useRecoilValue(userAvatarState);
-    const userData = useRecoilValue(loginData);
+    
     const idioma = useRecoilValue(idiomaState);
-    const {subscribeAll, unSubscribeAll} = useEvents();
+    const {subscribeAll} = useEvents();
     
     const friends = useRecoilValue(friendSelector);
     const {postRequest} = useAxiosHook();

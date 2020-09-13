@@ -2,7 +2,7 @@ import React from 'react';
 
 import {makeStyles} from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
-import { grey, lightGreen, blue, pink } from '@material-ui/core/colors';
+import { grey, lightGreen } from '@material-ui/core/colors';
 import CachedIcon from '@material-ui/icons/Cached';
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';

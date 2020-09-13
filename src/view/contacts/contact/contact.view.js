@@ -11,7 +11,7 @@ import Badge from '@material-ui/core/Badge';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import Tooltip from '@material-ui/core/Tooltip';
-import { red, green, blue, pink } from '@material-ui/core/colors';
+import { red, green} from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoIcon from '@material-ui/icons/Info';

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useRecoilValue, useRecoilState} from 'recoil';
-import {loginData, idiomaState, userAvatarState} from '../../../../components/recoil/atoms';
+import {loginData, idiomaState} from '../../../../components/recoil/atoms';
 import useAxiosHook from '../../../../utils/axiosHook';
 import useNotification from '../../../../components/uiComponents/notification/notification.hook';
 import EditProfileView from './editprofile.view';

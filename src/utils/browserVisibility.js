@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
   
 let hidden, visibilityChange; 
 if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support 

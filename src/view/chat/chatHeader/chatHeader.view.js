@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 
 import {makeStyles, withStyles} from '@material-ui/core/styles';
-import {blue, pink} from '@material-ui/core/colors';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreVertIcon from '@material-ui/icons/MoreVert';

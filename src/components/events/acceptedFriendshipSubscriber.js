@@ -1,4 +1,3 @@
-import React, {useEffect} from 'react';
 import socketClient from '../../utils/socket';
 import {useSetRecoilState, useRecoilValue} from 'recoil';
 import {friendSelector} from '../recoil/selectors';

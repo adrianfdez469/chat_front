@@ -15,7 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider';
-import { blue, pink, grey } from '@material-ui/core/colors';
+import { blue, grey } from '@material-ui/core/colors';
 
 
 import CloseIcon from '@material-ui/icons/Close';

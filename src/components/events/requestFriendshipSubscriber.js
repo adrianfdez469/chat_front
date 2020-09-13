@@ -1,4 +1,3 @@
-import React, {useEffect} from 'react';
 import socketClient from '../../utils/socket';
 import {useSetRecoilState, useRecoilValue} from 'recoil';
 import {friendSelector} from '../recoil/selectors';
@@ -12,7 +11,7 @@ import OS_Notification from '../../utils/OS_NotificationPermission';
 import logo from '../../statics/logo192-removebg-preview.png';
 
 
-const RequestFriendSubscriber = props => {
+const useRequestFriendSubscriber = props => {
 
     const client = socketClient.getSocket();
     const friendDispatcher = useSetRecoilState(friendSelector);
@@ -23,8 +22,7 @@ const RequestFriendSubscriber = props => {
     const {postRequest} = useAxiosHook();
     const isBrowserVisble = useBrowserVisibility();
 
-    useEffect(() => {
-        
+    const subscribeRequestFriend = () => {
         client.on('requested friendship', ({userIdRequester, userIdRequested, socketIdRequester}) => {
             
             if(userIdRequested === userData.userId){
@@ -60,13 +58,17 @@ const RequestFriendSubscriber = props => {
                 });    
             }
         });
+    }
 
-        return () => client.off('requested friendship');
-    }, [isBrowserVisble, idioma])
+    const unSubscribeRequestFriend = () => {
+        client.off('requested friendship');
+    }
 
-
-
-    return <></>;
+    return {
+        subscribeRequestFriend: subscribeRequestFriend,
+        unSubscribeRequestFriend: unSubscribeRequestFriend
+    }
 
 }
-export default RequestFriendSubscriber;
+
+export default useRequestFriendSubscriber;

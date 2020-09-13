@@ -11,8 +11,9 @@ import useBrowserVisibility from '../../utils/browserVisibility';
 import OS_Notification from '../../utils/OS_NotificationPermission'
 import logo from '../../statics/logo192-removebg-preview.png';
 
-const AcceptedFriendshipSubscriber = props => {
 
+const useAcceptedFriendshipSubscriber = props => {
+    
     const client = socketClient.getSocket();
     const friendDispatcher = useSetRecoilState(friendSelector);
     const { enqueueSnackbar } = useSnackbar();
@@ -21,8 +22,7 @@ const AcceptedFriendshipSubscriber = props => {
     const {postRequest} = useAxiosHook();
     const isBrowserVisble = useBrowserVisibility();
 
-    useEffect(() => {
-        
+    const subscribeAcceptedFriendship = () => {
         client.on('accepted friendship', ({accepterId, socketIdAccepter}) => {
             
             postRequest({
@@ -56,13 +56,16 @@ const AcceptedFriendshipSubscriber = props => {
             }); 
             
         });
+    };
 
-        return () => client.off('accepted friendship');
-    }, [idioma, isBrowserVisble])
+    const unSubscribeAcceptedFriendship = () => {
+        client.off('accepted friendship');
+    };
 
-
-
-    return <></>;
-
+    return {
+        subscribeAcceptedFriendship: subscribeAcceptedFriendship,
+        unSubscribeAcceptedFriendship: unSubscribeAcceptedFriendship
+    }
 }
-export default AcceptedFriendshipSubscriber;
+
+export default useAcceptedFriendshipSubscriber;

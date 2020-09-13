@@ -1,4 +1,3 @@
-import React, {useEffect} from 'react';
 import socketClient from '../../utils/socket';
 import {useSetRecoilState, useRecoilValue} from 'recoil';
 import {friendSelector} from '../recoil/selectors';
@@ -11,7 +10,8 @@ import useBrowserVisibility from '../../utils/browserVisibility';
 import OS_Notification from '../../utils/OS_NotificationPermission';
 import logo from '../../statics/logo192-removebg-preview.png';
 
-const DeletedContactSubscriber = props => {
+
+const useDeleteContatctSubscriber = () => {
 
     const client = socketClient.getSocket();
     const friendDispatcher = useSetRecoilState(friendSelector);
@@ -21,8 +21,7 @@ const DeletedContactSubscriber = props => {
     const {postRequest} = useAxios();
     const isBrowserVisble = useBrowserVisibility();
 
-    useEffect(() => {
-        
+    const subscribeDeleteContatct = () => {
         client.on('deleted contact', ({deleterId, socketIdDeleter}) => {
             
             postRequest({
@@ -55,13 +54,18 @@ const DeletedContactSubscriber = props => {
                 }
             });
         });
+    }
 
-        return () => client.off('deleted contact');
-    }, [isBrowserVisble, idioma])
+    const unSubscribeDeleteContatct = () => {
+        client.off('deleted contact');
+    }
 
-
-
-    return <></>;
+    return {
+        subscribeDeleteContatct: subscribeDeleteContatct,
+        unSubscribeDeleteContatct: unSubscribeDeleteContatct
+    };
 
 }
-export default DeletedContactSubscriber;
+
+
+export default useDeleteContatctSubscriber;

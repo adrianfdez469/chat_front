@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+//import React from 'react';
 import {useSetRecoilState, useRecoilValue} from 'recoil';
 import {friendSelector} from '../recoil/selectors';
 import socket from '../../utils/socket'
@@ -9,15 +9,15 @@ import useBrowserVisibility from '../../utils/browserVisibility';
 import OS_Notification from '../../utils/OS_NotificationPermission';
 import logo from '../../statics/logo192-removebg-preview.png';
 
-const UserSubscriber = props => {   
+const useNewUserSubscriber = props => {
+
     const client = socket.getSocket();
     const friendDispatcher = useSetRecoilState(friendSelector);
     const userData = useRecoilValue(loginData);
     const { enqueueSnackbar } = useSnackbar();
     const isBrowserVisble = useBrowserVisibility();
 
-    useEffect(() => {
-
+    const subscribeNewUser = () => {
         client.on('new user', data => {
 
             let payload = {
@@ -40,13 +40,16 @@ const UserSubscriber = props => {
         
         if(userData)
             client.emit('new user', {userId: userData.userId});
+    }
 
-        return () => client.off('new user');
-    }, [friendDispatcher, client, userData, isBrowserVisble]);
+    const unsSubscribeNewUser = () => {
+        client.off('new user');
+    }
 
-    return (
-        <></>
-    );
+    return {
+        subscribeNewUser: subscribeNewUser,
+        unsSubscribeNewUser: unsSubscribeNewUser
+    }
 
 }
-export default UserSubscriber;
+export default useNewUserSubscriber

@@ -1,31 +1,29 @@
 import React, { useEffect} from 'react';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
-import {idiomaState, subscribeToEventsState, loginData, userAvatarState, /*newAvatarState,*/ darkModeAtom/*firebaseCurrentUserState, friendSelector, friendsAtom*/, view} from '../../components/recoil/atoms';
+import {idiomaState, loginData, userAvatarState, darkModeAtom, view} from '../../components/recoil/atoms';
 import {tourAtom} from '../tour/tour.atoms';
 import {friendSelector} from '../../components/recoil/selectors';
 import useAxiosHook from '../../utils/axiosHook';
 import OS_Notification from '../../utils/OS_NotificationPermission';
 import ContactsView from './contacs.view';
 import text from './idioma.json';
+import useEvents from '../../components/events';
 //import { Dialog } from '@material-ui/core';
 
 //const UpdateAvatarCmp = React.lazy(() => import('./updateAvatar'));
-//const AsyncChatCmp = React.lazy(() => import('../chat'));
 
 const ContactsController = props => {
 
     
     const dark = useRecoilValue(darkModeAtom);
-    const setSubscribeToEvents = useSetRecoilState(subscribeToEventsState);
+    const {subscribeAll} = useEvents();
     const [userData, setLoginData] = useRecoilState(loginData);
     const setUserAvatarState = useSetRecoilState(userAvatarState);
     const setView = useSetRecoilState(view.getAtom);
     //const setNewUserAvatarState = useSetRecoilState(newAvatarState);
-    //const chatWith = useRecoilValue(activeChatWith);
     const setTourState = useSetRecoilState(tourAtom);
     const {postRequest} = useAxiosHook();
     
-    //const [contacts, addContact] = useRecoilState(friendSelector);
     const [contacts, friendDispatcher] = useRecoilState(friendSelector);
 
     const [idioma, setIdiomaState] = useRecoilState(idiomaState);
@@ -83,7 +81,7 @@ const ContactsController = props => {
                     payload: {
                         friends: friendsResp.data.friends
                     }});
-                setSubscribeToEvents(true);
+                //subscribeAll();
             }
         });
 
@@ -102,6 +100,9 @@ const ContactsController = props => {
                         }
                     });
                 }
+            })
+            .then(() => {
+                subscribeAll();
             })
             .catch(err => {
 

@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import {useRecoilValue} from 'recoil';
 // Recoil Atoms
-import {subscribeToEventsState, activeChatWith, darkModeAtom, idiomaState, view} from './components/recoil/atoms';
+import {activeChatWith, darkModeAtom, idiomaState, view} from './components/recoil/atoms';
 
 // Materia UI
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -14,19 +14,16 @@ import CloseIcon from '@material-ui/icons/Close';
 import {SnackbarProvider} from 'notistack';
 
 // Componentes visuales
-//import Signin from './view/signin';
 import MainContainter from './view/main';
 import UiComponents from './components/uiComponents';
 
 import FirebaseAuth from './view/firebaseAuth';
 import AppTour from './view/tour/tour.view';
 
-
 const AsyncToolbar = React.lazy(() => import('./view/toolbar'));
 const AsyncMainButton = React.lazy(() => import('./view/mainButton'));
 const AsyncContactList = React.lazy(() => import('./view/contacts'));
 const AsyncChatCmp = React.lazy(() => import('./view/chat'));
-const AsyncEvents = React.lazy(() => import('./components/events'));
 //const AsyncPrivacyPolicy = React.lazy(() => import('./view/privacyPolitic'));
 
 const themeDark = createMuiTheme({palette: {type: 'dark',}});
@@ -38,9 +35,9 @@ const BodyApp = React.memo(() => {
     const idioma = useRecoilValue(idiomaState);
     const dark = useRecoilValue(darkModeAtom);
     const chatWith = useRecoilValue(activeChatWith);
-    const subscribe = useRecoilValue(subscribeToEventsState);
+    
 
-    const view = chatWith 
+    return chatWith 
         ? 
             <AsyncChatCmp />
         
@@ -52,16 +49,13 @@ const BodyApp = React.memo(() => {
                 <AppTour idioma={idioma}/>
             </ThemeProvider>
         </>
-
-    return <>
-        {view}
-        {subscribe && <AsyncEvents />}
-    </>; 
 })
 
 const EntryPointView = React.memo(() => {
 
     const viewState = useRecoilValue(view.getAtom);
+    
+
 
     if(viewState === view.posibleViews.LOGIN){
         return <FirebaseAuth />;

@@ -59,10 +59,6 @@ const backdropState = atom({
     default: false
 });
 
-const subscribeToEventsState = atom({
-    key: 'subscribeToEventsState',
-    default: false
-})
 
 const addContactViewOpenState = atom({
     key: 'addContactViewOpenState',
@@ -123,11 +119,6 @@ const firebaseCurrentTokenState = atom({
     key: 'firebaseCurrentTokenState',
     'default': null
 });
-/*
-const anchorElMenuBtn = atom({
-    key: 'anchorElMenuBtn',
-    'default': null
-});*/
 
 
 const speedDialStateAtom = atom({
@@ -139,9 +130,9 @@ const speedDialStateAtom = atom({
 
 
 
-export {idiomaState, loginData, chatConversation, view, contactListState, subscribeToEventsState, 
+export {idiomaState, loginData, chatConversation, view, contactListState,
     backdropState, userAvatarState, newAvatarState,addContactViewOpenState,
     friendsAtom, 
     activeChatWith, messagesAtom, getConversationWithContact, tokenTimeoutAtom, darkModeAtom, firebaseCurrentUserState, firebaseCurrentTokenState, 
-    /*anchorElMenuBtn,*/ speedDialStateAtom, eraseConversationsWithContacts
+    speedDialStateAtom, eraseConversationsWithContacts
 };

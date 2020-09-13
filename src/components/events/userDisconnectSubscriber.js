@@ -5,13 +5,12 @@ import socket from '../../utils/socket';
 import {useSnackbar} from 'notistack';
 import text from './idioma.json';
 
-const UserSubscriber = props => {
+const useDisconnectSubscriber = () => {
     const friendDispatcher = useSetRecoilState(friendSelector);
     const client = socket.getSocket();
     const { enqueueSnackbar } = useSnackbar();
 
-    useEffect(() => {
-        
+    const subscribeDisconnect = () => {
         client.on('user disconnect', data => {
             friendDispatcher({
                 action: 'disconnect', 
@@ -22,13 +21,17 @@ const UserSubscriber = props => {
                 }
             })
         });
+    };
 
-        return () => client.off('user disconnect');
-    }, []);
+    const unSubscribeDisconnect = () => {
+        client.off('user disconnect')
+    };
 
-    return (
-        <></>
-    );
+    return {
+        subscribeDisconnect: subscribeDisconnect,
+        unSubscribeDisconnect: unSubscribeDisconnect
+    };
 
 }
-export default UserSubscriber;
+
+export default useDisconnectSubscriber;

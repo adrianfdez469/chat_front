@@ -1,4 +1,3 @@
-import React, {useEffect} from 'react';
 import socketClient from '../../utils/socket';
 import {useSetRecoilState, useRecoilValue} from 'recoil';
 import {friendSelector} from '../recoil/selectors';
@@ -11,7 +10,8 @@ import useBrowserVisibility from '../../utils/browserVisibility';
 import OS_Notification from '../../utils/OS_NotificationPermission';
 import logo from '../../statics/logo192-removebg-preview.png';
 
-const DeclinedFriendshipSubscriber = props => {
+
+const useDeclinedFriendship = () => {
 
     const client = socketClient.getSocket();
     const friendDispatcher = useSetRecoilState(friendSelector);
@@ -21,8 +21,8 @@ const DeclinedFriendshipSubscriber = props => {
     const {postRequest} = useAxios();
     const isBrowserVisble = useBrowserVisibility();
 
-    useEffect(() => {
-        
+
+    const subscribeDeclinedFriendship = () => {
         client.on('declined friendship', ({declinerId, declinedId, socketIdDecliner, socketIdDeclined}) => {
             
             postRequest({
@@ -60,13 +60,17 @@ const DeclinedFriendshipSubscriber = props => {
                 }
             });
         });
+    }
 
-        return () => client.off('declined friendship');
-    }, [isBrowserVisble, idioma])
+    const unSubscribeDeclinedFriendship = () => {
+        client.off('declined friendship');
+    }
 
-
-
-    return <></>;
+    return {
+        subscribeDeclinedFriendship: subscribeDeclinedFriendship,
+        unSubscribeDeclinedFriendship: unSubscribeDeclinedFriendship
+    };
 
 }
-export default DeclinedFriendshipSubscriber;
+
+export default useDeclinedFriendship;

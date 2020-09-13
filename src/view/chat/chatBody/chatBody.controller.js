@@ -5,6 +5,7 @@ import {userAvatarState, activeChatWith, idiomaState, loginData, getConversation
 import ChatBodyView from './chatBody.view';
 import useAxiosHook from '../../../utils/axiosHook';
 import text from './idioma.json';
+import useEvents from '../../../components/events';
 
 const ChatBodyController = () => {
     
@@ -14,11 +15,15 @@ const ChatBodyController = () => {
     const avatarSrc = useRecoilValue(userAvatarState);
     const userData = useRecoilValue(loginData);
     const idioma = useRecoilValue(idiomaState);
+    const {subscribeAll, unSubscribeAll} = useEvents();
     
     const friends = useRecoilValue(friendSelector);
     const {postRequest} = useAxiosHook();
     const contact = friends.find(f => f.contactId === idContact);
 
+    useEffect(() => {
+        subscribeAll();
+    }, [])
 
     const loadConversation = () => {
         if(messages.length === 0){
@@ -42,6 +47,8 @@ const ChatBodyController = () => {
     useEffect(() => {
         loadConversation();
     }, []);
+
+
 
     if(messages){
         return <ChatBodyView 

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useRecoilValue, useRecoilState} from 'recoil';
-import {loginData, idiomaState} from '../../../../components/recoil/atoms';
+import {loginData, idiomaState, userAvatarState} from '../../../../components/recoil/atoms';
 import useAxiosHook from '../../../../utils/axiosHook';
 import useNotification from '../../../../components/uiComponents/notification/notification.hook';
 import EditProfileView from './editprofile.view';
@@ -9,6 +9,7 @@ import text from './idioma.json';
 const EditProfileController = ({close}) => {
 
     const idioma = useRecoilValue(idiomaState);
+    const avatarSrc = useRecoilValue(userAvatarState);
     const [userData, setUserData] = useRecoilState(loginData);
     const {postRequest} = useAxiosHook();
     const {openErrorNotification} = useNotification();
@@ -90,6 +91,7 @@ const EditProfileController = ({close}) => {
         nameState={nameState}
         nicknameState={nicknameState}
         emailState={emailState}
+        avatarSrc={avatarSrc}
        
         
         onNameChange={onNameChange}

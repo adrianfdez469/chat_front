@@ -1,7 +1,12 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {Container, TextField, Grid, Button, Avatar, CssBaseline, Typography} from '@material-ui/core';
-import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -10,10 +15,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -46,9 +47,8 @@ const EditProfileView = ({text, idioma,
     return <Container component="main" maxWidth="xs">    
             <CssBaseline /> 
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}> 
-                    <PermIdentityOutlinedIcon fontSize="large"/>
-                </Avatar>
+                <Avatar src={avatarSrc} /> 
+                    
                 <Typography component="h1" variant="h5">
                     {text.title[idioma]}
                 </Typography>       
@@ -132,9 +132,6 @@ const EditProfileView = ({text, idioma,
                         {text.save[idioma]}
                     </Button>
                 </form>
-
-                
-        
             </div>
         </Container>;
 

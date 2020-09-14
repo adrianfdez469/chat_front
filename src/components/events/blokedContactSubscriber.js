@@ -1,4 +1,3 @@
-import React, {useEffect} from 'react';
 import socketClient from '../../utils/socket';
 import {useSetRecoilState, useRecoilValue} from 'recoil';
 import {friendSelector} from '../recoil/selectors';
@@ -11,7 +10,8 @@ import useBrowserVisibility from '../../utils/browserVisibility';
 import OS_Notification from '../../utils/OS_NotificationPermission';
 import logo from '../../statics/logo192-removebg-preview.png';
 
-const BlokedContactSubscriber = props => {
+
+const useBlokedContactSubscriber = () => {
 
     const client = socketClient.getSocket();
     const friendDispatcher = useSetRecoilState(friendSelector);
@@ -21,8 +21,7 @@ const BlokedContactSubscriber = props => {
     const {postRequest} = useAxiosHook();
     const isBrowserVisble = useBrowserVisibility();
 
-    useEffect(() => {
-        
+    const subscribeBlokedContact = () => {
         client.on('blocked contact', ({blokerId, socketIdBloked}) => {
             
             postRequest({
@@ -56,13 +55,17 @@ const BlokedContactSubscriber = props => {
                 }
             });
         });
+    }
 
-        return () => client.off('bloked contact');
-    }, [isBrowserVisble, idioma])
+    const unSubscribeBlokedContact = () => {
+        client.off('bloked contact');
+    }
 
-
-
-    return <></>;
+    return {
+        subscribeBlokedContact: subscribeBlokedContact,
+        unSubscribeBlokedContact: unSubscribeBlokedContact
+    };
 
 }
-export default BlokedContactSubscriber;
+
+export default useBlokedContactSubscriber;

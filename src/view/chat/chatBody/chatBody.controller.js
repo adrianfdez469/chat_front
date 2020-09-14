@@ -15,13 +15,14 @@ const ChatBodyController = () => {
     const avatarSrc = useRecoilValue(userAvatarState);
     
     const idioma = useRecoilValue(idiomaState);
-    const {subscribeAll} = useEvents();
+    const {subscribeAll, unSubscribeAll} = useEvents();
     
     const friends = useRecoilValue(friendSelector);
     const {postRequest} = useAxiosHook();
     const contact = friends.find(f => f.contactId === idContact);
 
     useEffect(() => {
+        unSubscribeAll();
         subscribeAll();
     }, [])
 

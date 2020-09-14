@@ -11,12 +11,12 @@ import useDeletedContactSubscriber from './deletedContactSubscriber';
 import useRecibedMessageSubscriber from './recibedMessageSubscriber';
 import useSavedMessageSubscriber from './savedMessageSubscriber';
 import useReadedMessageSubscriber from './readedMessageSubscriber';
+import useBlokedContactSubscriber from './blokedContactSubscriber';
 
 
 /*
 import IncomingMsgSubscriber from './incomingMsgSubscriber';
 
-import BlokedContactSubscriber from './blokedContactSubscriber';
 */
 
 const useEvents = props => {
@@ -27,10 +27,11 @@ const useEvents = props => {
     const {subscribeAcceptedFriendship, unSubscribeAcceptedFriendship} = useAcceptFriendshipSubscriber();
     const {subscribeDeclinedFriendship, unSubscribeDeclinedFriendship} = useDeclinedFriendshipSubscriber();
     const {subscribeDeleteContatct, unSubscribeDeleteContatct} = useDeletedContactSubscriber();
-    
     const {subscribeRecibedMessage, unSubscribeRecibedMessage} = useRecibedMessageSubscriber();
     const {subscribeSavedMessage, unSubscribeSavedMessage} = useSavedMessageSubscriber();
     const {subscribeReadedMessage, unSubscribeReadedMessage} = useReadedMessageSubscriber();
+    const {subscribeBlokedContact, unSubscribeBlokedContact} = useBlokedContactSubscriber();
+
 
 
     const subscribeAll = React.useCallback(() => {
@@ -43,6 +44,7 @@ const useEvents = props => {
         subscribeRecibedMessage();
         subscribeSavedMessage();
         subscribeReadedMessage();
+        subscribeBlokedContact();
     },[]);
 
     const unSubscribeAll = React.useCallback(() => {
@@ -55,6 +57,7 @@ const useEvents = props => {
         unSubscribeRecibedMessage();
         unSubscribeSavedMessage();
         unSubscribeReadedMessage();
+        unSubscribeBlokedContact();
     },[]);
 
 

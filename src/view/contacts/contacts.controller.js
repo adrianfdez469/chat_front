@@ -8,6 +8,7 @@ import OS_Notification from '../../utils/OS_NotificationPermission';
 import ContactsView from './contacs.view';
 import text from './idioma.json';
 import useEvents from '../../components/events';
+import useLogout from '../../utils/useLogout';
 //import { Dialog } from '@material-ui/core';
 
 //const UpdateAvatarCmp = React.lazy(() => import('./updateAvatar'));
@@ -23,6 +24,7 @@ const ContactsController = props => {
     //const setNewUserAvatarState = useSetRecoilState(newAvatarState);
     const setTourState = useSetRecoilState(tourAtom);
     const {postRequest} = useAxiosHook();
+    const loguot = useLogout();
     
     const [contacts, friendDispatcher] = useRecoilState(friendSelector);
 
@@ -67,6 +69,9 @@ const ContactsController = props => {
                     // Si es un usuario nuevo le doy un tour por la app
                     OS_Notification.askNotificationPermission(() => setTourState(true));
                 }
+            },
+            doFnAfterError: err => {
+                loguot();
             }
         });
 

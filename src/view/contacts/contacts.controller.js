@@ -1,6 +1,6 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useCallback, useState, Suspense} from 'react';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
-import {idiomaState, loginData, userAvatarState, darkModeAtom, view} from '../../components/recoil/atoms';
+import {idiomaState, loginData, userAvatarState, darkModeAtom, view, newAvatarState} from '../../components/recoil/atoms';
 import {tourAtom} from '../tour/tour.atoms';
 import {friendSelector} from '../../components/recoil/selectors';
 import useAxiosHook from '../../utils/axiosHook';
@@ -9,9 +9,9 @@ import ContactsView from './contacs.view';
 import text from './idioma.json';
 import useEvents from '../../components/events';
 import useLogout from '../../utils/useLogout';
-//import { Dialog } from '@material-ui/core';
+import  Dialog  from '@material-ui/core/Dialog';
 
-//const UpdateAvatarCmp = React.lazy(() => import('./updateAvatar'));
+const UpdateAvatarCmp = React.lazy(() => import('./updateAvatar'));
 
 const ContactsController = props => {
 
@@ -21,7 +21,7 @@ const ContactsController = props => {
     const [userData, setLoginData] = useRecoilState(loginData);
     const setUserAvatarState = useSetRecoilState(userAvatarState);
     const setView = useSetRecoilState(view.getAtom);
-    //const setNewUserAvatarState = useSetRecoilState(newAvatarState);
+    const setNewUserAvatarState = useSetRecoilState(newAvatarState);
     const setTourState = useSetRecoilState(tourAtom);
     const {postRequest} = useAxiosHook();
     const loguot = useLogout();
@@ -30,11 +30,11 @@ const ContactsController = props => {
 
     const [idioma, setIdiomaState] = useRecoilState(idiomaState);
 
-    //const [openUpdateAvatar, setOpenUpdateAvatar] = useState(false);
+    const [openUpdateAvatar, setOpenUpdateAvatar] = useState(false);
 
-    /*const handleClose = useCallback(() => {
+    const handleClose = useCallback(() => {
         setOpenUpdateAvatar(false);
-    }, []);*/
+    }, []);
 
     const loadData = () => {
         
@@ -47,14 +47,14 @@ const ContactsController = props => {
                 if(userResp.status === 200 || userResp.status === 201){
                     const {
                         _id, nickname, firstName,
-                        lastName, email, language, avatarUrl/*,avatarChanged, oauthAvatarUrl*/
+                        lastName, email, language, avatarUrl,avatarChanged, oauthAvatarUrl
                     } = userResp.data.user;
                     
-                    /*if(avatarChanged){
+                    if(avatarChanged){
                         // Lanzar promt de si quiere actualizar su avatar
                         setOpenUpdateAvatar(true);
                         setNewUserAvatarState(oauthAvatarUrl);
-                    }*/
+                    }
                     setLoginData({
                         userId: _id, 
                         nickname: nickname,
@@ -134,6 +134,13 @@ const ContactsController = props => {
                     text={text}
                     isDark={dark}
                 /> 
+                <Dialog open={openUpdateAvatar} /*onClose={handleClose}*/>
+                    <Suspense fallback={<></>}>
+                        <UpdateAvatarCmp 
+                            handleClose={handleClose}
+                        />
+                    </Suspense>
+                </Dialog>
             </>
 }
 

@@ -65,11 +65,11 @@ const EditProfileView = ({text, idioma,
                                 fullWidth
                                 id="firstName"
                                 label={text.firstName[idioma]}
-                                autoFocus
                                 value={nameState.value}
                                 helperText={!nameState.valid ? text[nameState.msg][idioma] : ''}
                                 error={!nameState.valid}
-                                onChange={onNameChange}
+                                //onChange={onNameChange}
+                                disabled
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -82,7 +82,8 @@ const EditProfileView = ({text, idioma,
                                 name="lastName"
                                 autoComplete="lname"
                                 value={lastName.value}
-                                onChange={onLastNameChange}
+                                //onChange={onLastNameChange}
+                                disabled
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -98,7 +99,8 @@ const EditProfileView = ({text, idioma,
                                 value={emailState.value}
                                 helperText={!emailState.valid ? text.invalidEmail[idioma] : ''}
                                 error={!emailState.valid}
-                                onChange={onEmailChange}
+                                //onChange={onEmailChange}
+                                disabled
                             />
                         </Grid>
                         <Grid item xs={12}>
